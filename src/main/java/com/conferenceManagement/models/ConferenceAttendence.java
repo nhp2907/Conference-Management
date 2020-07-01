@@ -1,9 +1,8 @@
 package com.conferenceManagement.models;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
-import javax.persistence.Table;
+import org.hibernate.annotations.Type;
+
+import javax.persistence.*;
 
 @Entity
 @Table(name = "ConferenceAttendence")
@@ -14,7 +13,11 @@ public class ConferenceAttendence {
     @Id
     private Long userID;
 
-    ConferenceAttendence(){
+    @Column(name = "isAccepted")
+    @Type(type = "org.hibernate.type.NumericBooleanType")
+    private boolean isAccepted;
+
+    public ConferenceAttendence(){
 
     }
 
@@ -24,5 +27,21 @@ public class ConferenceAttendence {
 
     public Long getUserID() {
         return userID;
+    }
+
+    public boolean isAccepted() {
+        return isAccepted;
+    }
+
+    public void setConferenceID(Long conferenceID) {
+        this.conferenceID = conferenceID;
+    }
+
+    public void setUserID(Long userID) {
+        this.userID = userID;
+    }
+
+    public void setAccepted(boolean accepted) {
+        isAccepted = accepted;
     }
 }

@@ -26,7 +26,7 @@
                               <Image url="@images/user128.png" />
                            </image>
                         </ImageView>
-                        <Label fx:id="nameLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="208.0" textAlignment="CENTER" textFill="#fff5f5">
+                        <Label fx:id="nameLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="208.0" text="Đăng nhập" textAlignment="CENTER" textFill="#fff5f5">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>

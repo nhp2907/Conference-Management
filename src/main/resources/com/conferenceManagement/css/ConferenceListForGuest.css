@@ -15,5 +15,23 @@
 
 .table-row-cell:empty {
     -fx-background-color: transparent;
-    -fx-background-insets: -2;
+}
+
+.center-column {
+     -fx-alignment: CENTER;
+}
+
+
+.table-row-cell {
+    -fx-pref-height:40;
+}
+
+.table-column {
+     -fx-alignment: CENTER-LEFT;
+}
+
+.table-row-cell .text{
+    -fx-fill: black ;
+    -fx-font-size: 14;
+    -fx-padding: 0 0 0 10;
 }

@@ -31,6 +31,7 @@ public class User extends RecursiveTreeObject<User> {
     @Type(type = "org.hibernate.type.NumericBooleanType")
     private boolean status;
 
+
     public User() {
 
     }

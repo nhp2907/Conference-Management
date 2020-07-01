@@ -11,19 +11,14 @@ import java.util.LinkedHashMap;
 public class Conference extends RecursiveTreeObject<Conference> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private long id;
 
-    @Column(name = "name")
     private String name;
 
-    @Column(name = "shortDescription")
     private String shortDescription;
 
-    @Column(name = "detailDescription")
     private String detailDescription;
 
-    @Column(name = "holdTime")
     @Temporal(TemporalType.TIMESTAMP)
     private Date holdTime;
 

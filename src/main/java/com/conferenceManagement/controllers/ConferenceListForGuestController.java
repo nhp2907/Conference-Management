@@ -38,8 +38,6 @@ public class ConferenceListForGuestController extends ControllerBase {
     JFXButton addConferenceButton;
 
 
-    UserFunction conferenceDetailUF = null;
-
     ObservableList<Conference> conferences = FXCollections.observableArrayList(ConferenceDAO.getAll());
 
     ObjectProperty<User> userProperty = new SimpleObjectProperty<>(new Guest());
@@ -70,15 +68,6 @@ public class ConferenceListForGuestController extends ControllerBase {
                 addConferenceButton.setVisible(true);
             }
         });
-
-
-        //load the detail view
-        try {
-            conferenceDetailUF = new UserFunction("ConferenceDetail");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
 
         addConferenceButton.setOnMouseClicked(mouseEvent -> {
             try {
@@ -111,18 +100,15 @@ public class ConferenceListForGuestController extends ControllerBase {
         var nameColumn = new TableColumn<Conference, String>("Tên ");
         nameColumn.setPrefWidth(250);
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        nameColumn.setCellFactory(new MyTableCell<>());
 
         var addressColumn = new TableColumn<Conference, String>("Địa điểm");
         addressColumn.setPrefWidth(250);
         addressColumn.setCellValueFactory(t -> {
             return new SimpleStringProperty(t.getValue().getHoldPlace().toString());
         });
-        addressColumn.setCellFactory(new MyTableCell<>());
 
         var timeColumn = new TableColumn<Conference, String>("Thời gian");
         timeColumn.setPrefWidth(140);
-        timeColumn.setCellFactory(new MyTableCell<>());
         timeColumn.setCellValueFactory(cellData -> {
             var date = cellData.getValue().getHoldTime();
             var formater = new SimpleDateFormat("dd-MM-yyyy, hh:mm");
@@ -131,13 +117,17 @@ public class ConferenceListForGuestController extends ControllerBase {
 
         var descriptionColum = new TableColumn<Conference, String>("Mô tả");
         descriptionColum.setPrefWidth(250);
-        descriptionColum.setCellFactory(new MyTableCell<>());
         descriptionColum.setCellValueFactory(cellData -> {
             return new SimpleStringProperty(cellData.getValue().getShortDescription());
         });
 
-        idColumn.setCellFactory(new MyTableCell<>(Pos.CENTER));
+        idColumn.setStyle("-fx-alignment: center");
 
+//
+//        timeColumn.setCellFactory(new MyTableCell<>());
+//        idColumn.setCellFactory(new MyTableCell<>(Pos.CENTER));
+//        nameColumn.setCellFactory(new MyTableCell<>());
+//        addressColumn.setCellFactory(new MyTableCell<>());
 
         tableView.setItems(conferences);
         tableView.setEditable(true);
@@ -147,20 +137,27 @@ public class ConferenceListForGuestController extends ControllerBase {
         tableView.setRowFactory(tv -> {
             TableRow<Conference> row = new TableRow<>();
             row.setOnMouseClicked(mouseEvent -> {
+                //load the detail view
                 System.out.println(mouseEvent.getClickCount() + " ");
-                if (mouseEvent.getClickCount() == 2 && !row.isEmpty()) {
-                    //get selected conference base on the selected row.
-                    var selectedItem = tableView.getSelectionModel().getSelectedItem();
-                    var conferenceDetailController = (ConferenceDetailController) conferenceDetailUF.getController();
-                    conferenceDetailController.previousView = vbox;
-                    conferenceDetailController.setConferenceData(selectedItem);
+                try {
+                    var conferenceDetailUF = new UserFunction("ConferenceDetail");
 
-                    this.bindingObject.bind(conferenceDetailController.userBindingObject);
+                    if (mouseEvent.getClickCount() >=2 && !row.isEmpty()) {
+                        //get selected conference base on the selected row.
+                        var selectedItem = tableView.getSelectionModel().getSelectedItem();
+                        var conferenceDetailController = (ConferenceDetailController) conferenceDetailUF.getController();
+                        conferenceDetailController.previousView = vbox;
+                        conferenceDetailController.setConferenceData(selectedItem);
 
-                    var source = (TableRow) mouseEvent.getSource();
-                    var borderPane = (BorderPane) source.getTableView().getParent().getParent().getParent();
-                    System.out.println(borderPane);
-                    borderPane.setCenter(conferenceDetailUF.getView());
+                        this.bindingObject.bind(conferenceDetailController.userBindingObject);
+
+                        var source = (TableRow) mouseEvent.getSource();
+                        var borderPane = (BorderPane) source.getTableView().getParent().getParent().getParent();
+                        System.out.println(borderPane);
+                        borderPane.setCenter(conferenceDetailUF.getView());
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             });
 
@@ -179,7 +176,7 @@ public class ConferenceListForGuestController extends ControllerBase {
                 controller.updateConfenceInfo(selectedItem);
 
                 controller.returnDataFunction = (conference) -> {
-                   ConferenceDAO.update(conference);
+                    ConferenceDAO.update(conference);
                 };
 
                 stage.setScene(new Scene(editConferenceUF.getView()));

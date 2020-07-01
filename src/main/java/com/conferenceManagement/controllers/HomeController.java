@@ -133,7 +133,29 @@ public class HomeController extends ControllerBase {
         });
 
         avtStackPane.setOnMouseClicked(mouseEvent -> {
-            editInfoUF.getView();
+            if (userFromLoginView.get() instanceof Guest) {
+                UserFunction loginUF = null;
+                try {
+                    loginUF = new UserFunction("Login");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                /* Binding userProperty with loginViewModel's user property */
+                userFromLoginView.bind(((LoginController) loginUF.getController()).bindingObject);
+                var view = loginUF.getView();
+
+                /* show dialog */
+                Stage stage = new Stage();
+                stage.setScene(new Scene(view));
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.showAndWait();
+
+
+            } else {
+                var view = editInfoUF.getView();
+                borderPane.setCenter(view);
+            }
         });
 
         //show data

@@ -11,5 +11,8 @@ public class Admin extends User {
 
     }
 
-
+    @Override
+    public boolean equals(Object o) {
+        return super.equals(o);
+    }
 }

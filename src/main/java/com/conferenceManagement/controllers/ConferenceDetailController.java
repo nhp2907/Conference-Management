@@ -22,6 +22,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class ConferenceDetailController extends ControllerBase {
@@ -49,8 +51,9 @@ public class ConferenceDetailController extends ControllerBase {
     BindingObject<User> userBindingObject = new BindingObject<>();
     public Parent previousView;
 
-    ObservableList<User> attendedUser = null;
+    List<Object[]> attendedUsers = null;
     ObjectProperty<Conference> conference = new SimpleObjectProperty<>();
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //make sure register button is not disabled
@@ -58,17 +61,6 @@ public class ConferenceDetailController extends ControllerBase {
 
         /* get user attend conference */
         conference.addListener((observableValue, conference1, t1) -> {
-            attendedUser = FXCollections.observableArrayList(ConferenceAttendenceDAO.getUsersByConferenceID(conference.get().getId()));
-            tableView.getItems().clear();
-            tableView.setItems(attendedUser);
-
-            /* change register button status register button */
-            attendedUser.forEach(iUser -> {
-                if (iUser.equals(userBindingObject.get())){
-                    registerButton.setText("Đã đăng ký");
-                    registerButton.setStyle("-fx-background-color:green");
-                }
-            });
 
         });
 
@@ -86,8 +78,14 @@ public class ConferenceDetailController extends ControllerBase {
         emailColumn.setPrefWidth(250);
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
 
+        var statusColum = new TableColumn<User, String>("Trạng thái");
+//        statusColum.setCellValueFactory(celllDta -> {
+//
+//
+//        });
+
         tableView.setPlaceholder(new Label("Chưa có đăng ký"));
-        tableView.getColumns().addAll(idColumn,nameColumn,emailColumn);
+        tableView.getColumns().addAll(idColumn, nameColumn, emailColumn);
 
         /* set register button clicked */
         registerButton.setOnMouseClicked(mouseEvent -> {
@@ -98,10 +96,10 @@ public class ConferenceDetailController extends ControllerBase {
                     var loginUF = new UserFunction("Login");
                     LoginController controller = (LoginController) loginUF.getController();
 
-                    controller.iLoginBackAction = user -> {
-                        ConferenceAttendenceDAO.save(conference.get().getId(), userBindingObject.get().getId());
-                        registerButton.setDisable(true);
-                    };
+//                    controller.iLoginBackAction = user -> {
+//                        ConferenceAttendenceDAO.save(conference.get().getId(), userBindingObject.get().getId());
+//                        registerButton.setDisable(true);
+//                    };
 
                     userBindingObject.bind(controller.bindingObject);
 
@@ -115,31 +113,74 @@ public class ConferenceDetailController extends ControllerBase {
                     e.printStackTrace();
                 }
             } else {
-                ConferenceAttendenceDAO.save(conference.get().getId(), userBindingObject.get().getId());
+                var confAt = new ConferenceAttendence();
+                confAt.setConferenceID(conference.get().getId());
+                confAt.setUserID(userBindingObject.get().getId());
+                ConferenceAttendenceDAO.save(confAt);
+                registerButton.setText("Đang đợi duyệt");
+                registerButton.setDisable(true);
+                registerButton.setStyle("-fx-background-color:green");
             }
-
 
         });
 
+
         userBindingObject.addListener((observableValue, user, t1) -> {
-            attendedUser.forEach(iUser -> {
-                if (iUser.equals(t1)){
-                    registerButton.setText("Đã đăng ký");
+            for (int i = 0; i < attendedUsers.size(); i++) {
+                if (attendedUsers.get(i)[0].equals(userBindingObject.get())) {
+                    ConferenceAttendence attendence = ConferenceAttendenceDAO.get(conference.get().getId(), userBindingObject.get().getId());
+                    if (attendence.isAccepted())
+                        registerButton.setText("Đã đăng ký");
+                    else
+                        registerButton.setText("Đang đợi duyệt");
+
+                    var confAt = new ConferenceAttendence();
+                    confAt.setConferenceID(conference.get().getId());
+                    confAt.setUserID(userBindingObject.get().getId());
+                    ConferenceAttendenceDAO.save(confAt);
+
+                    registerButton.setDisable(true);
                     registerButton.setStyle("-fx-background-color:green");
+                } else {
+                    System.out.println("không cùng binding user");
                 }
-            });
+            }
+
         });
 
         //back
         backButton.setOnMouseClicked(mouseEvent -> {
-            var button = (HBox)mouseEvent.getSource();
-            var root = (BorderPane)button.getParent().getParent().getParent();
+            var button = (HBox) mouseEvent.getSource();
+            var root = (BorderPane) button.getParent().getParent().getParent();
             root.setCenter(previousView);
         });
     }
 
     void setConferenceData(Conference conference) {
+        //set conference
         this.conference.set(conference);
+
+        attendedUsers = ConferenceAttendenceDAO.getUsersByConferenceID(conference.getId());
+        tableView.getItems().clear();
+
+        ArrayList<User> users = new ArrayList<>(attendedUsers.size());
+        /* change register button status register button */
+        attendedUsers.forEach(iUser -> {
+            users.add((User)iUser[0]);
+            if (iUser[0].equals(userBindingObject.get())) {
+                ConferenceAttendence attendence = ConferenceAttendenceDAO.get(conference.getId(), userBindingObject.get().getId());
+                if (attendence.isAccepted())
+                    registerButton.setText("Đã đăng ký");
+                else
+                    registerButton.setText("Đang đợi duyệt");
+
+                registerButton.setDisable(true);
+
+                registerButton.setStyle("-fx-background-color:green");
+            }
+        });
+
+        tableView.setItems(FXCollections.observableArrayList(users));
 
         nameLabel.setText(conference.getName());
         timeLabel.setText("Thời gian: " + conference.getHoldTime().toString());

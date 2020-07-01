@@ -1,5 +1,6 @@
 package com.conferenceManagement.models.DAOs;
 
+import com.conferenceManagement.models.ConferenceAttendence;
 import com.conferenceManagement.models.User;
 import com.conferenceManagement.models.hibernate.HibernateUtils;
 import org.hibernate.Transaction;
@@ -8,13 +9,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ConferenceAttendenceDAO {
-    public static List<User> getUsersByConferenceID(Long id){
+    public static List<Object[]> getUsersByConferenceID(Long id){
         var session = HibernateUtils.getSessionFactory().openSession();
         Transaction tx = null;
         try {
             tx = session.beginTransaction();
-            var result = session.createQuery("select u from User as u join ConferenceAttendence as c on u.id = c.userID " +
-                    "where c.conferenceID = ?1", User.class)
+            var result = session.createQuery("select u,c.isAccepted from User as u join ConferenceAttendence as c on u.id = c.userID " +
+                    "where c.conferenceID = ?1")
                     .setParameter(1, id)
                     .list();
             tx.commit();
@@ -29,8 +30,40 @@ public class ConferenceAttendenceDAO {
         return new ArrayList<>();
     }
 
-    public static void save(long id, long id1) {
-        //do it later
-        System.out.println("saved to database");
+    public static void save(ConferenceAttendence c) {
+        var session = HibernateUtils.getSessionFactory().openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            session.saveOrUpdate(c);
+            tx.commit();
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            tx.rollback();
+        } finally {
+            session.close();
+        }
+    }
+
+    public static ConferenceAttendence get(long conferenceID, long userID) {
+        var session = HibernateUtils.getSessionFactory().openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            var result = session.createQuery("from ConferenceAttendence as c " +
+                    "where c.userID  = ?1 and c.conferenceID = ?2", ConferenceAttendence.class)
+                    .setParameter(1, userID)
+                    .setParameter(2,conferenceID)
+                    .uniqueResult();
+            tx.commit();
+            return result;
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            tx.rollback();
+        } finally {
+            session.close();
+        }
+
+        return null;
     }
 }
