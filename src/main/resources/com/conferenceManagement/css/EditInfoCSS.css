@@ -1,0 +1,23 @@
+TextField, PasswordField {
+    -fx-background-color: #F4F4F4;
+    -fx-background-radius:0;
+    -fx-border-color: #F4F4F4;
+    -fx-prompt-text-fill: black;
+}
+
+TextField:focused, PasswordField:focused {
+
+}
+
+TextField:focused, PasswordField:focused .label {
+    -fx-disabled: false;
+}
+
+Label:disabled {
+    -fx-color: #F4F4F4;
+    -fx-opacity: 0;
+}
+
+
+
+

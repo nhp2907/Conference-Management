@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXToggleNode?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="693.0" prefWidth="1181.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.conferenceManagement.controllers.HomeController">
+   <left>
+      <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="300.0" minWidth="200.0" prefHeight="694.0" prefWidth="250.0" spacing="20.0" style="-fx-background-color: #222D32;" BorderPane.alignment="CENTER">
+         <children>
+            <StackPane fx:id="avtStackPane" prefHeight="99.0" prefWidth="246.0">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="138.0" prefWidth="250.0">
+                     <children>
+                        <ImageView fitHeight="48.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true" smooth="false">
+                           <image>
+                              <Image url="@images/user128.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="nameLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="208.0" textAlignment="CENTER" textFill="#fff5f5">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                     <StackPane.margin>
+                        <Insets top="10.0" />
+                     </StackPane.margin>
+                  </VBox>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="10.0" top="25.0" />
+               </VBox.margin>
+            </StackPane>
+            <JFXToggleNode id="ConferenceList" prefHeight="26.0" prefWidth="334.0" selected="true" textFill="#bf2020">
+               <graphic>
+                  <HBox alignment="CENTER_LEFT" maxHeight="30.0" maxWidth="300.0" minHeight="20.0" minWidth="200.0" prefHeight="20.0" prefWidth="250.0">
+                     <children>
+                        <FontAwesomeIconView fill="WHITE" glyphName="LIST" size="14">
+                           <HBox.margin>
+                              <Insets left="20.0" />
+                           </HBox.margin>
+                        </FontAwesomeIconView>
+                        <Label id="ConferenceListForGuest" text="Danh sách hội nghị" textFill="WHITE">
+                           <HBox.margin>
+                              <Insets left="20.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+               </graphic>
+               <toggleGroup>
+                  <ToggleGroup fx:id="toggleGroup" />
+               </toggleGroup>
+            </JFXToggleNode>
+            <JFXToggleNode id="UserList" prefHeight="26.0" prefWidth="271.0" toggleGroup="$toggleGroup">
+               <graphic>
+                  <HBox alignment="CENTER_LEFT" maxHeight="30.0" maxWidth="300.0" minHeight="20.0" minWidth="200.0" prefHeight="20.0" prefWidth="250.0">
+                     <children>
+                        <FontAwesomeIconView fill="WHITE" glyphName="USERS" size="14">
+                           <HBox.margin>
+                              <Insets left="20.0" />
+                           </HBox.margin>
+                        </FontAwesomeIconView>
+                        <Label prefHeight="20.0" prefWidth="114.0" text="Danh sách user" textFill="WHITE">
+                           <HBox.margin>
+                              <Insets left="20.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+               </graphic>
+            </JFXToggleNode>
+            <JFXToggleNode id="AccountSettings" prefHeight="26.0" prefWidth="280.0" toggleGroup="$toggleGroup">
+               <graphic>
+                  <HBox alignment="CENTER_LEFT" maxHeight="30.0" maxWidth="300.0" minHeight="20.0" minWidth="200.0" prefHeight="20.0" prefWidth="250.0">
+                     <children>
+                        <FontAwesomeIconView fill="WHITE" glyphName="GEAR" size="14">
+                           <HBox.margin>
+                              <Insets left="20.0" />
+                           </HBox.margin>
+                        </FontAwesomeIconView>
+                        <Label fx:id="accountLabel" text="Tài khoản" textFill="WHITE">
+                           <HBox.margin>
+                              <Insets left="20.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+               </graphic>
+            </JFXToggleNode>
+         </children>
+      </VBox>
+   </left>
+</BorderPane>

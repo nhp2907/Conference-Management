@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<GridPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="324.0" prefWidth="524.0" stylesheets="@css/EditInfoCSS.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.conferenceManagement.controllers.LoginController">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="432.79998779296875" minWidth="10.0" prefWidth="98.20003662109374" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="487.9999877929688" minWidth="10.0" prefWidth="416.7999633789062" />
+      <ColumnConstraints maxWidth="35.199981689453125" minWidth="0.0" prefWidth="0.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints maxHeight="141.9999755859375" minHeight="10.0" prefHeight="73.39998168945313" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="179.60001220703126" minHeight="10.0" prefHeight="73.40001831054688" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="197.20001068115235" minHeight="10.0" prefHeight="68.99998168945314" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="183.60001220703123" minHeight="10.0" prefHeight="97.00001831054686" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <HBox alignment="CENTER_LEFT" maxWidth="350.0" prefHeight="79.0" prefWidth="350.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+         <children>
+            <FontAwesomeIconView glyphName="USER">
+               <HBox.margin>
+                  <Insets top="20.0" />
+               </HBox.margin>
+            </FontAwesomeIconView>
+            <VBox maxHeight="54.0" prefHeight="54.0" prefWidth="323.0">
+               <children>
+                  <Label disable="${userNameTextField.text.empty}" text="${userNameTextField.promptText}">
+                     <VBox.margin>
+                        <Insets left="11.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="userNameTextField" maxHeight="32.0" prefHeight="32.0" prefWidth="310.0" promptText="User name">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </TextField>
+                  <Line endX="130.89288330078125" endY="-4.1419358253479" startX="431.7857971191406" startY="-5.3703179359436035">
+                     <VBox.margin>
+                        <Insets left="11.0" />
+                     </VBox.margin>
+                  </Line>
+               </children>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </VBox>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" maxWidth="390.0" prefHeight="74.0" prefWidth="390.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+         <children>
+            <FontAwesomeIconView glyphName="LOCK">
+               <HBox.margin>
+                  <Insets top="20.0" />
+               </HBox.margin>
+            </FontAwesomeIconView>
+            <VBox maxHeight="52.0" maxWidth="1.7976931348623157E308" prefHeight="52.0" prefWidth="327.0">
+               <children>
+                  <Label disable="${passwordField.text.empty}" text="${passwordField.promptText}">
+                     <VBox.margin>
+                        <Insets left="8.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <PasswordField fx:id="passwordField" prefHeight="27.0" prefWidth="282.0" promptText="Password" />
+                  <Line endX="130.89288330078125" endY="-4.1419358253479" startX="434.185791015625" startY="-4.141939640045166">
+                     <VBox.margin>
+                        <Insets left="8.0" />
+                     </VBox.margin>
+                  </Line>
+               </children>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </VBox>
+         </children>
+      </HBox>
+      <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
+         <children>
+            <Label text="Đăng Nhập">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="registerLabel" text="hoặc đăng ký tài khoản?" textFill="#2385ac">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </Label>
+         </children>
+         <padding>
+            <Insets left="30.0" />
+         </padding>
+         <GridPane.margin>
+            <Insets top="5.0" />
+         </GridPane.margin>
+      </VBox>
+      <VBox prefHeight="101.0" prefWidth="360.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+         <children>
+            <Label fx:id="logInFailLabel" text="*sai tên đăng nhập hoặc mật khẩu" textFill="RED" visible="false">
+               <font>
+                  <Font size="13.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="25.0" />
+               </VBox.margin>
+            </Label>
+            <HBox alignment="TOP_RIGHT" maxWidth="333.0" prefHeight="100.0" prefWidth="333.0" spacing="30.0">
+               <children>
+                  <JFXButton fx:id="cancelButton" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #E4E6EB;" text="Huỷ">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets top="10.0" />
+                     </HBox.margin>
+                  </JFXButton>
+                  <JFXButton fx:id="loginButton" buttonType="RAISED" prefHeight="40.0" prefWidth="100.0" ripplerFill="WHITE" style="-fx-background-color: #202B30;" text="Đăng nhập" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets top="10.0" />
+                     </HBox.margin>
+                  </JFXButton>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</GridPane>
