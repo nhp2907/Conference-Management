@@ -1,5 +1,6 @@
 package com.conferenceManagement.controllers;
 
+import com.conferenceManagement.App;
 import com.conferenceManagement.BindingObject;
 import com.conferenceManagement.models.DAOs.UserDAO;
 import com.conferenceManagement.models.Guest;
@@ -34,38 +35,31 @@ public class EditInfoController extends ControllerBase {
     Label userNameExistedLabel;
     @FXML
     Label notLoggedInLabel;
+    @FXML
+    Label visibleLabel;
 
-    BindingObject<User> userBindingObject = new BindingObject<>();
     User user = null;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        user = userBindingObject.get();
-        userBindingObject.addListener((observableValue, user1, t1) -> {
-            updateInfo(t1);
-        });
-
-//        if (user instanceof Guest){
-//            notLoggedInLabel.setVisible(true);
-//            logOutButton.setDisable(true);
-//        }
-
+        user = App.getUser();
         updateButton.setOnMouseClicked(mouseEvent -> {
-            returnDataFunction.returnData(userBindingObject.get());
             UserDAO.update(user);
+            App.setUser(user);
         });
-
+        App.userProperty().addListener((observableValue, user1, t1) -> {
+            updateInfo(App.getUser());
+        });
         logOutButton.setOnAction(event -> {
-            if (returnDataFunction != null) {
-                returnDataFunction.returnData(new Guest());
-            }
-            userBindingObject.set(new Guest());
+            visibleLabel.setVisible(false);
+            notLoggedInLabel.setVisible(true);
+            App.setUser(new Guest());
         });
 
         /* binding textField textProperty */
         nameTextField.focusedProperty().addListener((observableValue, s, t1) -> {
             if (!t1) {
-                if (userBindingObject.get().getName().equals(nameTextField.getText())) {
+                if (user.getName().equals(nameTextField.getText())) {
                     updateButton.setDisable(true);
                 } else {
                     updateButton.setDisable(false);
@@ -76,7 +70,7 @@ public class EditInfoController extends ControllerBase {
 
         emailTextField.focusedProperty().addListener((observableValue, s, t1) -> {
             if (!t1) {
-                if (emailTextField.getText().equals(userBindingObject.get().getEmail())) {
+                if (emailTextField.getText().equals(user.getEmail())) {
                     updateButton.setDisable(true);
                 } else {
                     updateButton.setDisable(false);
@@ -129,11 +123,14 @@ public class EditInfoController extends ControllerBase {
             }
         });
 
+        updateInfo(App.getUser());
+
     } //end initialize
 
     public void updateInfo(User user) {
         this.user = user;
         if (user instanceof Guest) {
+            //every thing is invisible
             return;
         }
 

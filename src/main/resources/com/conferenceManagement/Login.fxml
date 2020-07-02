@@ -64,7 +64,7 @@
             </VBox>
          </children>
       </HBox>
-      <HBox alignment="CENTER_LEFT" maxWidth="390.0" prefHeight="74.0" prefWidth="390.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+      <HBox fx:id="notLoggedInLabel" alignment="CENTER_LEFT" maxWidth="390.0" prefHeight="74.0" prefWidth="390.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
          <children>
             <FontAwesomeIconView glyphName="LOCK">
                <HBox.margin>

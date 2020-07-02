@@ -1,10 +1,12 @@
 package com.conferenceManagement.controllers;
 
-import com.conferenceManagement.BindingObject;
+import com.conferenceManagement.App;
 import com.conferenceManagement.models.DAOs.UserDAO;
 import com.conferenceManagement.models.User;
 import com.conferenceManagement.models.UserFunction;
 import com.jfoenix.controls.JFXButton;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -38,12 +40,6 @@ public class LoginController extends ControllerBase {
     @FXML
     Label logInFailLabel;
 
-
-    IReturnDataFunction<User> returnDataFunction;
-
-    /* use for binding to orther controller */
-    BindingObject<User> bindingObject = new BindingObject<>();
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
        root.addEventHandler(KeyEvent.KEY_PRESSED, ev -> {
@@ -61,18 +57,16 @@ public class LoginController extends ControllerBase {
             User user = UserDAO.getUserByUsername(username);
 
             if (user != null && user.getPassword().equals(password)) {
-                bindingObject.set(user);
+                App.setUser(user);
             } else  {
                 logInFailLabel.setVisible(true);
                 System.out.println("can not get user name with username = " + username);
                 return;
             }
 
-
             if (returnDataFunction != null) {
                 returnDataFunction.returnData(user);
             }
-
             /* close stage if log in success */
             var source = (JFXButton) mouseEvent.getSource();
             var stage = (Stage) source.getScene().getWindow();
@@ -89,17 +83,19 @@ public class LoginController extends ControllerBase {
                 return;
             }
 
-            var signUpController = (SignUpController) signUpUF.getController();
-            this.bindingObject.bind(signUpController.bindingObject);
+            var controller = (SignUpController)signUpUF.getController();
+            controller.setReturnDataFunction(signUpScecess -> {
+                if ((boolean) signUpScecess){
+                    var p = (GridPane)mouseEvent.getSource();
+                    var stage = (Stage)p.getScene().getWindow();
+                    stage.close();
+                }
+            });
 
             Stage stage = new Stage();
             stage.setScene(new Scene(signUpUF.getView()));
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.showAndWait();
-
-        });
-
-        bindingObject.addListener((observableValue, user, t1) -> {
 
         });
 

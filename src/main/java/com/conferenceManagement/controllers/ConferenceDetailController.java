@@ -1,5 +1,6 @@
 package com.conferenceManagement.controllers;
 
+import com.conferenceManagement.App;
 import com.conferenceManagement.BindingObject;
 import com.conferenceManagement.models.*;
 import com.conferenceManagement.models.DAOs.ConferenceAttendenceDAO;
@@ -43,8 +44,6 @@ public class ConferenceDetailController extends ControllerBase {
 
     @FXML
     TextFlow textFlow;
-
-    BindingObject<User> userBindingObject = new BindingObject<>();
     public Parent previousView;
 
     List<ConferenceAttendence> attendances = null;
@@ -121,7 +120,7 @@ public class ConferenceDetailController extends ControllerBase {
                         button.setPrefWidth(70);
 
                         button.setOnAction(event -> {
-                            if (userBindingObject.get() instanceof Admin) {
+                            if (App.getUser() instanceof Admin) {
 
                             }
                         });
@@ -140,7 +139,7 @@ public class ConferenceDetailController extends ControllerBase {
         /* set register button clicked */
         registerButton.setOnMouseClicked(mouseEvent -> {
             /* If user is Guest need to register account first */
-            if (userBindingObject.get() instanceof Guest) {
+            if (App.getUser() instanceof Guest) {
                 //show dialog login
                 try {
                     var loginUF = new UserFunction("Login");
@@ -149,7 +148,7 @@ public class ConferenceDetailController extends ControllerBase {
                     controller.returnDataFunction = user -> {
                         var confAt = new ConferenceAttendence();
                         confAt.setConference(conference);
-                        confAt.setUser(userBindingObject.get());
+                        confAt.setUser((User)user);
 
                         ConferenceAttendenceDAO.save(confAt);
 
@@ -158,7 +157,6 @@ public class ConferenceDetailController extends ControllerBase {
                         registerButton.setStyle("-fx-background-color:green");
                     };
 
-                    userBindingObject.bind(controller.bindingObject);
 
                     Stage stage = new Stage();
                     stage.setScene(new Scene(loginUF.getView()));
@@ -172,7 +170,7 @@ public class ConferenceDetailController extends ControllerBase {
             } else {
                 var confAt = new ConferenceAttendence();
                 confAt.setConference(conference);
-                confAt.setUser(userBindingObject.get());
+                confAt.setUser(App.getUser());
 
                 ConferenceAttendenceDAO.save(confAt);
 
@@ -184,12 +182,12 @@ public class ConferenceDetailController extends ControllerBase {
         });
 
 
-        userBindingObject.addListener((observableValue, user, t1) -> {
+        App.userProperty().addListener((observableValue, user, t1) -> {
             System.out.println("New usser: " + t1.getName());
             /* update register button status corresponding to the bindin user */
 
             for (int i = 0; i < attendances.size(); i++) {
-                if (attendances.get(i).getUser().equals(userBindingObject.get())) {
+                if (attendances.get(i).getUser().equals(App.getUser())) {
                     if (attendances.get(i).isAccepted())
                         registerButton.setText("Đã đăng ký");
                     else
@@ -206,7 +204,7 @@ public class ConferenceDetailController extends ControllerBase {
 
             System.out.println("user did not register yet");
 
-            if (userBindingObject.get() instanceof Admin) {
+            if (App.getUser() instanceof Admin) {
 
             }
 
@@ -232,7 +230,7 @@ public class ConferenceDetailController extends ControllerBase {
         /* change register button status */
         attendances.forEach(attendance -> {
             System.out.println("conference attendance: " + attendance.getConference().getId() + ": " + attendance.getUser().getId());
-            if (attendance.getUser().equals(userBindingObject.get())) {
+            if (attendance.getUser().equals(App.getUser())) {
 
                 if (attendance.isAccepted())
                     registerButton.setText("Đã đăng ký");

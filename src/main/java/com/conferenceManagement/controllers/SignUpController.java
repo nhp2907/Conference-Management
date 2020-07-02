@@ -1,5 +1,6 @@
 package com.conferenceManagement.controllers;
 
+import com.conferenceManagement.App;
 import com.conferenceManagement.BindingObject;
 import com.conferenceManagement.models.DAOs.UserDAO;
 import com.conferenceManagement.models.Guest;
@@ -28,9 +29,6 @@ public class SignUpController extends ControllerBase {
     TextField emailTextField;
     @FXML
     PasswordField passwordField;
-    ObjectProperty<User> userProperty = new SimpleObjectProperty<>();
-
-    BindingObject<User> bindingObject = new BindingObject<>();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -44,7 +42,11 @@ public class SignUpController extends ControllerBase {
             user.setEmail(emailTextField.getText());
 
             UserDAO.save(user);
-            bindingObject.set(user);
+            if (returnDataFunction != null){
+                returnDataFunction.returnData(true);
+                App.setUser(user);
+            }
+
             var source = (JFXButton)mouseEvent.getSource();
             var stage = (Stage)source.getScene().getWindow();
             stage.close();

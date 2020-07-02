@@ -1,6 +1,6 @@
 package com.conferenceManagement.controllers;
 
-import com.conferenceManagement.BindingObject;
+import com.conferenceManagement.App;
 import com.conferenceManagement.models.*;
 import com.conferenceManagement.models.DAOs.ConferenceDAO;
 import com.jfoenix.controls.JFXButton;
@@ -16,6 +16,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -37,7 +38,6 @@ public class ConferenceListForGuestController extends ControllerBase {
 
 
     ObservableList<Conference> conferences = FXCollections.observableArrayList(ConferenceDAO.getAll());
-    BindingObject<User> userBindingObject = new BindingObject<>();
     ObjectProperty<Conference> conferenceProperty = new SimpleObjectProperty<>();
 
     public ObservableList<Conference> getConferences() {
@@ -48,9 +48,18 @@ public class ConferenceListForGuestController extends ControllerBase {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         /* check admin */
-        if (userBindingObject.get() instanceof Admin) {
+        if (App.getUser() instanceof Admin) {
             addConferenceButton.setVisible(true);
         }
+
+        App.userProperty().addListener((observableValue, user, t1) -> {
+            if (t1 instanceof Admin){
+                addConferenceButton.setVisible(true);
+            } else {
+                addConferenceButton.setVisible(false);
+            }
+        });
+
 
         addConferenceButton.setOnMouseClicked(mouseEvent -> {
             try {
@@ -130,8 +139,6 @@ public class ConferenceListForGuestController extends ControllerBase {
                         var conferenceDetailController = (ConferenceDetailController) conferenceDetailUF.getController();
                         conferenceDetailController.previousView = vbox;
                         conferenceDetailController.setConferenceData(selectedItem);
-
-                        this.userBindingObject.bind(conferenceDetailController.userBindingObject);
 
                         var source = (TableRow) mouseEvent.getSource();
                         var borderPane = (BorderPane) source.getTableView().getParent().getParent().getParent();

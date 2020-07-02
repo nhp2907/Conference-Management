@@ -21,8 +21,8 @@
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" percentWidth="48.0" prefWidth="308.99999999999994" />
    </columnConstraints>
    <rowConstraints>
-      <RowConstraints maxHeight="65.80000610351563" minHeight="10.0" percentHeight="16.67" prefHeight="65.80000610351563" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="103.79998321533202" minHeight="10.0" percentHeight="16.67" prefHeight="80.99999389648438" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="113.80001831054688" minHeight="10.0" percentHeight="16.67" prefHeight="113.80001831054688" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="103.79998321533202" minHeight="10.0" percentHeight="16.67" prefHeight="57.199981689453125" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="120.39999999999999" minHeight="10.0" percentHeight="16.67" prefHeight="98.0000244140625" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="141.7999938964844" minHeight="10.0" percentHeight="16.67" prefHeight="83.00001220703123" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="96.19998779296876" minHeight="10.0" percentHeight="16.67" prefHeight="79.40001220703124" vgrow="SOMETIMES" />
@@ -30,7 +30,7 @@
       <RowConstraints maxHeight="61.99997558593748" minHeight="10.0" prefHeight="37.19998779296873" vgrow="SOMETIMES" />
    </rowConstraints>
    <children>
-      <HBox alignment="CENTER_LEFT" maxWidth="300.0" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+      <HBox alignment="CENTER_LEFT" maxWidth="300.0" prefHeight="100.0" prefWidth="200.0" visible="${visibleLabel.visible}" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <children>
             <FontAwesomeIconView glyphName="HASHTAG">
                <HBox.margin>
@@ -74,7 +74,7 @@
             </VBox>
          </children>
       </HBox>
-      <HBox alignment="CENTER_LEFT" maxWidth="300.0" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+      <HBox alignment="CENTER_LEFT" maxWidth="300.0" prefHeight="100.0" prefWidth="200.0" visible="${visibleLabel.visible}" GridPane.columnIndex="1" GridPane.rowIndex="2">
          <children>
             <FontAwesomeIconView glyphName="LOCK">
                <HBox.margin>
@@ -111,7 +111,7 @@
             </VBox>
          </children>
       </HBox>
-      <HBox alignment="CENTER_LEFT" maxWidth="337.0" prefHeight="96.0" prefWidth="337.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+      <HBox alignment="CENTER_LEFT" maxWidth="337.0" prefHeight="96.0" prefWidth="337.0" visible="${visibleLabel.visible}" GridPane.columnIndex="2" GridPane.rowIndex="2">
          <children>
             <FontAwesomeIconView glyphName="LOCK">
                <HBox.margin>
@@ -157,7 +157,7 @@
             </VBox>
          </children>
       </HBox>
-      <HBox alignment="CENTER_LEFT" maxWidth="300.0" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+      <HBox alignment="CENTER_LEFT" maxWidth="300.0" prefHeight="100.0" prefWidth="200.0" visible="${visibleLabel.visible}" GridPane.columnIndex="1" GridPane.rowIndex="3">
          <children>
             <FontAwesomeIconView glyphName="USER">
                <HBox.margin>
@@ -190,7 +190,7 @@
             </VBox>
          </children>
       </HBox>
-      <HBox alignment="CENTER_LEFT" maxWidth="300.0" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+      <HBox alignment="CENTER_LEFT" maxWidth="300.0" prefHeight="100.0" prefWidth="200.0" visible="${visibleLabel.visible}" GridPane.columnIndex="1" GridPane.rowIndex="4">
          <children>
             <FontAwesomeIconView glyphName="ENVELOPE">
                <HBox.margin>
@@ -223,7 +223,7 @@
             </VBox>
          </children>
       </HBox>
-      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="30.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
+      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="30.0" visible="${visibleLabel.visible}" GridPane.columnIndex="2" GridPane.rowIndex="5">
          <children>
             <JFXButton fx:id="logOutButton" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #E4E6EB;" text="Đăng xuất">
                <font>
@@ -250,8 +250,12 @@
                   <Insets top="25.0" />
                </VBox.margin>
             </Label>
-            <Label text="*bạn chưa đăng nhập" textFill="RED" />
+            <Label fx:id="notLoggedInLabel" text="*bạn chưa đăng nhập" textFill="RED" visible="false" />
          </children>
+         <padding>
+            <Insets top="10.0" />
+         </padding>
       </VBox>
+      <Label fx:id="visibleLabel" GridPane.columnIndex="2" />
    </children>
 </GridPane>

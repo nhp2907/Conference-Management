@@ -3,6 +3,8 @@ package com.conferenceManagement;
 import com.conferenceManagement.models.Guest;
 import com.conferenceManagement.models.User;
 import javafx.application.Application;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -17,6 +19,19 @@ import java.io.IOException;
 public class App extends Application {
     private static Scene scene;
     private static Parent parent;
+    private static ObjectProperty<User> user = new SimpleObjectProperty(new Guest());
+
+    public static User getUser() {
+        return user.get();
+    }
+
+    public static ObjectProperty<User> userProperty() {
+        return user;
+    }
+
+    public static void setUser(User user) {
+        App.user.set(user);
+    }
 
 
 
