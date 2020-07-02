@@ -89,7 +89,7 @@
                   </HBox>
                </graphic>
             </JFXToggleNode>
-            <JFXToggleNode id="AccountSettings" prefHeight="26.0" prefWidth="280.0" toggleGroup="$toggleGroup">
+            <JFXToggleNode id="AccountSettings" prefHeight="26.0" prefWidth="280.0" toggleGroup="$toggleGroup" visible="false">
                <graphic>
                   <HBox alignment="CENTER_LEFT" maxHeight="30.0" maxWidth="300.0" minHeight="20.0" minWidth="200.0" prefHeight="20.0" prefWidth="250.0">
                      <children>

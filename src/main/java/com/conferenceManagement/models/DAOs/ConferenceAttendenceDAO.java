@@ -9,13 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ConferenceAttendenceDAO {
-    public static List<Object[]> getUsersByConferenceID(Long id){
+    public static List<ConferenceAttendence> getUsersByConferenceID(Long id){
         var session = HibernateUtils.getSessionFactory().openSession();
         Transaction tx = null;
         try {
             tx = session.beginTransaction();
-            var result = session.createQuery("select u,c.isAccepted from User as u join ConferenceAttendence as c on u.id = c.userID " +
-                    "where c.conferenceID = ?1")
+            var result = session.createQuery("from ConferenceAttendence as cfa where cfa.conference.id = ?1")
                     .setParameter(1, id)
                     .list();
             tx.commit();

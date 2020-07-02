@@ -1,25 +1,15 @@
 package com.conferenceManagement.controllers;
 
-import com.conferenceManagement.App;
 import com.conferenceManagement.BindingObject;
 import com.conferenceManagement.models.*;
 import com.jfoenix.controls.JFXToggleNode;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.ImagePattern;
-import javafx.scene.shape.Circle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -42,22 +32,28 @@ public class HomeController extends ControllerBase {
     StackPane avtStackPane;
 
     /* User Function */
-    UserFunction viewConferenceListUF = null;
     UserFunction viewUserListUF = null;
-    UserFunction editInfoUF = null;
 
     ArrayList<Conference> conferenceList;
 
     BindingObject<User> userFromConferenceRegister = new BindingObject<>(new Guest());
     BindingObject<User> userFromLoginView = new BindingObject<>(new Guest());
 
+    UserFunction viewConferenceListUF = null;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        /* Init User Function */
         try {
             viewConferenceListUF = new UserFunction("ConferenceListForGuest");
-            editInfoUF = new UserFunction("EditInfo");
+            userFromConferenceRegister.bind(((ConferenceListForGuestController) viewConferenceListUF.getController()).userBindingObject);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        /* Init User Function */
+        try {
             viewUserListUF = new UserFunction("UserList");
 
         } catch (IOException e) {
@@ -65,7 +61,6 @@ public class HomeController extends ControllerBase {
         }
 
         /* Binding userProperty with viewconferenceList's user property */
-        userFromConferenceRegister.bind(((ConferenceListForGuestController) viewConferenceListUF.getController()).bindingObject);
         userFromConferenceRegister.addListener((observableValue, user, t1) -> {
             userFromLoginView.set(t1);
         });
@@ -73,11 +68,10 @@ public class HomeController extends ControllerBase {
 
         userFromLoginView.addListener((observableValue, user, t1) -> {
             /* Update user info to view */
-            System.out.println(t1.getName());
-            var controller = (EditInfoController) editInfoUF.getController();
-            controller.updateInfo(t1);
-
-            nameLabel.setText(t1.getName());
+            if (t1 instanceof Guest) {
+                nameLabel.setText("Đăng nhập");
+            } else
+                nameLabel.setText(t1.getName());
 
             /* Update user for ConferenceListForGuestController */
             userFromConferenceRegister.set(t1);
@@ -85,6 +79,9 @@ public class HomeController extends ControllerBase {
         });
         //set toggle group selection change
         toggleGroup.selectedToggleProperty().addListener((observableValue, oldValue, newValue) -> {
+            if (newValue == null) {
+                return;
+            }
             var toggleID = ((JFXToggleNode) newValue).getId();
 
             switch (toggleID) {
@@ -107,10 +104,11 @@ public class HomeController extends ControllerBase {
                         stage.initModality(Modality.APPLICATION_MODAL);
                         stage.showAndWait();
 
+                        toggleGroup.selectToggle(oldValue);
 
                     } else {
-                        var view = editInfoUF.getView();
-                        borderPane.setCenter(view);
+//                        var view = editInfoUF.getView();
+//                        borderPane.setCenter(view);
                     }
 
                     break;
@@ -151,11 +149,25 @@ public class HomeController extends ControllerBase {
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.showAndWait();
 
-
             } else {
-                var view = editInfoUF.getView();
-                borderPane.setCenter(view);
+
+                UserFunction editInfoUF = null;
+                try {
+                    editInfoUF = new UserFunction("EditInfo");
+                    var controller = (EditInfoController) editInfoUF.getController();
+                    controller.updateInfo(userFromLoginView.get());
+
+                    controller.setReturnDataFunction(object -> {
+                        userFromLoginView.set((User) object);
+                    });
+                    var view = editInfoUF.getView();
+                    borderPane.setCenter(view);
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
+
         });
 
         //show data

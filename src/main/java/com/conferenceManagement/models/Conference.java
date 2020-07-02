@@ -27,6 +27,7 @@ public class Conference extends RecursiveTreeObject<Conference> {
     private Place holdPlace;
 
     public Conference(){
+
     }
 
     public Conference(int id, String name, String shortDescription, Date holdTime){

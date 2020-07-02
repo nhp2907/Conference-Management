@@ -6,6 +6,7 @@ import com.jfoenix.controls.JFXTreeTableColumn;
 import com.jfoenix.controls.RecursiveTreeItem;
 import com.jfoenix.controls.cells.editors.base.JFXTreeTableCell;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -25,7 +26,6 @@ public class UserListController extends ControllerBase {
 
     ObservableList<User>   users = FXCollections.observableArrayList(UserDAO.getAll());
 
-    Label lb = new Label();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -44,25 +44,20 @@ public class UserListController extends ControllerBase {
         emailColumn.setPrefWidth(140);
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
 
-        var stateColumn = new TableColumn<User, String>("Trạng thái truy cập");
+        var stateColumn = new TableColumn<User, Boolean>("Trạng thái truy cập");
         stateColumn.setPrefWidth(100);
-        stateColumn.setCellValueFactory(cellData -> {
-            System.out.println("enter cell value factory");
-            var state = cellData.getValue().isStatus();
-            var text = state? "Cho phép": "Đã chặn";
-            lb.setText(text);
-            return new SimpleStringProperty(text);
-        });
+        stateColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
         stateColumn.setCellFactory(treeTableColumn -> {
             return new TableCell<>() {
                 @Override
-                protected void updateItem(String s, boolean b) {
+                protected void updateItem(Boolean s, boolean b) {
                     super.updateItem(s, b);
                     if (b || s == null) {
                         setGraphic(null);
                         setText(null);
                     } else {
-                        lb.setText(s);
+                        var lb = new Label();
+                        lb.setText(s?"Cho phép": "Bị chặn");
                         lb.setOnMouseClicked(mouseEvent -> {
                             System.out.println("clicked");
                             var index = tableView.getSelectionModel().getSelectedIndex();

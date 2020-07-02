@@ -2,16 +2,10 @@ package com.conferenceManagement.controllers;
 
 import com.conferenceManagement.BindingObject;
 import com.conferenceManagement.models.DAOs.UserDAO;
-import com.conferenceManagement.models.Guest;
 import com.conferenceManagement.models.User;
 import com.conferenceManagement.models.UserFunction;
 import com.jfoenix.controls.JFXButton;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.event.Event;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -45,7 +39,7 @@ public class LoginController extends ControllerBase {
     Label logInFailLabel;
 
 
-    ILoginBackAction iLoginBackAction;
+    IReturnDataFunction<User> returnDataFunction;
 
     /* use for binding to orther controller */
     BindingObject<User> bindingObject = new BindingObject<>();
@@ -75,8 +69,8 @@ public class LoginController extends ControllerBase {
             }
 
 
-            if (iLoginBackAction != null) {
-                iLoginBackAction.backAction(user);
+            if (returnDataFunction != null) {
+                returnDataFunction.returnData(user);
             }
 
             /* close stage if log in success */
@@ -121,8 +115,5 @@ public class LoginController extends ControllerBase {
 
 }
 
-@FunctionalInterface
-interface ILoginBackAction {
-    void backAction(User user);
-}
+
 

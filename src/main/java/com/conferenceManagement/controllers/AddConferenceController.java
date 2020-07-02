@@ -1,17 +1,10 @@
 package com.conferenceManagement.controllers;
 
-import com.conferenceManagement.BindingObject;
 import com.conferenceManagement.models.Conference;
 import com.conferenceManagement.models.DAOs.PlaceDAO;
 import com.conferenceManagement.models.Place;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXTimePicker;
-import javafx.beans.Observable;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -20,7 +13,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import java.net.InterfaceAddress;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -76,7 +68,7 @@ public class AddConferenceController extends ControllerBase {
                 return;
             }
 
-            returnDataFunction.backFunction(conference);
+            returnDataFunction.returnData(conference);
 
             var source = (JFXButton)mouseEvent.getSource();
             var stage = (Stage)source.getScene().getWindow();

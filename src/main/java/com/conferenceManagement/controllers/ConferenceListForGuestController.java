@@ -1,7 +1,6 @@
 package com.conferenceManagement.controllers;
 
 import com.conferenceManagement.BindingObject;
-import com.conferenceManagement.customViews.MyTableCell;
 import com.conferenceManagement.models.*;
 import com.conferenceManagement.models.DAOs.ConferenceDAO;
 import com.jfoenix.controls.JFXButton;
@@ -12,7 +11,6 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -39,15 +37,7 @@ public class ConferenceListForGuestController extends ControllerBase {
 
 
     ObservableList<Conference> conferences = FXCollections.observableArrayList(ConferenceDAO.getAll());
-
-    ObjectProperty<User> userProperty = new SimpleObjectProperty<>(new Guest());
-
-    public ObjectProperty<User> userProperty() {
-        return userProperty;
-    }
-
-
-    BindingObject<User> bindingObject = new BindingObject<>();
+    BindingObject<User> userBindingObject = new BindingObject<>();
     ObjectProperty<Conference> conferenceProperty = new SimpleObjectProperty<>();
 
     public ObservableList<Conference> getConferences() {
@@ -58,16 +48,9 @@ public class ConferenceListForGuestController extends ControllerBase {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         /* check admin */
-        if (bindingObject.get() instanceof Admin) {
+        if (userBindingObject.get() instanceof Admin) {
             addConferenceButton.setVisible(true);
         }
-
-        /* update admin function */
-        bindingObject.addListener((observableValue, user, t1) -> {
-            if (t1 instanceof Admin) {
-                addConferenceButton.setVisible(true);
-            }
-        });
 
         addConferenceButton.setOnMouseClicked(mouseEvent -> {
             try {
@@ -90,7 +73,6 @@ public class ConferenceListForGuestController extends ControllerBase {
                 e.printStackTrace();
             }
         });
-
 
         var idColumn = new TableColumn<Conference, Long>("ID");
         idColumn.setCellValueFactory(t -> {
@@ -149,7 +131,7 @@ public class ConferenceListForGuestController extends ControllerBase {
                         conferenceDetailController.previousView = vbox;
                         conferenceDetailController.setConferenceData(selectedItem);
 
-                        this.bindingObject.bind(conferenceDetailController.userBindingObject);
+                        this.userBindingObject.bind(conferenceDetailController.userBindingObject);
 
                         var source = (TableRow) mouseEvent.getSource();
                         var borderPane = (BorderPane) source.getTableView().getParent().getParent().getParent();

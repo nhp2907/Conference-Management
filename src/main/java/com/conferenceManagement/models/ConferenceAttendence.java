@@ -9,39 +9,45 @@ import javax.persistence.*;
 @IdClass(ConferenceAttendenceCompositeID.class)
 public class ConferenceAttendence {
     @Id
-    private Long conferenceID;
+    @OneToOne
+    @JoinColumn(name = "conferenceID")
+    private Conference conference;
+
     @Id
-    private Long userID;
+    @OneToOne
+    @JoinColumn(name = "userID")
+    private User user;
 
     @Column(name = "isAccepted")
     @Type(type = "org.hibernate.type.NumericBooleanType")
     private boolean isAccepted;
 
-    public ConferenceAttendence(){
+    public ConferenceAttendence() {
 
     }
 
-    public Long getConferenceID() {
-        return conferenceID;
+    public Conference getConference() {
+        return conference;
     }
 
-    public Long getUserID() {
-        return userID;
+
+    public void setAccepted(boolean isAccepted) {
+        isAccepted = isAccepted;
     }
 
     public boolean isAccepted() {
         return isAccepted;
     }
 
-    public void setConferenceID(Long conferenceID) {
-        this.conferenceID = conferenceID;
+    public void setConference(Conference conference) {
+        this.conference = conference;
     }
 
-    public void setUserID(Long userID) {
-        this.userID = userID;
+    public User getUser() {
+        return user;
     }
 
-    public void setAccepted(boolean accepted) {
-        isAccepted = accepted;
+    public void setUser(User user) {
+        this.user = user;
     }
 }

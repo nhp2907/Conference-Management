@@ -6,14 +6,11 @@ import com.conferenceManagement.models.DAOs.ConferenceAttendenceDAO;
 import com.jfoenix.controls.JFXButton;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.TextFlow;
@@ -22,7 +19,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -43,7 +39,7 @@ public class ConferenceDetailController extends ControllerBase {
     @FXML
     Label descriptionLabel;
     @FXML
-    TableView tableView;
+    TableView<ConferenceAttendence> tableView;
 
     @FXML
     TextFlow textFlow;
@@ -51,38 +47,92 @@ public class ConferenceDetailController extends ControllerBase {
     BindingObject<User> userBindingObject = new BindingObject<>();
     public Parent previousView;
 
-    List<Object[]> attendedUsers = null;
-    ObjectProperty<Conference> conference = new SimpleObjectProperty<>();
+    List<ConferenceAttendence> attendances = null;
+    Conference conference = null;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //make sure register button is not disabled
-        registerButton.setDisable(false);
+        //set conference info
+        //set register button status
 
-        /* get user attend conference */
-        conference.addListener((observableValue, conference1, t1) -> {
+        /* create table view */
 
-        });
+
 
         /* create tableView column */
-        var idColumn = new TableColumn<User, Long>("ID");
+        var idColumn = new TableColumn<ConferenceAttendence, Long>("ID");
         idColumn.setCellValueFactory(cellData -> {
-            return new SimpleLongProperty(cellData.getValue().getId()).asObject();
+            return new SimpleLongProperty(cellData.getValue().getConference().getId()).asObject();
         });
 
-        var nameColumn = new TableColumn<User, String>("Tên");
+        var nameColumn = new TableColumn<ConferenceAttendence, String>("Tên");
         nameColumn.setPrefWidth(250);
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        nameColumn.setCellValueFactory(cellData -> {
+            return new SimpleStringProperty(cellData.getValue().getUser().getName());
+        });
 
-        var emailColumn = new TableColumn<User, String>("Email");
+        var emailColumn = new TableColumn<ConferenceAttendence, String>("Email");
         emailColumn.setPrefWidth(250);
-        emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
+        emailColumn.setCellValueFactory(cellData -> {
+            return new SimpleStringProperty(cellData.getValue().getUser().getEmail());
+        });
 
-        var statusColum = new TableColumn<User, String>("Trạng thái");
-//        statusColum.setCellValueFactory(celllDta -> {
-//
-//
-//        });
+        var statusColum = new TableColumn<ConferenceAttendence, String>("Trạng thái");
+        statusColum.setCellValueFactory(cellData -> {
+            if (cellData.getValue().isAccepted())
+                return new SimpleStringProperty("Đã duyệt");
+            else {
+                return new SimpleStringProperty("Đang duyệt");
+            }
+        });
+
+        statusColum.setCellFactory(cellData -> {
+            return new TableCell<ConferenceAttendence, String>() {
+                @Override
+                protected void updateItem(String s, boolean b) {
+                    super.updateItem(s, b);
+                    if (b || s == null) {
+                        setGraphic(null);
+                    } else {
+                        var button = new Button();
+                        var selectedItem = tableView.getSelectionModel().getSelectedItem();
+                        ConferenceAttendence attendance;
+
+                        /* find corresponding attend to select user */
+                        for (int i = 0; i < attendances.size(); i++) {
+                            attendance = (ConferenceAttendence) attendances.get(i);
+
+                            if (attendance.getUser().getId() == selectedItem.getUser().getId()) {
+                                if (attendance.isAccepted()) { //get the status of attendance
+                                    button.setText("Đã duyệt");
+                                } else {
+                                    button.setText("Đang duyệt");
+                                }
+
+                                break;
+                            }
+                        }
+
+                        button.setStyle(" -fx-background-color: #39C8B0;\n" +
+                                "    -fx-background-radius:5;\n" +
+                                "    -fx-text-fill:white;\n" +
+                                "    -fx-padding: 5;");
+
+                        button.setPrefWidth(70);
+
+                        button.setOnAction(event -> {
+                            if (userBindingObject.get() instanceof Admin) {
+
+                            }
+                        });
+                    }
+
+
+                    setAlignment(Pos.CENTER);
+
+                }
+            };
+        });
 
         tableView.setPlaceholder(new Label("Chưa có đăng ký"));
         tableView.getColumns().addAll(idColumn, nameColumn, emailColumn);
@@ -96,10 +146,17 @@ public class ConferenceDetailController extends ControllerBase {
                     var loginUF = new UserFunction("Login");
                     LoginController controller = (LoginController) loginUF.getController();
 
-//                    controller.iLoginBackAction = user -> {
-//                        ConferenceAttendenceDAO.save(conference.get().getId(), userBindingObject.get().getId());
-//                        registerButton.setDisable(true);
-//                    };
+                    controller.returnDataFunction = user -> {
+                        var confAt = new ConferenceAttendence();
+                        confAt.setConference(conference);
+                        confAt.setUser(userBindingObject.get());
+
+                        ConferenceAttendenceDAO.save(confAt);
+
+                        registerButton.setText("Đang đợi duyệt");
+                        registerButton.setDisable(true);
+                        registerButton.setStyle("-fx-background-color:green");
+                    };
 
                     userBindingObject.bind(controller.bindingObject);
 
@@ -114,9 +171,11 @@ public class ConferenceDetailController extends ControllerBase {
                 }
             } else {
                 var confAt = new ConferenceAttendence();
-                confAt.setConferenceID(conference.get().getId());
-                confAt.setUserID(userBindingObject.get().getId());
+                confAt.setConference(conference);
+                confAt.setUser(userBindingObject.get());
+
                 ConferenceAttendenceDAO.save(confAt);
+
                 registerButton.setText("Đang đợi duyệt");
                 registerButton.setDisable(true);
                 registerButton.setStyle("-fx-background-color:green");
@@ -126,24 +185,29 @@ public class ConferenceDetailController extends ControllerBase {
 
 
         userBindingObject.addListener((observableValue, user, t1) -> {
-            for (int i = 0; i < attendedUsers.size(); i++) {
-                if (attendedUsers.get(i)[0].equals(userBindingObject.get())) {
-                    ConferenceAttendence attendence = ConferenceAttendenceDAO.get(conference.get().getId(), userBindingObject.get().getId());
-                    if (attendence.isAccepted())
+            System.out.println("New usser: " + t1.getName());
+            /* update register button status corresponding to the bindin user */
+
+            for (int i = 0; i < attendances.size(); i++) {
+                if (attendances.get(i).getUser().equals(userBindingObject.get())) {
+                    if (attendances.get(i).isAccepted())
                         registerButton.setText("Đã đăng ký");
                     else
                         registerButton.setText("Đang đợi duyệt");
 
-                    var confAt = new ConferenceAttendence();
-                    confAt.setConferenceID(conference.get().getId());
-                    confAt.setUserID(userBindingObject.get().getId());
-                    ConferenceAttendenceDAO.save(confAt);
-
                     registerButton.setDisable(true);
                     registerButton.setStyle("-fx-background-color:green");
+
+                    return;
                 } else {
                     System.out.println("không cùng binding user");
                 }
+            }
+
+            System.out.println("user did not register yet");
+
+            if (userBindingObject.get() instanceof Admin) {
+
             }
 
         });
@@ -158,29 +222,28 @@ public class ConferenceDetailController extends ControllerBase {
 
     void setConferenceData(Conference conference) {
         //set conference
-        this.conference.set(conference);
+        this.conference = conference;
 
-        attendedUsers = ConferenceAttendenceDAO.getUsersByConferenceID(conference.getId());
+        //get user attended to this conference
+        attendances = ConferenceAttendenceDAO.getUsersByConferenceID(conference.getId());
         tableView.getItems().clear();
+        tableView.setItems(FXCollections.observableArrayList(attendances));
 
-        ArrayList<User> users = new ArrayList<>(attendedUsers.size());
-        /* change register button status register button */
-        attendedUsers.forEach(iUser -> {
-            users.add((User)iUser[0]);
-            if (iUser[0].equals(userBindingObject.get())) {
-                ConferenceAttendence attendence = ConferenceAttendenceDAO.get(conference.getId(), userBindingObject.get().getId());
-                if (attendence.isAccepted())
+        /* change register button status */
+        attendances.forEach(attendance -> {
+            System.out.println("conference attendance: " + attendance.getConference().getId() + ": " + attendance.getUser().getId());
+            if (attendance.getUser().equals(userBindingObject.get())) {
+
+                if (attendance.isAccepted())
                     registerButton.setText("Đã đăng ký");
                 else
                     registerButton.setText("Đang đợi duyệt");
 
                 registerButton.setDisable(true);
-
                 registerButton.setStyle("-fx-background-color:green");
             }
         });
 
-        tableView.setItems(FXCollections.observableArrayList(users));
 
         nameLabel.setText(conference.getName());
         timeLabel.setText("Thời gian: " + conference.getHoldTime().toString());

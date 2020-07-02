@@ -28,7 +28,7 @@ public class UserDAO {
     }
 
 
-    public void update(User user) {
+    public static void update(User user) {
         var session = HibernateUtils.getSessionFactory().openSession();
         Transaction tx = null;
         try {
@@ -90,16 +90,16 @@ public class UserDAO {
             var query = session.createQuery("from User as u where u.userName = ?1", User.class)
                     .setParameter(1, username);
             var user = (User) query.uniqueResult();
-            if (user != null) {
-                var query1 = session.createQuery("from Admin as ad where ad.id = ?1", Admin.class)
-                        .setParameter(1, user.getId());
-                var admin = query1.uniqueResult();
-//                admin.setUserInfo(user);
-                if (admin != null) {
-                    tx.commit();
-                    return admin;
-                }
-            }
+//            if (user != null) {
+//                var query1 = session.createQuery("from Admin as ad where ad.id = ?1", Admin.class)
+//                        .setParameter(1, user.getId());
+//                var admin = query1.uniqueResult();
+////                admin.setUserInfo(user);
+//                if (admin != null) {
+//                    tx.commit();
+//                    return admin;
+//                }
+//            }
 
             tx.commit();
             return user;
