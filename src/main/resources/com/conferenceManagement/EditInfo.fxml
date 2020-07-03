@@ -85,7 +85,7 @@
                <children>
                   <VBox maxHeight="30.0" prefHeight="30.0" prefWidth="222.0">
                      <children>
-                        <Label disable="${passwordField.text.empty}" text="Mật khẩu">
+                        <Label text="Mật khẩu">
                            <VBox.margin>
                               <Insets left="12.0" />
                            </VBox.margin>
@@ -122,7 +122,7 @@
                <children>
                   <VBox maxHeight="30.0" prefHeight="30.0" prefWidth="222.0">
                      <children>
-                        <Label disable="${passwordField.text.empty}" text="Nhập lại mật khẩu">
+                        <Label text="Nhập lại mật khẩu">
                            <VBox.margin>
                               <Insets left="12.0" />
                            </VBox.margin>
@@ -130,7 +130,7 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <PasswordField fx:id="retypePasswordField" promptText="Password">
+                        <PasswordField fx:id="retypePasswordField">
                            <font>
                               <Font size="14.0" />
                            </font>

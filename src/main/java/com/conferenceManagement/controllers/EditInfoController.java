@@ -44,8 +44,14 @@ public class EditInfoController extends ControllerBase {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         user = App.getUser();
         updateButton.setOnMouseClicked(mouseEvent -> {
+            user.setName(nameTextField.getText());
+            user.setUserName(userNameTextField.getText());
+            user.setPassword(passwordField.getText());
+            user.setEmail(emailTextField.getText());
+
             UserDAO.update(user);
             App.setUser(user);
+            updateButton.setDisable(true);
         });
         App.userProperty().addListener((observableValue, user1, t1) -> {
             updateInfo(App.getUser());
@@ -57,70 +63,68 @@ public class EditInfoController extends ControllerBase {
         });
 
         /* binding textField textProperty */
-        nameTextField.focusedProperty().addListener((observableValue, s, t1) -> {
-            if (!t1) {
-                if (user.getName().equals(nameTextField.getText())) {
-                    updateButton.setDisable(true);
-                } else {
-                    updateButton.setDisable(false);
-                    user.setName(nameTextField.getText());
-                }
+        nameTextField.textProperty().addListener((observableValue, s, t1) -> {
+
+            if (t1.equals(user.getName()) || t1.length() == 0) {
+                updateButton.setDisable(true);
+            } else {
+                updateButton.setDisable(false);
+            }
+
+        });
+
+        emailTextField.textProperty().addListener((observableValue, s, t1) -> {
+
+            if (t1.equals(user.getEmail())) {
+                updateButton.setDisable(true);
+            } else {
+                updateButton.setDisable(false);
             }
         });
 
-        emailTextField.focusedProperty().addListener((observableValue, s, t1) -> {
-            if (!t1) {
-                if (emailTextField.getText().equals(user.getEmail())) {
-                    updateButton.setDisable(true);
-                } else {
-                    updateButton.setDisable(false);
-                    user.setEmail(emailTextField.getText());
-                }
+        userNameTextField.textProperty().addListener((observableValue, aBoolean, t1) -> {
+
+            var temp = UserDAO.getUserByUsername(t1);
+            if (t1.equals(user.getUserName())) {
+                userNameExistedLabel.setVisible(false);
+                updateButton.setDisable(true);
+            } else if (temp != null) {
+                userNameExistedLabel.setVisible(true);
+                updateButton.setDisable(true);
+            } else {
+                userNameExistedLabel.setVisible(false);
+                updateButton.setDisable(false);
             }
+
         });
 
-        userNameTextField.focusedProperty().addListener((observableValue, aBoolean, t1) -> {
-            if (!t1) {
-                var temp = UserDAO.getUserByUsername(userNameTextField.getText());
-                if (temp != null) {
-                    userNameExistedLabel.setDisable(false);
-                    updateButton.setDisable(true);
-                } else if (userNameTextField.getText().equals(user.getUserName())) {
-                    updateButton.setDisable(true);
-                } else {
-                    updateButton.setDisable(false);
-                    user.setUserName(userNameTextField.getText());
-                }
-            }
-        });
-
-        passwordField.focusedProperty().addListener((observableValue, aBoolean, t1) -> {
-            if (!t1) {
-                if (passwordField.getText().equals(user.getPassword())) {
-                    updateButton.setDisable(true);
-                } else if (!retypePasswordField.getText().equals(passwordField.getText())) {
-                    wrongPasswordLabel.setDisable(false);
-                    updateButton.setDisable(true);
-                } else {
-                    updateButton.setDisable(false);
-                    wrongPasswordLabel.setVisible(false);
-                }
-            }
-        });
-
-        retypePasswordField.focusedProperty().addListener((observableValue, s, t1) -> {
-            if (!t1) {
-                if (!retypePasswordField.getText().equals(passwordField.getText())) {
+        passwordField.textProperty().addListener((observableValue, aBoolean, t1) -> {
+            if (t1.equals(user.getPassword())) {
+                updateButton.setDisable(true);
+            } else {
+                if (!t1.equals(retypePasswordField.getText())) {
                     wrongPasswordLabel.setVisible(true);
                     updateButton.setDisable(true);
                 } else {
                     wrongPasswordLabel.setVisible(false);
-                    if (retypePasswordField.getText().equals(user.getPassword()))
-                        updateButton.setDisable(true);
-                    else
-                        updateButton.setDisable(false);
+                    updateButton.setDisable(false);
                 }
             }
+        });
+
+        retypePasswordField.textProperty().addListener((observableValue, s, t1) -> {
+
+            if (!t1.equals(passwordField.getText())) {
+                wrongPasswordLabel.setVisible(true);
+                updateButton.setDisable(true);
+            } else {
+                wrongPasswordLabel.setVisible(false);
+                if (t1.equals(user.getPassword()))
+                    updateButton.setDisable(true);
+                else
+                    updateButton.setDisable(false);
+            }
+
         });
 
         updateInfo(App.getUser());
