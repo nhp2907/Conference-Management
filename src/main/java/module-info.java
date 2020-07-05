@@ -13,7 +13,6 @@ module com.conferenceManagement {
     requires java.xml.bind;
     requires com.jfoenix;
 
-    opens com.conferenceManagement to javafx.fxml;
     exports com.conferenceManagement;
 
     opens com.conferenceManagement.controllers to javafx.fxml;

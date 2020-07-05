@@ -19,5 +19,24 @@ Label:disabled {
 }
 
 
+.positive-button {
+    -fx-background-color: #202B30;
+    -fx-text-fill: white;
+    -fx-font-size:13;
+    -fx-font-weight: bold;
+}
+
+.negative-button {
+    -fx-background-color: #E4E6EB;
+    -fx-text-fill: black;
+    -fx-font-size: 13;
+    -fx-font-weight: bold;
+}
 
 
+JFXTextField, JFXDatePicker, JFXTimePicker,JFXComboBox {
+    -fx-pref-width: 250;
+    -fx-max-width: 250;
+    -fx-font-size:14;
+
+}

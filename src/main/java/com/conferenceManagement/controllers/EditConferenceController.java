@@ -5,8 +5,7 @@ import com.conferenceManagement.models.DAOs.ConferenceAttendenceDAO;
 import com.conferenceManagement.models.DAOs.ConferenceDAO;
 import com.conferenceManagement.models.DAOs.PlaceDAO;
 import com.conferenceManagement.models.Place;
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.*;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
@@ -18,12 +17,17 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.sql.Timestamp;
 import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalField;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 public class EditConferenceController extends ControllerBase {
@@ -32,21 +36,29 @@ public class EditConferenceController extends ControllerBase {
     @FXML
     JFXButton exitButton;
     @FXML
-    TextField nameTextField;
+    JFXTextField nameTextField;
     @FXML
-    TextField shortDescriptionTextField;
+    JFXTextField shortDescriptionTextField;
     @FXML
-    TextField detailDescriptionTextField;
+    JFXTextField detailDescriptionTextField;
     @FXML
-    TextField timeTextField;
+    JFXDatePicker startDatePicker;
     @FXML
-    DatePicker datePicker;
+    JFXDatePicker endDatePicker;
+    @FXML
+    JFXTimePicker startTimePicker;
+    @FXML
+    JFXTimePicker endTimePicker;
 
     @FXML
     JFXComboBox<Place> placeComboBox;
 
     @FXML
     Label invalidTimeLabel;
+    @FXML
+    JFXTimePicker jfxTimePicker;
+    @FXML
+    JFXDatePicker jfxDatePicker;
 
     Conference conference;
     ObservableList<Place> places = FXCollections.observableArrayList(PlaceDAO.getAll());
@@ -59,56 +71,25 @@ public class EditConferenceController extends ControllerBase {
         placeComboBox.setItems(places);
 
         updateButton.setOnMouseClicked(mouseEvent -> {
-
             conference.setName(nameTextField.getText());
             conference.setShortDescription(shortDescriptionTextField.getText());
             conference.setDetailDescription(detailDescriptionTextField.getText());
             conference.setHoldPlace(placeComboBox.getSelectionModel().getSelectedItem());
 
+            var startLDT = LocalDateTime.of(startDatePicker.getValue(), startTimePicker.getValue());
+            var startDate =  Date.from(startLDT.atZone(ZoneId.systemDefault()).toInstant());
 
-            SimpleDateFormat formter = new SimpleDateFormat("yyyy-MM-dd hh:mm");
-            try {
-                var pickedDate = datePicker.getValue();
-                var string = String.format("%d-%d-%d ", pickedDate.getYear(), pickedDate.getMonth().getValue(), pickedDate.getDayOfMonth());
+            var endLDT = LocalDateTime.of(endDatePicker.getValue(), endTimePicker.getValue());
 
-                var date = formter.parse(string + timeTextField.getText());
-                conference.setHoldTime(date);
-                System.out.println(date);
-            } catch (ParseException e) {
-                e.printStackTrace();
-                return;
-            }
+            var endDate =  Date.from(endLDT.atZone(ZoneId.systemDefault()).toInstant());
+
+
+            conference.setHoldTime(startDate);
+            conference.setEndTime(endDate);
 
 
             ConferenceDAO.update(conference);
             updateButton.setDisable(true);
-        });
-
-        /* check valid value */
-        timeTextField.textProperty().addListener((observableValue, s, t1) -> {
-            SimpleDateFormat formter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-            try {
-                var pickedDay = datePicker.getValue();
-                var date = formter.parse("2020-01-01 " + t1);
-
-                SimpleDateFormat checkFomater = new SimpleDateFormat("hh:mm");
-                if (checkFomater.format(conference.getHoldTime()).equals(checkFomater.format(date)))
-                    updateButton.setDisable(true);
-                else {
-                    updateButton.setDisable(false);
-                }
-
-
-                invalidTimeLabel.setVisible(false);
-                System.out.println(date.toString());
-
-            } catch (ParseException e) {
-                updateButton.setDisable(true);
-                e.printStackTrace();
-                System.out.println("Could not parse time");
-                invalidTimeLabel.setVisible(true);
-            }
-
         });
 
         nameTextField.textProperty().addListener((observable, s, t1) -> {
@@ -145,16 +126,16 @@ public class EditConferenceController extends ControllerBase {
         });
 
         exitButton.setOnMouseClicked(mouseEvent -> {
-            var source = (JFXButton)mouseEvent.getSource();
-            var stage = (Stage)source.getScene().getWindow();
+            var source = (JFXButton) mouseEvent.getSource();
+            var stage = (Stage) source.getScene().getWindow();
             stage.close();
         });
 
-        datePicker.valueProperty().addListener((observableValue, localDate, t1) -> {
+        startDatePicker.valueProperty().addListener((observableValue, localDate, t1) -> {
             var cDate = conference.getHoldTime().toInstant()
                     .atZone(ZoneId.systemDefault())
                     .toLocalDate();
-            if (!t1.equals(cDate)){
+            if (!t1.equals(cDate)) {
                 updateButton.setDisable(false);
             } else {
                 updateButton.setDisable(true);
@@ -167,13 +148,20 @@ public class EditConferenceController extends ControllerBase {
         this.conference = conference;
         nameTextField.setText(conference.getName());
 
-        SimpleDateFormat timeFormater = new SimpleDateFormat("hh:mm");
-        timeTextField.setText(timeFormater.format(conference.getHoldTime()));
+        startTimePicker.setValue(conference.getHoldTime().toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalTime());
+        endTimePicker.setValue(conference.getEndTime().toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalTime());
 
-
-        datePicker.setValue(conference.getHoldTime().toInstant()
+        startDatePicker.setValue(conference.getHoldTime().toInstant()
                 .atZone(ZoneId.systemDefault())
                 .toLocalDate());
+        endDatePicker.setValue(conference.getEndTime().toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate());
+
 
         var places = PlaceDAO.getAll();
         placeComboBox.setItems(FXCollections.observableArrayList(places));

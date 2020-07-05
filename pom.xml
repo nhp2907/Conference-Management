@@ -26,20 +26,20 @@
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
-            <version>15-ea+6</version>
+            <version>14</version>
         </dependency>
 
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
-            <version>15-ea+6</version>
+            <version>14</version>
         </dependency>
 
 <!--        material design-->
         <dependency>
             <groupId>com.jfoenix</groupId>
             <artifactId>jfoenix</artifactId>
-            <version>9.0.8</version>
+            <version>9.0.10</version>
         </dependency>
 
 <!--        fontaswsome javafx-->
@@ -50,6 +50,8 @@
         </dependency>
 
     </dependencies>
+
+<!--    build-->
     <build>
         <plugins>
             <plugin>
@@ -58,6 +60,24 @@
                 <version>3.8.0</version>
                 <configuration>
                     <release>11</release>
+                    <compilerArgs>
+                        <arg>--add-exports=javafx.graphics/com.sun.javafx.scene=ALL-UNNAMED</arg>
+                        <arg>--add-exports=javafx.controls/com.sun.javafx.scene.control.behavior=ALL-UNNAMED</arg>
+                        <arg>--add-exports=javafx.controls/com.sun.javafx.scene.control=ALL-UNNAMED</arg>
+<!--                        mine-->
+
+                        <arg>--add-exports=javafx.controls/com.sun.javafx.scene.control.behavior=com.jfoenix</arg>
+                        <arg>--add-exports=javafx.base/com.sun.javafx.binding=com.jfoenix</arg>
+                        <arg>--add-exports=javafx.base/com.sun.javafx.event=com.jfoenix</arg>
+                        <arg>--add-exports=javafx.graphics/com.sun.javafx.stage=com.jfoenix</arg>
+<!--                        mine-->
+
+                        <arg>--illegal-access=warn</arg>
+
+                        <arg>--add-opens=javafx.controls/javafx.scene.control.skin=com.jfoenix</arg>
+                        <arg>--add-opens=java.base/java.lang.reflect=ALL-UNNAMED</arg>
+                        <arg>--add-opens=java.base/java.lang.reflect=com.jfoenix</arg>
+                    </compilerArgs>
                 </configuration>
             </plugin>
             <plugin>
@@ -66,6 +86,24 @@
                 <version>0.0.1</version>
                 <configuration>
                     <mainClass>com.conferenceManagement.App</mainClass>
+                    <options>
+                        <option>--add-exports=javafx.graphics/com.sun.javafx.scene=ALL-UNNAMED</option>
+                        <option>--add-exports=javafx.controls/com.sun.javafx.scene.control.behavior=ALL-UNNAMED</option>
+                        <option>--add-exports=javafx.controls/com.sun.javafx.scene.control=ALL-UNNAMED</option>
+
+                        <!--                        mine-->
+                        <option>--add-exports=javafx.controls/com.sun.javafx.scene.control.behavior=com.jfoenix</option>
+                        <option>--add-exports=javafx.base/com.sun.javafx.binding=com.jfoenix</option>
+                        <option>--add-exports=javafx.base/com.sun.javafx.event=com.jfoenix</option>
+                        <option>--add-exports=javafx.graphics/com.sun.javafx.stage=com.jfoenix</option>
+                        <!--                        mine-->
+
+                        <option>--illegal-access=warn</option>
+
+                        <option>--add-opens=javafx.controls/javafx.scene.control.skin=com.jfoenix</option>
+                        <option>--add-opens=java.base/java.lang.reflect=ALL-UNNAMED</option>
+                        <option>--add-opens=java.base/java.lang.reflect=com.jfoenix</option>
+                    </options>
                 </configuration>
             </plugin>
         </plugins>

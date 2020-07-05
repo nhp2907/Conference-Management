@@ -3,8 +3,7 @@ package com.conferenceManagement.controllers;
 import com.conferenceManagement.models.Conference;
 import com.conferenceManagement.models.DAOs.PlaceDAO;
 import com.conferenceManagement.models.Place;
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -16,21 +15,31 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 public class AddConferenceController extends ControllerBase {
     @FXML
     JFXButton addButton;
     @FXML
-    TextField nameTextField;
+    JFXButton exitButton;
     @FXML
-    TextField shortDescriptionTextField;
+    JFXTextField nameTextField;
     @FXML
-    TextField detailDescriptionTextField;
+    JFXTextField shortDescriptionTextField;
     @FXML
-    TextField timeTextField;
+    JFXTextField detailDescriptionTextField;
     @FXML
-    DatePicker datePicker;
+    JFXDatePicker startDatePicker;
+    @FXML
+    JFXDatePicker endDatePicker;
+    @FXML
+    JFXTimePicker startTimePicker;
+    @FXML
+    JFXTimePicker endTimePicker;
 
     @FXML
     JFXComboBox<Place> placeComboBox;
@@ -55,43 +64,26 @@ public class AddConferenceController extends ControllerBase {
             conference.setHoldPlace(placeComboBox.getSelectionModel().getSelectedItem());
 
 
-            SimpleDateFormat formter = new SimpleDateFormat("yyyy-MM-dd hh:mm");
-            try {
-                var pickedDate = datePicker.getValue();
-                var string = String.format("%d-%d-%d ", pickedDate.getYear(),pickedDate.getMonth().getValue(),pickedDate.getDayOfMonth());
+            var startLDT = LocalDateTime.of(startDatePicker.getValue(), startTimePicker.getValue());
+            var startDate =  Date.from(startLDT.atZone(ZoneId.systemDefault()).toInstant());
 
-                var date = formter.parse(string + timeTextField.getText());
-                conference.setHoldTime(date);
-                System.out.println(date);
-            } catch (ParseException e) {
-                e.printStackTrace();
-                return;
-            }
+            var endLDT = LocalDateTime.of(endDatePicker.getValue(), endTimePicker.getValue());
+            var endDate =  Date.from(endLDT.atZone(ZoneId.systemDefault()).toInstant());
+
+
+            conference.setHoldTime(startDate);
+            conference.setEndTime(endDate);
+
 
             returnDataFunction.returnData(conference);
 
-            var source = (JFXButton)mouseEvent.getSource();
-            var stage = (Stage)source.getScene().getWindow();
+            var source = (JFXButton) mouseEvent.getSource();
+            var stage = (Stage) source.getScene().getWindow();
             stage.close();
 
         });
 
-        /* check valid value */
-        timeTextField.textProperty().addListener((observableValue, s, t1) -> {
-            SimpleDateFormat formter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-            try {
-                var pickedDay = datePicker.getValue();
-                var date = formter.parse("2020-01-01 " + t1);
 
-                invalidTimeLabel.setVisible(false);
-                System.out.println(date.toString());
-
-            } catch (ParseException e) {
-                e.printStackTrace();
-                System.out.println("Could not parse time");
-                invalidTimeLabel.setVisible(true);
-            }
-        });
     }
 
 }

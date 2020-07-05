@@ -87,12 +87,15 @@ public class User extends RecursiveTreeObject<User> {
     }
 
 
-    void copyInfo(User u){
-        id = u.id;
-        name = u.name;
-        userName = u.userName;
-        password = u.password;
-        email = u.email;
+    public User clone() {
+        User u = new User();
+        u.id = id;
+        u.userName = userName;
+        u.name = name;
+        u.email = email;
+        u.password =password;
+
+        return u;
     }
 
     @Override

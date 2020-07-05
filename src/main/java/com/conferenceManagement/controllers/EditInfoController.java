@@ -2,16 +2,23 @@ package com.conferenceManagement.controllers;
 
 import com.conferenceManagement.App;
 import com.conferenceManagement.BindingObject;
+import com.conferenceManagement.models.Admin;
 import com.conferenceManagement.models.DAOs.UserDAO;
 import com.conferenceManagement.models.Guest;
 import com.conferenceManagement.models.User;
 import com.jfoenix.controls.JFXButton;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 import java.net.URL;
+import java.net.UnknownServiceException;
 import java.util.ResourceBundle;
 
 public class EditInfoController extends ControllerBase {
@@ -37,24 +44,26 @@ public class EditInfoController extends ControllerBase {
     Label notLoggedInLabel;
     @FXML
     Label visibleLabel;
-
     User user = null;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        user = App.getUser();
+
         updateButton.setOnMouseClicked(mouseEvent -> {
             user.setName(nameTextField.getText());
             user.setUserName(userNameTextField.getText());
             user.setPassword(passwordField.getText());
             user.setEmail(emailTextField.getText());
 
-            UserDAO.update(user);
-            App.setUser(user);
+            UserDAO.update(this.user);
+
+            if (returnDataFunction != null)
+                returnDataFunction.returnData(user);
             updateButton.setDisable(true);
         });
         App.userProperty().addListener((observableValue, user1, t1) -> {
-            updateInfo(App.getUser());
+            user = t1;
+            updateInfo(t1);
         });
         logOutButton.setOnAction(event -> {
             visibleLabel.setVisible(false);
@@ -62,28 +71,7 @@ public class EditInfoController extends ControllerBase {
             App.setUser(new Guest());
         });
 
-        /* binding textField textProperty */
-        nameTextField.textProperty().addListener((observableValue, s, t1) -> {
-
-            if (t1.equals(user.getName()) || t1.length() == 0) {
-                updateButton.setDisable(true);
-            } else {
-                updateButton.setDisable(false);
-            }
-
-        });
-
-        emailTextField.textProperty().addListener((observableValue, s, t1) -> {
-
-            if (t1.equals(user.getEmail())) {
-                updateButton.setDisable(true);
-            } else {
-                updateButton.setDisable(false);
-            }
-        });
-
         userNameTextField.textProperty().addListener((observableValue, aBoolean, t1) -> {
-
             var temp = UserDAO.getUserByUsername(t1);
             if (t1.equals(user.getUserName())) {
                 userNameExistedLabel.setVisible(false);
@@ -95,8 +83,28 @@ public class EditInfoController extends ControllerBase {
                 userNameExistedLabel.setVisible(false);
                 updateButton.setDisable(false);
             }
+        });
+
+        /* binding textField textProperty */
+        nameTextField.textProperty().addListener((observableValue, s, t1) -> {
+
+            if (t1.equals(user.getName()) || t1.length() == 0) {
+                updateButton.setDisable(true);
+            } else {
+                updateButton.setDisable(false);
+            }
+        });
+
+        emailTextField.textProperty().addListener((observableValue, s, t1) -> {
+
+            if (t1.equals(user.getEmail())) {
+                updateButton.setDisable(true);
+            } else {
+                updateButton.setDisable(false);
+            }
 
         });
+
 
         passwordField.textProperty().addListener((observableValue, aBoolean, t1) -> {
             if (t1.equals(user.getPassword())) {
@@ -110,6 +118,7 @@ public class EditInfoController extends ControllerBase {
                     updateButton.setDisable(false);
                 }
             }
+
         });
 
         retypePasswordField.textProperty().addListener((observableValue, s, t1) -> {
@@ -132,11 +141,13 @@ public class EditInfoController extends ControllerBase {
     } //end initialize
 
     public void updateInfo(User user) {
-        this.user = user;
         if (user instanceof Guest) {
             //every thing is invisible
             return;
         }
+
+        visibleLabel.setVisible(true);
+        notLoggedInLabel.setVisible(false);
 
         nameTextField.setText(user.getName());
         userNameTextField.setText(user.getUserName());

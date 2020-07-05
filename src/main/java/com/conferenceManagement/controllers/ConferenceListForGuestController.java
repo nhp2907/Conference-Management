@@ -89,7 +89,7 @@ public class ConferenceListForGuestController extends ControllerBase {
         });
 
         var nameColumn = new TableColumn<Conference, String>("Tên ");
-        nameColumn.setPrefWidth(250);
+        nameColumn.setPrefWidth(230);
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
 
         var addressColumn = new TableColumn<Conference, String>("Địa điểm");
@@ -99,7 +99,7 @@ public class ConferenceListForGuestController extends ControllerBase {
         });
 
         var timeColumn = new TableColumn<Conference, String>("Thời gian");
-        timeColumn.setPrefWidth(140);
+        timeColumn.setPrefWidth(150);
         timeColumn.setCellValueFactory(cellData -> {
             var date = cellData.getValue().getHoldTime();
             var formater = new SimpleDateFormat("dd-MM-yyyy, hh:mm");
@@ -112,6 +112,15 @@ public class ConferenceListForGuestController extends ControllerBase {
             return new SimpleStringProperty(cellData.getValue().getShortDescription());
         });
 
+        var endTimeColum = new TableColumn<Conference, String>("Thời gian kết thúc");
+        endTimeColum.setPrefWidth(150);
+        endTimeColum.setCellValueFactory(cellData -> {
+            var date = cellData.getValue().getEndTime();
+            var formater = new SimpleDateFormat("dd-MM-yyyy, hh:mm");
+            return new SimpleStringProperty(formater.format(date));
+        });
+
+        timeColumn.setStyle("-fx-padding: 10");
         idColumn.setStyle("-fx-alignment: center");
 
 //
@@ -122,7 +131,7 @@ public class ConferenceListForGuestController extends ControllerBase {
 
         tableView.setItems(conferences);
         tableView.setEditable(true);
-        tableView.getColumns().setAll(idColumn, nameColumn, addressColumn, timeColumn, descriptionColum);
+        tableView.getColumns().setAll(idColumn, nameColumn, addressColumn, timeColumn,endTimeColum, descriptionColum);
         tableView.setStyle("-fx-selection-bar: #9AD9D4; -fx-selection-bar-non-focused: #A7CCC9;");
 
         tableView.setRowFactory(tv -> {

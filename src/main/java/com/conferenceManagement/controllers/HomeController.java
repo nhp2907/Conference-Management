@@ -51,11 +51,21 @@ public class HomeController extends ControllerBase {
             editInfoUF = new UserFunction("EditInfo");
             viewUserListUF = new UserFunction("UserList");
             viewConferenceListUF = new UserFunction("ConferenceListForGuest");
+
+            var editInfoController = (EditInfoController) editInfoUF.getController();
+            editInfoController.setReturnDataFunction(user -> {
+                if (user instanceof Guest) {
+                    nameLabel.setText("Đăng nhập");
+                } else
+                    nameLabel.setText(((User)user).getName());
+            });
         } catch (IOException e) {
+
             e.printStackTrace();
         }
 
         App.userProperty().addListener((observableValue, user, t1) -> {
+            System.out.println("App.user changed from " + user.getName() + " to " + t1.getName());
             if (t1 instanceof Guest) {
                 nameLabel.setText("Đăng nhập");
             } else

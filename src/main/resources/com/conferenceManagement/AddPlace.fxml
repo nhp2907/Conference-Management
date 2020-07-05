@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="700.0" maxWidth="456.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="460.0" prefWidth="456.0" stylesheets="@css/EditInfoCSS.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox layoutX="94.0" layoutY="45.0" prefHeight="376.0" prefWidth="270.0" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="90.0" AnchorPane.topAnchor="45.0">
+         <children>
+            <Label text="Nhập thông tin địa điểm mới">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="30.0" />
+               </VBox.margin></Label>
+            <HBox alignment="CENTER_LEFT" maxWidth="300.0" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <FontAwesomeIconView glyphName="HASHTAG">
+                     <HBox.margin>
+                        <Insets top="20.0" />
+                     </HBox.margin>
+                  </FontAwesomeIconView>
+                  <VBox maxHeight="52.0" maxWidth="300.0" prefHeight="52.0" prefWidth="300.0">
+                     <children>
+                        <Label disable="${nameTextField.text.empty}" text="${nameTextField.promptText}">
+                           <VBox.margin>
+                              <Insets left="12.0" />
+                           </VBox.margin>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="nameTextField" maxHeight="30.0" maxWidth="300.0" prefHeight="30.0" prefWidth="200.0" promptText="Tên địa điểm">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </TextField>
+                        <Line endX="615.0" endY="-5.222798824310303" startX="372.98577880859375" startY="-4.551305770874023">
+                           <VBox.margin>
+                              <Insets left="12.0" />
+                           </VBox.margin>
+                        </Line>
+                     </children>
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                  </VBox>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" maxWidth="300.0" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <FontAwesomeIconView glyphName="GLOBE">
+                     <HBox.margin>
+                        <Insets top="20.0" />
+                     </HBox.margin>
+                  </FontAwesomeIconView>
+                  <VBox maxHeight="52.0" maxWidth="300.0" prefHeight="52.0" prefWidth="300.0">
+                     <children>
+                        <Label disable="${nameTextField.text.empty}" text="${nameTextField.promptText}">
+                           <VBox.margin>
+                              <Insets left="12.0" />
+                           </VBox.margin>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="addressTextField" maxHeight="30.0" maxWidth="300.0" prefHeight="30.0" prefWidth="200.0" promptText="Địa chỉ">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </TextField>
+                        <Line endX="130.89288330078125" endY="-4.1419358253479" startX="372.98577880859375" startY="-4.142035484313965">
+                           <VBox.margin>
+                              <Insets left="12.0" />
+                           </VBox.margin>
+                        </Line>
+                     </children>
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                  </VBox>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" maxWidth="300.0" prefHeight="88.0" prefWidth="270.0">
+               <children>
+                  <FontAwesomeIconView glyphName="BUILDING">
+                     <HBox.margin>
+                        <Insets top="20.0" />
+                     </HBox.margin>
+                  </FontAwesomeIconView>
+                  <VBox maxHeight="52.0" maxWidth="300.0" prefHeight="52.0" prefWidth="300.0">
+                     <children>
+                        <Label disable="${nameTextField.text.empty}" text="${nameTextField.promptText}">
+                           <VBox.margin>
+                              <Insets left="12.0" />
+                           </VBox.margin>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="capacityTextField" maxHeight="30.0" maxWidth="300.0" prefHeight="30.0" prefWidth="200.0" promptText="Sức chứa">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </TextField>
+                        <Line endX="130.89288330078125" endY="-4.1419358253479" startX="373.7857971191406" startY="-4.141925811767578">
+                           <VBox.margin>
+                              <Insets left="12.0" />
+                           </VBox.margin>
+                        </Line>
+                     </children>
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                  </VBox>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_RIGHT" maxWidth="300.0" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+               <children>
+                  <JFXButton fx:id="cancelButton" prefHeight="40.0" prefWidth="74.0" styleClass="negative-button" text="Huỷ" />
+                  <JFXButton fx:id="addButton" buttonType="RAISED" prefHeight="40.0" prefWidth="78.0" styleClass="positive-button" text="Thêm" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

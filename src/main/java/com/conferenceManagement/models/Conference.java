@@ -22,6 +22,9 @@ public class Conference extends RecursiveTreeObject<Conference> {
     @Temporal(TemporalType.TIMESTAMP)
     private Date holdTime;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date endTime;
+
     @OneToOne
     @JoinColumn(name = "holdPlace")
     private Place holdPlace;
@@ -32,6 +35,14 @@ public class Conference extends RecursiveTreeObject<Conference> {
 
     public Conference(int id, String name, String shortDescription, Date holdTime){
 
+    }
+
+    public Date getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
     }
 
     public long getId() {

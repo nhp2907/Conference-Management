@@ -2,35 +2,35 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXTimePicker?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="400.0" prefHeight="588.0" prefWidth="678.0" stylesheets="@css/EditInfoCSS.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.conferenceManagement.controllers.EditConferenceController">
+<GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="400.0" prefHeight="714.0" prefWidth="780.0" stylesheets="@css/EditInfoCSS.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.conferenceManagement.controllers.EditConferenceController">
     <columnConstraints>
-        <ColumnConstraints maxWidth="1.7976931348623157E308" minWidth="40.00001831054688" percentWidth="5.0" prefWidth="40.00001831054688" />
-        <ColumnConstraints maxWidth="1.7976931348623157E308" minWidth="204.79998779296875" prefWidth="320.79998168945315" />
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="308.99999999999994" />
+        <ColumnConstraints maxWidth="1.7976931348623157E308" minWidth="40.00001831054688" percentWidth="10.0" prefWidth="40.00001831054688" />
+        <ColumnConstraints maxWidth="1.7976931348623157E308" minWidth="204.79998779296875" percentWidth="43.0" prefWidth="320.79998168945315" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" percentWidth="43.0" prefWidth="388.99996337890633" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" percentWidth="4.0" prefWidth="80.20003662109377" />
     </columnConstraints>
     <rowConstraints>
-        <RowConstraints maxHeight="85.5999969482422" minHeight="10.0" prefHeight="67.19999389648437" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="103.20001831054688" minHeight="10.0" prefHeight="78.7999938964844" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="127.99998779296875" minHeight="10.0" prefHeight="86.80000610351561" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="127.99998779296875" minHeight="10.0" prefHeight="72.5999816894531" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="124.0" minHeight="10.0" prefHeight="75.19999999999999" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="135.59995117187498" minHeight="10.0" prefHeight="85.80003662109374" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="83.60001220703123" minHeight="10.0" prefHeight="36.99996337890627" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="118.19998779296873" minHeight="10.0" prefHeight="99.5999633789063" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="87.39999694824219" minHeight="10.0" prefHeight="76.2" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="103.20001831054688" minHeight="10.0" prefHeight="88.79998779296876" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="127.99998779296875" minHeight="10.0" prefHeight="88.00001220703126" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="127.99998779296875" minHeight="10.0" prefHeight="90.60001220703123" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="136.7999755859375" minHeight="10.0" prefHeight="89.60001220703128" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="135.59995117187498" minHeight="10.0" prefHeight="91.9999877929688" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="83.60001220703123" minHeight="10.0" prefHeight="43.19998779296873" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="118.19998779296873" minHeight="10.0" prefHeight="80.80001220703127" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
         <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="2">
@@ -42,210 +42,117 @@
                 </Label>
             </children>
         </AnchorPane>
-        <HBox alignment="CENTER_LEFT" maxWidth="300.0" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+        <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
             <children>
                 <FontAwesomeIconView glyphName="HASHTAG">
                     <HBox.margin>
-                        <Insets top="20.0" />
+                        <Insets />
                     </HBox.margin>
                 </FontAwesomeIconView>
-                <VBox maxHeight="35.0" prefHeight="35.0" prefWidth="232.0">
-                    <children>
-                        <Label disable="${nameTextField.text.empty}" text="${nameTextField.promptText}">
-                            <VBox.margin>
-                                <Insets left="12.0" />
-                            </VBox.margin>
-                            <font>
-                                <Font size="14.0" />
-                            </font>
-                        </Label>
-                        <TextField fx:id="nameTextField" maxHeight="30.0" prefHeight="30.0" prefWidth="223.0" promptText="Tên hội nghị">
-                            <VBox.margin>
-                                <Insets />
-                            </VBox.margin>
-                            <font>
-                                <Font size="14.0" />
-                            </font></TextField>
-                        <Line endX="130.89288330078125" endY="-4.1419358253479" startX="353.38580322265625" startY="-4.226351261138916">
-                            <VBox.margin>
-                                <Insets left="12.0" />
-                            </VBox.margin>
-                        </Line>
-                    </children>
-                    <padding>
-                        <Insets left="10.0" />
-                    </padding>
-                </VBox>
-            </children>
-        </HBox>
-        <HBox alignment="CENTER_LEFT" maxWidth="300.0" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-            <children>
-                <FontAwesomeIconView glyphName="CALENDAR">
-                    <HBox.margin>
-                        <Insets top="20.0" />
-                    </HBox.margin>
-                </FontAwesomeIconView>
-                <VBox maxHeight="35.0" prefHeight="35.0" prefWidth="222.0" spacing="6.0">
-                    <children>
-                        <Label fx:id="datePickerLabel">
-                            <VBox.margin>
-                                <Insets left="12.0" />
-                            </VBox.margin>
-                            <font>
-                                <Font size="14.0" />
-                            </font>
-                        </Label>
-                  <DatePicker fx:id="datePicker" promptText="Ngày tổ chức">
-                     <VBox.margin>
-                        <Insets left="13.0" />
-                     </VBox.margin>
-                  </DatePicker>
-                    </children>
-                    <padding>
-                        <Insets left="10.0" />
-                    </padding>
-                </VBox>
-            </children>
-        </HBox>
-        <HBox alignment="CENTER_LEFT" maxWidth="357.0" prefHeight="73.0" prefWidth="357.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
-            <children>
-                <FontAwesomeIconView glyphName="CLOCK_ALT" wrappingWidth="14.285713195800781">
-                    <HBox.margin>
-                        <Insets top="20.0" />
-                    </HBox.margin>
-                </FontAwesomeIconView>
-                <VBox maxHeight="118.0" prefHeight="98.0" prefWidth="285.0">
-                    <children>
-                        <VBox maxHeight="103.0" prefHeight="103.0" prefWidth="236.0">
-                            <children>
-                                <Label disable="${timeTextField.text.empty}" text="Thời gian">
-                                    <VBox.margin>
-                                        <Insets left="12.0" />
-                                    </VBox.margin>
-                                    <font>
-                                        <Font size="14.0" />
-                                    </font>
-                                </Label>
-                        <TextField fx:id="timeTextField" promptText="hh:mm">
-                           <VBox.margin>
-                              <Insets left="5.0" />
-                           </VBox.margin></TextField>
-                                <Line endX="130.89288330078125" endY="-4.1419358253479" startX="353.38580322265625" startY="-4.226351261138916">
-                                    <VBox.margin>
-                                        <Insets left="12.0" />
-                                    </VBox.margin>
-                                </Line>
-                        <Label fx:id="invalidTimeLabel" text="*nhập đúng giờ và phút" textFill="#fd0404" visible="false">
-                           <VBox.margin>
-                              <Insets left="11.0" top="5.0" />
-                           </VBox.margin>
-                        </Label>
-                            </children>
-                     <VBox.margin>
-                        <Insets top="15.0" />
-                     </VBox.margin>
-                        </VBox>
-                    </children>
-                    <padding>
-                        <Insets left="10.0" />
-                    </padding>
-                </VBox>
-            </children>
-        </HBox>
-      <HBox alignment="CENTER_LEFT" maxWidth="356.0" prefHeight="89.0" prefWidth="356.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
-         <children>
-            <FontAwesomeIconView glyphName="BOOKMARK">
+            <JFXTextField fx:id="nameTextField" labelFloat="true" maxHeight="30.0" maxWidth="300.0" prefHeight="30.0" prefWidth="240.0" promptText="Tên hội nghị">
                <HBox.margin>
-                  <Insets top="20.0" />
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </JFXTextField>
+            </children>
+        </HBox>
+      <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+         <children>
+            <FontAwesomeIconView glyphName="CALENDAR" wrappingWidth="14.285713195800781">
+               <HBox.margin>
+                  <Insets />
                </HBox.margin>
             </FontAwesomeIconView>
-            <VBox maxHeight="30.0" prefHeight="30.0" prefWidth="222.0">
-               <children>
-                  <Label disable="${emailTextField.text.empty}" text="${emailTextField.promptText}">
-                     <VBox.margin>
-                        <Insets left="12.0" />
-                     </VBox.margin>
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <JFXComboBox fx:id="placeComboBox" labelFloat="true" prefHeight="26.0" prefWidth="224.0">
-                     <VBox.margin>
-                        <Insets left="12.0" />
-                     </VBox.margin>
-                  </JFXComboBox>
-               </children>
+            <JFXDatePicker fx:id="startDatePicker" editable="false" maxHeight="30.0" maxWidth="240.0" prefHeight="30.0" prefWidth="240.0" promptText="Ngày bắt đầu">
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </JFXDatePicker>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" prefWidth="250.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+         <children>
+            <FontAwesomeIconView glyphName="CLOCK_ALT" wrappingWidth="14.285713195800781">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </FontAwesomeIconView>
+            <JFXTimePicker fx:id="startTimePicker" editable="false" maxHeight="30.0" maxWidth="300.0" prefHeight="30.0" prefWidth="240.0" promptText="Giờ bắt đầu">
                <padding>
                   <Insets left="10.0" />
                </padding>
-            </VBox>
+            </JFXTimePicker>
          </children>
       </HBox>
-        <HBox alignment="CENTER_LEFT" maxWidth="356.0" prefHeight="89.0" prefWidth="356.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+        <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
             <children>
-                <FontAwesomeIconView glyphName="BOOKMARK">
+                <FontAwesomeIconView glyphName="CALENDAR" wrappingWidth="14.285713195800781">
                     <HBox.margin>
-                        <Insets top="20.0" />
+                        <Insets />
                     </HBox.margin>
                 </FontAwesomeIconView>
-                <VBox maxHeight="30.0" prefHeight="30.0" prefWidth="222.0">
-                    <children>
-                        <Label disable="${shortDescriptionTextField.text.empty}" text="${shortDescriptionTextField.promptText}">
-                            <VBox.margin>
-                                <Insets left="12.0" />
-                            </VBox.margin>
-                            <font>
-                                <Font size="14.0" />
-                            </font>
-                        </Label>
-                        <TextField fx:id="shortDescriptionTextField" maxHeight="30.0" prefHeight="30.0" prefWidth="223.0" promptText="Mô tả ngắn gọn">
-                            <font>
-                                <Font size="14.0" />
-                            </font></TextField>
-                        <Line endX="130.89288330078125" endY="-4.1419358253479" startX="353.38580322265625" startY="-4.226351261138916">
-                            <VBox.margin>
-                                <Insets left="12.0" />
-                            </VBox.margin>
-                        </Line>
-                    </children>
-                    <padding>
-                        <Insets left="10.0" />
-                    </padding>
-                </VBox>
+            <JFXDatePicker fx:id="endDatePicker" editable="false" maxHeight="30.0" maxWidth="300.0" prefHeight="30.0" prefWidth="240.0" promptText="Ngày kết thúc">
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </JFXDatePicker>
             </children>
         </HBox>
-      <HBox alignment="CENTER_LEFT" maxWidth="300.0" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+      <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" prefWidth="250.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
+         <children>
+            <FontAwesomeIconView glyphName="CLOCK_ALT" wrappingWidth="14.285713195800781">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </FontAwesomeIconView>
+            <JFXTimePicker fx:id="endTimePicker" editable="false" maxHeight="30.0" maxWidth="300.0" prefHeight="30.0" prefWidth="240.0" promptText="Giờ kết thúc">
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </JFXTimePicker>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
          <children>
             <FontAwesomeIconView glyphName="BUILDING_ALT">
                <HBox.margin>
-                  <Insets top="20.0" />
+                  <Insets />
                </HBox.margin>
             </FontAwesomeIconView>
-            <VBox maxHeight="30.0" prefHeight="30.0" prefWidth="222.0">
-               <children>
-                  <Label disable="${detailDescriptionTextField.text.empty}" text="${detailDescriptionTextField.promptText}">
-                     <VBox.margin>
-                        <Insets left="12.0" />
-                     </VBox.margin>
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="detailDescriptionTextField" maxHeight="30.0" prefHeight="30.0" prefWidth="223.0" promptText="Mô tả chi tiết">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </TextField>
-                  <Line endX="130.89288330078125" endY="-4.1419358253479" startX="353.38580322265625" startY="-4.226351261138916">
-                     <VBox.margin>
-                        <Insets left="12.0" />
-                     </VBox.margin>
-                  </Line>
-               </children>
-               <padding>
+            <JFXTextField fx:id="shortDescriptionTextField" labelFloat="true" maxHeight="30.0" maxWidth="300.0" prefHeight="30.0" prefWidth="240.0" promptText="Mô tả ngắn gọn">
+               <HBox.margin>
                   <Insets left="10.0" />
-               </padding>
-            </VBox>
+               </HBox.margin>
+            </JFXTextField>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" prefWidth="250.0" GridPane.columnIndex="2" GridPane.rowIndex="4">
+         <children>
+            <FontAwesomeIconView glyphName="BUILDING">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </FontAwesomeIconView>
+            <JFXTextField fx:id="detailDescriptionTextField" labelFloat="true" maxHeight="30.0" maxWidth="300.0" prefHeight="30.0" prefWidth="240.0" promptText="Mô tả chi tiết">
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </JFXTextField>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+         <children>
+            <FontAwesomeIconView glyphName="BOOKMARK">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </FontAwesomeIconView>
+      
+                  <JFXComboBox fx:id="placeComboBox" labelFloat="true" maxHeight="30.0" maxWidth="240.0" prefHeight="30.0" prefWidth="240.0" promptText="Địa điểm">
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </JFXComboBox>
          </children>
       </HBox>
         <HBox prefHeight="150.0" prefWidth="342.0" spacing="30.0" GridPane.columnIndex="2" GridPane.rowIndex="7">

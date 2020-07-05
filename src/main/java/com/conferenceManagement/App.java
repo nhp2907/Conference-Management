@@ -33,9 +33,6 @@ public class App extends Application {
         App.user.set(user);
     }
 
-
-
-
     @Override
     public void start(Stage stage) throws IOException {
         //init data
@@ -45,6 +42,9 @@ public class App extends Application {
         parent = loader.load();
         scene = new Scene(parent);
         stage.setScene(scene);
+
+        stage.setTitle("Quản Lý Hội Nghị");
+        stage.setMaximized(true);
         stage.show();
     }
 
