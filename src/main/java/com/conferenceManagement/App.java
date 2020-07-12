@@ -1,5 +1,6 @@
 package com.conferenceManagement;
 
+import com.conferenceManagement.models.Admin;
 import com.conferenceManagement.models.Guest;
 import com.conferenceManagement.models.User;
 import javafx.application.Application;
@@ -44,7 +45,7 @@ public class App extends Application {
         stage.setScene(scene);
 
         stage.setTitle("Quản Lý Hội Nghị");
-        stage.setMaximized(true);
+//        stage.setMaximized(true);
         stage.show();
     }
 

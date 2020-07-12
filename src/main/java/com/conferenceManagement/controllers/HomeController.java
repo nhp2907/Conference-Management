@@ -75,10 +75,13 @@ public class HomeController extends ControllerBase {
 
         //set toggle group selection change
         toggleGroup.selectedToggleProperty().addListener((observableValue, oldValue, newValue) -> {
+            String toggleID = null;
             if (newValue == null) {
-                return;
+                toggleID =  ((JFXToggleNode) oldValue).getId();
+            } else {
+                toggleID =  ((JFXToggleNode) newValue).getId();
             }
-            var toggleID = ((JFXToggleNode) newValue).getId();
+
 
             switch (toggleID) {
                 case "AvtImage":
@@ -93,7 +96,7 @@ public class HomeController extends ControllerBase {
 
                         var controller = (LoginController) loginUF.getController();
                         controller.setReturnDataFunction(user -> {
-                            borderPane.setCenter(editInfoUF.getView());
+//                            borderPane.setCenter(editInfoUF.getView());
                         });
 
                         var view = loginUF.getView();

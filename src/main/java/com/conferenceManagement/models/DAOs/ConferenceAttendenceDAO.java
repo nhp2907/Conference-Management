@@ -3,13 +3,14 @@ package com.conferenceManagement.models.DAOs;
 import com.conferenceManagement.models.ConferenceAttendence;
 import com.conferenceManagement.models.User;
 import com.conferenceManagement.models.hibernate.HibernateUtils;
+import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ConferenceAttendenceDAO {
-    public static List<ConferenceAttendence> getUsersByConferenceID(Long id){
+    public static List<ConferenceAttendence> getUsersByConferenceID(Long id) {
         var session = HibernateUtils.getSessionFactory().openSession();
         Transaction tx = null;
         try {
@@ -52,7 +53,7 @@ public class ConferenceAttendenceDAO {
             var result = session.createQuery("from ConferenceAttendence as c " +
                     "where c.userID  = ?1 and c.conferenceID = ?2", ConferenceAttendence.class)
                     .setParameter(1, userID)
-                    .setParameter(2,conferenceID)
+                    .setParameter(2, conferenceID)
                     .uniqueResult();
             tx.commit();
             return result;
@@ -64,5 +65,22 @@ public class ConferenceAttendenceDAO {
         }
 
         return null;
+    }
+
+    public static void update(ConferenceAttendence c) {
+        Transaction tx = null;
+        var session = HibernateUtils.getSessionFactory().openSession();
+        try {
+            tx = session.beginTransaction();
+            if (!tx.isActive())
+                tx.begin();
+
+            session.update(c);
+
+            tx.commit();
+        } catch (Exception e) {
+            tx.rollback();
+            e.printStackTrace();
+        }
     }
 }

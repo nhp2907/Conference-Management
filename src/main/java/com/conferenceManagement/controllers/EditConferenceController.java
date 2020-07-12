@@ -1,33 +1,25 @@
 package com.conferenceManagement.controllers;
 
 import com.conferenceManagement.models.Conference;
-import com.conferenceManagement.models.DAOs.ConferenceAttendenceDAO;
 import com.conferenceManagement.models.DAOs.ConferenceDAO;
 import com.conferenceManagement.models.DAOs.PlaceDAO;
 import com.conferenceManagement.models.Place;
+import com.conferenceManagement.models.UserFunction;
 import com.jfoenix.controls.*;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.DatePicker;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
-import java.sql.Timestamp;
-import java.text.Format;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.TemporalField;
 import java.util.Date;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class EditConferenceController extends ControllerBase {
@@ -54,11 +46,9 @@ public class EditConferenceController extends ControllerBase {
     JFXComboBox<Place> placeComboBox;
 
     @FXML
-    Label invalidTimeLabel;
+    Label errorLabel;
     @FXML
-    JFXTimePicker jfxTimePicker;
-    @FXML
-    JFXDatePicker jfxDatePicker;
+    ImageView addPlaceImageButton;
 
     Conference conference;
     ObservableList<Place> places = FXCollections.observableArrayList(PlaceDAO.getAll());
@@ -71,96 +61,95 @@ public class EditConferenceController extends ControllerBase {
         placeComboBox.setItems(places);
 
         updateButton.setOnMouseClicked(mouseEvent -> {
-            conference.setName(nameTextField.getText());
-            conference.setShortDescription(shortDescriptionTextField.getText());
-            conference.setDetailDescription(detailDescriptionTextField.getText());
-            conference.setHoldPlace(placeComboBox.getSelectionModel().getSelectedItem());
-
             var startLDT = LocalDateTime.of(startDatePicker.getValue(), startTimePicker.getValue());
-            var startDate =  Date.from(startLDT.atZone(ZoneId.systemDefault()).toInstant());
-
             var endLDT = LocalDateTime.of(endDatePicker.getValue(), endTimePicker.getValue());
 
-            var endDate =  Date.from(endLDT.atZone(ZoneId.systemDefault()).toInstant());
+            List<Conference> conferences = ConferenceDAO.getConferenceByPlace(placeComboBox.getValue());
 
+            conferences.forEach(conference -> {
+                System.out.println();
+            });
+            System.out.println("Compare: " + startLDT.compareTo(LocalDateTime.now()));
+            var isPlaceValid = conferences.stream().allMatch(conference -> {
+                System.out.println(endLDT.compareTo(conference.getStartDateTime()));
+                System.out.println(startLDT.compareTo(conference.getEndDateTime()));
 
-            conference.setHoldTime(startDate);
-            conference.setEndTime(endDate);
+                return endLDT.compareTo(conference.getStartDateTime()) <= 0
+                        || startLDT.compareTo(conference.getEndDateTime()) >= 0;
+            });
 
+            System.out.println("isPlaceValid: " + isPlaceValid);
 
-            ConferenceDAO.update(conference);
-            updateButton.setDisable(true);
-        });
-
-        nameTextField.textProperty().addListener((observable, s, t1) -> {
-            if (!conference.getName().equals(t1))
-                updateButton.setDisable(false);
-            else {
-                updateButton.setDisable(true);
-            }
-        });
-
-        placeComboBox.selectionModelProperty().addListener((observableValue, s, t1) -> {
-            if (!conference.getHoldPlace().equals(t1))
-                updateButton.setDisable(false);
-            else {
-                updateButton.setDisable(true);
-            }
-        });
-
-        shortDescriptionTextField.textProperty().addListener((observableValue, s, t1) -> {
-            if (!conference.getShortDescription().equals(t1))
-                updateButton.setDisable(false);
-            else {
-                updateButton.setDisable(true);
-            }
-
-        });
-
-        detailDescriptionTextField.textProperty().addListener((observableValue, s, t1) -> {
-            if (!conference.getDetailDescription().equals(t1))
-                updateButton.setDisable(false);
-            else {
-                updateButton.setDisable(true);
-            }
-        });
-
-        exitButton.setOnMouseClicked(mouseEvent -> {
-            var source = (JFXButton) mouseEvent.getSource();
-            var stage = (Stage) source.getScene().getWindow();
-            stage.close();
-        });
-
-        startDatePicker.valueProperty().addListener((observableValue, localDate, t1) -> {
-            var cDate = conference.getHoldTime().toInstant()
-                    .atZone(ZoneId.systemDefault())
-                    .toLocalDate();
-            if (!t1.equals(cDate)) {
-                updateButton.setDisable(false);
+            var errorMessage = "";
+            if (nameTextField.getText().length() < 1) {
+                errorMessage = "*tên không được để trống";
+            } else if (shortDescriptionTextField.getText().length() < 1) {
+                errorMessage = "*mô tả ngắn gọn không được để trống";
+            } else if (detailDescriptionTextField.getText().length() < 1) {
+                errorMessage = "*mô tả chi tiết không được để trống";
+            } else if (startLDT.compareTo(LocalDateTime.now()) <= 0) {
+                errorMessage = "*ngày bắt đầu phải sau ngày hôm nay";
+            } else if (endLDT.compareTo(startLDT) <= 0) {
+                errorMessage = "*ngày kết thúc phải sau ngày bắt đầu";
+            } else if (!isPlaceValid) {
+                errorMessage = "*địa điểm này đã có hội nghị khác diễn ra";
             } else {
-                updateButton.setDisable(true);
+                conference.setName(nameTextField.getText());
+                conference.setShortDescription(shortDescriptionTextField.getText());
+                conference.setDetailDescription(detailDescriptionTextField.getText());
+                conference.setHoldPlace(placeComboBox.getSelectionModel().getSelectedItem());
+                conference.setStartDateTime(startLDT);
+                conference.setEndDateTime(endLDT);
+
+                if (returnDataFunction != null) {
+                    returnDataFunction.returnData(conference);
+                }
+
+                ConferenceDAO.update(conference);
+
+                var stage = (Stage) updateButton.getScene().getWindow();
+                stage.close();
+
+                errorMessage = "";
             }
+
+            errorLabel.setText(errorMessage);
+
         });
 
+        addPlaceImageButton.setOnMouseClicked(mouseEvent -> {
+            try {
+                var addPlaceUF = new UserFunction("AddPlace");
+
+                var stage = new Stage();
+                stage.setScene(new Scene(addPlaceUF.getView()));
+
+                var controller = (AddPlaceController) addPlaceUF.getController();
+                controller.setReturnDataFunction(o -> {
+                    var place = (Place) o;
+                    this.places.add(place);
+                });
+
+                stage.setTitle("Add new place");
+                stage.setResizable(false);
+                stage.show();
+
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     public void updateConfenceInfo(Conference conference) {
         this.conference = conference;
         nameTextField.setText(conference.getName());
 
-        startTimePicker.setValue(conference.getHoldTime().toInstant()
-                .atZone(ZoneId.systemDefault())
-                .toLocalTime());
-        endTimePicker.setValue(conference.getEndTime().toInstant()
-                .atZone(ZoneId.systemDefault())
-                .toLocalTime());
+        startTimePicker.setValue(conference.getStartDateTime().toLocalTime());
+        endTimePicker.setValue(conference.getEndDateTime().toLocalTime());
 
-        startDatePicker.setValue(conference.getHoldTime().toInstant()
-                .atZone(ZoneId.systemDefault())
-                .toLocalDate());
-        endDatePicker.setValue(conference.getEndTime().toInstant()
-                .atZone(ZoneId.systemDefault())
-                .toLocalDate());
+        startDatePicker.setValue(conference.getStartDateTime().toLocalDate());
+        endDatePicker.setValue(conference.getEndDateTime().toLocalDate());
 
 
         var places = PlaceDAO.getAll();
@@ -170,7 +159,6 @@ public class EditConferenceController extends ControllerBase {
                 placeComboBox.getSelectionModel().select(place);
             }
         });
-
 
         detailDescriptionTextField.setText(conference.getDetailDescription());
         shortDescriptionTextField.setText(conference.getShortDescription());

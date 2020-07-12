@@ -3,8 +3,8 @@ package com.conferenceManagement.models;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
-import java.util.LinkedHashMap;
 
 @Entity
 @Table(name = "Conferences")
@@ -19,11 +19,9 @@ public class Conference extends RecursiveTreeObject<Conference> {
 
     private String detailDescription;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date holdTime;
+    private LocalDateTime startDateTime;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date endTime;
+    private LocalDateTime endDateTime;
 
     @OneToOne
     @JoinColumn(name = "holdPlace")
@@ -37,12 +35,12 @@ public class Conference extends RecursiveTreeObject<Conference> {
 
     }
 
-    public Date getEndTime() {
-        return endTime;
+    public LocalDateTime getEndDateTime() {
+        return endDateTime;
     }
 
-    public void setEndTime(Date endTime) {
-        this.endTime = endTime;
+    public void setEndDateTime(LocalDateTime endDateTime) {
+        this.endDateTime = endDateTime;
     }
 
     public long getId() {
@@ -78,11 +76,11 @@ public class Conference extends RecursiveTreeObject<Conference> {
     }
 
     /*-------holdTime---------*/
-    public Date getHoldTime() {
-        return holdTime;
+    public LocalDateTime getStartDateTime() {
+        return startDateTime;
     }
-    public void setHoldTime(Date holdTime) {
-        this.holdTime = holdTime;
+    public void setStartDateTime(LocalDateTime startDateTime) {
+        this.startDateTime = startDateTime;
     }
 
 

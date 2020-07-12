@@ -24,13 +24,14 @@ public class UserListController extends ControllerBase {
     @FXML
     TableView<User> tableView;
 
-    ObservableList<User>   users = FXCollections.observableArrayList(UserDAO.getAll());
+    ObservableList<User> users = FXCollections.observableArrayList(UserDAO.getAll());
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         var idColumn = new TableColumn<User, Long>("ID");
+        idColumn.setStyle("-fx-alignment: center");
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
 
         var nameColumn = new TableColumn<User, String>("Tên");
@@ -41,11 +42,11 @@ public class UserListController extends ControllerBase {
         userNameColumn.setCellValueFactory(new PropertyValueFactory<>("userName"));
 
         var emailColumn = new TableColumn<User, String>("Email");
-        emailColumn.setPrefWidth(140);
+        emailColumn.setPrefWidth(200);
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
 
         var stateColumn = new TableColumn<User, Boolean>("Trạng thái truy cập");
-        stateColumn.setPrefWidth(100);
+        stateColumn.setPrefWidth(200);
         stateColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
         stateColumn.setCellFactory(treeTableColumn -> {
             return new TableCell<>() {
@@ -56,26 +57,31 @@ public class UserListController extends ControllerBase {
                         setGraphic(null);
                         setText(null);
                     } else {
-                        var lb = new Label();
-                        lb.setText(s?"Cho phép": "Bị chặn");
-                        lb.setOnMouseClicked(mouseEvent -> {
+                        System.out.println("Value factory");
+                        var lb = new Button();
+                        lb.setText(s ? "Cho phép" : "Đã chặn");
+
+                        lb.setOnAction(mouseEvent -> {
                             System.out.println("clicked");
-                            var index = tableView.getSelectionModel().getSelectedIndex();
-                            var user = users.get(index);
-                            if (user.isStatus() == true){
-                              users.get(index).setStatus(false);
-                              lb.setText("Đã chặn");
+                            var index = getIndex();
+                            var user = getTableView().getItems().get(getIndex());
+                            if (user.isStatus() == true) {
+                                users.get(index).setStatus(false);
+                                UserDAO.update(user);
+                                lb.setText("Đã chặn");
                             } else {
                                 users.get(index).setStatus(true);
                                 lb.setText("Cho phép");
+                                UserDAO.update(user);
                             }
                         });
-                        lb.setStyle(" -fx-background-color: #39C8B0;\n" +
+
+                        lb.setStyle(" -fx-background-color: #2B2B2B;\n" +
                                 "    -fx-background-radius:5;\n" +
                                 "    -fx-text-fill:white;\n" +
                                 "    -fx-padding: 5;");
 
-                        lb.setPrefWidth(70);
+                        lb.setPrefWidth(90);
                         lb.setAlignment(Pos.CENTER);
                         setAlignment(Pos.CENTER);
 
@@ -85,6 +91,7 @@ public class UserListController extends ControllerBase {
             };
         });
 
+        stateColumn.setStyle("-fx-alignment: center");
         idColumn.setCellFactory(a -> {
             return new TableCell<>() {
                 @Override
@@ -98,7 +105,6 @@ public class UserListController extends ControllerBase {
                         Label lb = new Label();
                         lb.setText(along.toString());
 
-                        lb.setPadding(new Insets(0, 0, 0, 20));
 
                         setGraphic(lb);
 

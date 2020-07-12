@@ -70,7 +70,7 @@
       </AnchorPane>
       <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="10000.0" prefWidth="842.0">
          <children>
-            <TableView fx:id="tableView" editable="true" layoutX="186.0" layoutY="102.0" prefHeight="359.0" prefWidth="674.0" style="-fx-background-color: #F3F3F3; -fx-border-color: #F3F3F3; -fx-border-width: 0;" stylesheets="@css/ConferenceListForGuest.css" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1.0" />
+            <TableView fx:id="tableView" editable="true" layoutX="186.0" layoutY="102.0" prefHeight="359.0" prefWidth="674.0" style="-fx-border-width: 0;" stylesheets="@css/ConferenceListForGuest.css" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1.0" />
          </children>
       </AnchorPane>
    </children>

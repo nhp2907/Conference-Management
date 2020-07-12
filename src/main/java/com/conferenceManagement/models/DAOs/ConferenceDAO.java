@@ -1,7 +1,9 @@
 package com.conferenceManagement.models.DAOs;
 
 import com.conferenceManagement.models.Conference;
+import com.conferenceManagement.models.Place;
 import com.conferenceManagement.models.hibernate.HibernateUtils;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -39,12 +41,12 @@ public class ConferenceDAO {
         }
     }
 
-    public static void saveOrUpdate(Conference conference){
+    public static void saveOrUpdate(Conference conference) {
         var session = HibernateUtils.getSessionFactory().openSession();
         Transaction tx = null;
         try {
             tx = session.beginTransaction();
-          session.saveOrUpdate(conference);
+            session.saveOrUpdate(conference);
             tx.commit();
 
         } catch (Exception exception) {
@@ -97,6 +99,31 @@ public class ConferenceDAO {
         return new ArrayList<>();
     }
 
+    public static List<Conference> getConferenceByPlace(Place place) {
+        var session = HibernateUtils.getSessionFactory().openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            if (!tx.isActive()) {
+                tx.begin();
+            }
+
+            var result = session.createQuery("from Conference where holdPlace = :place", Conference.class)
+                    .setParameter("place", place)
+                    .list();
+
+            return result;
+        } catch (Exception ex){
+            ex.printStackTrace();
+            tx.rollback();
+        } finally {
+            if (session!= null){
+                session.close();
+            }
+        }
+
+        return new ArrayList<>();
+    }
 
     public Conference getByID(Object o) {
         return null;

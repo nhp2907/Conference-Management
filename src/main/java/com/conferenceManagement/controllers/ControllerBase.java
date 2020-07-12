@@ -16,6 +16,7 @@ public abstract class ControllerBase implements Initializable {
     }
 
 
+
     private Parent rootView;
     public void setRootView(Parent view){
         this.rootView = view;

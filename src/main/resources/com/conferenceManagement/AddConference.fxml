@@ -8,6 +8,8 @@
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -15,7 +17,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="400.0" prefHeight="714.0" prefWidth="780.0" stylesheets="@css/EditInfoCSS.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.conferenceManagement.controllers.AddConferenceController">
+<GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="400.0" prefHeight="713.0" prefWidth="925.0" stylesheets="@css/EditInfoCSS.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.conferenceManagement.controllers.AddConferenceController">
     <columnConstraints>
         <ColumnConstraints maxWidth="1.7976931348623157E308" minWidth="40.00001831054688" percentWidth="10.0" prefWidth="40.00001831054688" />
         <ColumnConstraints maxWidth="1.7976931348623157E308" minWidth="204.79998779296875" percentWidth="43.0" prefWidth="320.79998168945315" />
@@ -23,19 +25,19 @@
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" percentWidth="4.0" prefWidth="80.20003662109377" />
     </columnConstraints>
     <rowConstraints>
-        <RowConstraints maxHeight="87.39999694824219" minHeight="10.0" prefHeight="76.2" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="103.20001831054688" minHeight="10.0" prefHeight="88.79998779296876" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="127.99998779296875" minHeight="10.0" prefHeight="88.00001220703126" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="127.99998779296875" minHeight="10.0" prefHeight="90.60001220703123" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="136.7999755859375" minHeight="10.0" prefHeight="89.60001220703128" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="135.59995117187498" minHeight="10.0" prefHeight="91.9999877929688" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="83.60001220703123" minHeight="10.0" prefHeight="43.19998779296873" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="87.39999694824219" minHeight="10.0" prefHeight="85.20000915527343" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="103.20001831054688" minHeight="10.0" prefHeight="93.99999084472655" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="127.99998779296875" minHeight="10.0" prefHeight="92.9333251953125" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="127.99998779296875" minHeight="10.0" prefHeight="100.5999755859375" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="136.7999755859375" minHeight="10.0" prefHeight="105.86667480468753" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="135.59995117187498" minHeight="10.0" prefHeight="104.13339233398438" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="83.60001220703123" minHeight="10.0" prefHeight="39.466662597656295" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="118.19998779296873" minHeight="10.0" prefHeight="80.80001220703127" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
         <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="2">
             <children>
-                <Label layoutX="29.0" layoutY="21.0" prefHeight="30.0" prefWidth="345.0" text="Nhập thông tin hội nghị" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="30.0">
+                <Label layoutX="29.0" layoutY="21.0" prefHeight="30.0" prefWidth="345.0" text="Nhập thông tin hội nghị" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="40.0">
                     <font>
                         <Font name="System Bold" size="15.0" />
                     </font>
@@ -49,7 +51,7 @@
                         <Insets />
                     </HBox.margin>
                 </FontAwesomeIconView>
-                <JFXTextField fx:id="nameTextField" labelFloat="true" maxHeight="30.0" maxWidth="300.0" prefHeight="30.0" prefWidth="240.0" promptText="Tên hội nghị">
+                <JFXTextField fx:id="nameTextField" focusTraversable="false" labelFloat="true" maxHeight="30.0" maxWidth="300.0" prefHeight="30.0" prefWidth="240.0" promptText="Tên hội nghị">
                     <HBox.margin>
                         <Insets left="10.0" />
                     </HBox.margin>
@@ -77,7 +79,7 @@
                         <Insets />
                     </HBox.margin>
                 </FontAwesomeIconView>
-                <JFXTimePicker fx:id="startTimePicker" editable="false" maxHeight="30.0" maxWidth="300.0" prefHeight="30.0" prefWidth="240.0" promptText="Giờ bắt đầu">
+                <JFXTimePicker fx:id="startTimePicker" editable="false" maxHeight="30.0" maxWidth="300.0" minWidth="260.0" prefHeight="30.0" prefWidth="240.0" promptText="Giờ bắt đầu">
                     <padding>
                         <Insets left="10.0" />
                     </padding>
@@ -105,14 +107,14 @@
                         <Insets />
                     </HBox.margin>
                 </FontAwesomeIconView>
-                <JFXTimePicker fx:id="endTimePicker" editable="false" maxHeight="30.0" maxWidth="300.0" prefHeight="30.0" prefWidth="240.0" promptText="Giờ kết thúc">
+                <JFXTimePicker fx:id="endTimePicker" editable="false" maxHeight="30.0" maxWidth="300.0" minWidth="260.0" prefHeight="30.0" prefWidth="300.0" promptText="Giờ kết thúc">
                     <padding>
                         <Insets left="10.0" />
                     </padding>
                 </JFXTimePicker>
             </children>
         </HBox>
-        <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+        <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" prefHeight="129.0" prefWidth="398.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
             <children>
                 <FontAwesomeIconView glyphName="BUILDING_ALT">
                     <HBox.margin>
@@ -153,6 +155,14 @@
                         <Insets left="10.0" />
                     </HBox.margin>
                 </JFXComboBox>
+            <ImageView fx:id="addPlaceImageButton" fitHeight="39.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+               <HBox.margin>
+                  <Insets left="5.0" />
+               </HBox.margin>
+               <image>
+                  <Image url="@images/icons8_add_32.png" />
+               </image>
+            </ImageView>
             </children>
         </HBox>
         <HBox prefHeight="150.0" prefWidth="342.0" spacing="30.0" GridPane.columnIndex="2" GridPane.rowIndex="7">
@@ -169,5 +179,13 @@
                 </JFXButton>
             </children>
         </HBox>
+      <Label fx:id="errorLabel" prefHeight="18.0" prefWidth="794.0" textFill="RED" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="6">
+         <font>
+            <Font size="13.0" />
+         </font>
+         <GridPane.margin>
+            <Insets bottom="15.0" left="15.0" />
+         </GridPane.margin>
+      </Label>
     </children>
 </GridPane>

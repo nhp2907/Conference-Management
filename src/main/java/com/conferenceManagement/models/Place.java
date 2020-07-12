@@ -9,7 +9,7 @@ public class Place {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    int id;
+    long id;
 
     @Column(name = "name")
     private String name;
@@ -20,8 +20,16 @@ public class Place {
     @Column(name = "capacity")
     private int capacity;
 
-    Place() {
+    public Place() {
 
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getName() {

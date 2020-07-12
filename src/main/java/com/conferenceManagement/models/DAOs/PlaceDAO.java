@@ -2,6 +2,7 @@ package com.conferenceManagement.models.DAOs;
 
 import com.conferenceManagement.models.Conference;
 import com.conferenceManagement.models.Place;
+import com.conferenceManagement.models.User;
 import com.conferenceManagement.models.hibernate.HibernateUtils;
 import org.hibernate.Transaction;
 
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PlaceDAO {
-    public static List<Place> getAll(){
+    public static List<Place> getAll() {
         var session = HibernateUtils.getSessionFactory().openSession();
         Transaction tx = null;
         try {
@@ -30,5 +31,22 @@ public class PlaceDAO {
         }
 
         return new ArrayList<>();
+    }
+
+    public static void save(Place place) {
+        var session = HibernateUtils.getSessionFactory().openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            Long id = (Long) session.save(place);
+            place.setId(id);
+            tx.commit();
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            tx.rollback();
+        } finally {
+            session.close();
+        }
     }
 }

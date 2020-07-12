@@ -32,7 +32,7 @@ public class ConferenceAttendence {
 
 
     public void setAccepted(boolean isAccepted) {
-        isAccepted = isAccepted;
+        this.isAccepted = isAccepted;
     }
 
     public boolean isAccepted() {

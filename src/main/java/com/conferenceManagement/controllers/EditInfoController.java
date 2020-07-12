@@ -7,6 +7,8 @@ import com.conferenceManagement.models.DAOs.UserDAO;
 import com.conferenceManagement.models.Guest;
 import com.conferenceManagement.models.User;
 import com.jfoenix.controls.JFXButton;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
@@ -17,6 +19,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
+import javax.naming.Binding;
 import java.net.URL;
 import java.net.UnknownServiceException;
 import java.util.ResourceBundle;
@@ -46,6 +49,7 @@ public class EditInfoController extends ControllerBase {
     Label visibleLabel;
     User user = null;
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -71,70 +75,84 @@ public class EditInfoController extends ControllerBase {
             App.setUser(new Guest());
         });
 
-        userNameTextField.textProperty().addListener((observableValue, aBoolean, t1) -> {
-            var temp = UserDAO.getUserByUsername(t1);
-            if (t1.equals(user.getUserName())) {
+        userNameTextField.textProperty().addListener((observableValue, s, t1) -> {
+            var user = UserDAO.getUserByUsername(t1);
+            if (user == null){
                 userNameExistedLabel.setVisible(false);
-                updateButton.setDisable(true);
-            } else if (temp != null) {
-                userNameExistedLabel.setVisible(true);
-                updateButton.setDisable(true);
             } else {
-                userNameExistedLabel.setVisible(false);
-                updateButton.setDisable(false);
-            }
-        });
-
-        /* binding textField textProperty */
-        nameTextField.textProperty().addListener((observableValue, s, t1) -> {
-
-            if (t1.equals(user.getName()) || t1.length() == 0) {
-                updateButton.setDisable(true);
-            } else {
-                updateButton.setDisable(false);
-            }
-        });
-
-        emailTextField.textProperty().addListener((observableValue, s, t1) -> {
-
-            if (t1.equals(user.getEmail())) {
-                updateButton.setDisable(true);
-            } else {
-                updateButton.setDisable(false);
-            }
-
-        });
-
-
-        passwordField.textProperty().addListener((observableValue, aBoolean, t1) -> {
-            if (t1.equals(user.getPassword())) {
-                updateButton.setDisable(true);
-            } else {
-                if (!t1.equals(retypePasswordField.getText())) {
-                    wrongPasswordLabel.setVisible(true);
-                    updateButton.setDisable(true);
-                } else {
-                    wrongPasswordLabel.setVisible(false);
-                    updateButton.setDisable(false);
+                if (user.equals(this.user)){
+                    userNameExistedLabel.setVisible(false);
+                }else {
+                    userNameExistedLabel.setVisible(true);
                 }
             }
-
         });
 
-        retypePasswordField.textProperty().addListener((observableValue, s, t1) -> {
 
-            if (!t1.equals(passwordField.getText())) {
-                wrongPasswordLabel.setVisible(true);
-                updateButton.setDisable(true);
-            } else {
-                wrongPasswordLabel.setVisible(false);
-                if (t1.equals(user.getPassword()))
-                    updateButton.setDisable(true);
-                else
-                    updateButton.setDisable(false);
-            }
-
-        });
+//        userNameTextField.textProperty().addListener((observableValue, aBoolean, t1) -> {
+//            var temp = UserDAO.getUserByUsername(t1);
+//            if (t1.equals(user.getUserName())) {
+//                userNameExistedLabel.setVisible(false);
+//                updateButton.setDisable(true);
+//            } else if (temp != null) {
+//                userNameExistedLabel.setVisible(true);
+//                updateButton.setDisable(true);
+//            } else {
+//                userNameExistedLabel.setVisible(false);
+//                updateButton.setDisable(false);
+//            }
+//        });
+//
+//        /* binding textField textProperty */
+//        nameTextField.textProperty().addListener((observableValue, s, t1) -> {
+//
+//            if (t1.equals(user.getName()) || t1.length() == 0) {
+//                updateButton.setDisable(true);
+//            } else {
+//                updateButton.setDisable(false);
+//            }
+//        });
+//
+//        emailTextField.textProperty().addListener((observableValue, s, t1) -> {
+//
+//            if (t1.equals(user.getEmail())) {
+//                updateButton.setDisable(true);
+//            } else {
+//                updateButton.setDisable(false);
+//            }
+//
+//        });
+//
+//
+//        passwordField.textProperty().addListener((observableValue, aBoolean, t1) -> {
+//            if (t1.equals(user.getPassword())) {
+//                updateButton.setDisable(true);
+//            } else {
+//                if (!t1.equals(retypePasswordField.getText())) {
+//                    wrongPasswordLabel.setVisible(true);
+//                    updateButton.setDisable(true);
+//                } else {
+//                    wrongPasswordLabel.setVisible(false);
+//                    updateButton.setDisable(false);
+//                }
+//            }
+//
+//        });
+//
+//        retypePasswordField.textProperty().addListener((observableValue, s, t1) -> {
+//
+//            if (!t1.equals(passwordField.getText())) {
+//                wrongPasswordLabel.setVisible(true);
+//                updateButton.setDisable(true);
+//            } else {
+//                wrongPasswordLabel.setVisible(false);
+//                if (t1.equals(user.getPassword()))
+//                    updateButton.setDisable(true);
+//                else
+//                    updateButton.setDisable(false);
+//            }
+//
+//        });
 
         updateInfo(App.getUser());
 
