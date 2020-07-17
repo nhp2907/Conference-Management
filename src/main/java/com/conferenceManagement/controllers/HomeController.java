@@ -37,10 +37,6 @@ public class HomeController extends ControllerBase {
 
     /* User Function */
     UserFunction viewUserListUF = null;
-
-    ArrayList<Conference> conferenceList;
-
-
     UserFunction viewConferenceListUF = null;
     UserFunction editInfoUF = null;
 
