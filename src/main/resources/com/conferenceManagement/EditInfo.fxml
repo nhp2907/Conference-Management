@@ -1,28 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="400.0" prefHeight="512.0" prefWidth="650.0" stylesheets="@css/EditInfoCSS.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.conferenceManagement.controllers.EditInfoController">
+<GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="400.0" prefHeight="658.0" prefWidth="803.0" stylesheets="@css/EditInfoCSS.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.conferenceManagement.controller.EditInfoController">
    <columnConstraints>
-      <ColumnConstraints maxWidth="1.7976931348623157E308" minWidth="40.00001831054688" percentWidth="7.0" prefWidth="40.00001831054688" />
-      <ColumnConstraints maxWidth="1.7976931348623157E308" minWidth="204.79998779296875" percentWidth="45.0" prefWidth="320.79998168945315" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" percentWidth="48.0" prefWidth="308.99999999999994" />
+      <ColumnConstraints maxWidth="1.7976931348623157E308" minWidth="40.00001831054688" percentWidth="12.0" prefWidth="40.00001831054688" />
+      <ColumnConstraints maxWidth="1.7976931348623157E308" minWidth="204.79998779296875" percentWidth="46.0" prefWidth="320.79998168945315" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" percentWidth="47.0" prefWidth="308.99999999999994" />
    </columnConstraints>
    <rowConstraints>
-      <RowConstraints maxHeight="113.80001831054688" minHeight="10.0" percentHeight="16.67" prefHeight="113.80001831054688" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="103.79998321533202" minHeight="10.0" percentHeight="16.67" prefHeight="57.199981689453125" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="113.80001831054688" minHeight="10.0" percentHeight="16.0" prefHeight="101.19999694824219" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="126.60000610351562" minHeight="10.0" percentHeight="16.67" prefHeight="117.80000305175781" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="120.39999999999999" minHeight="10.0" percentHeight="16.67" prefHeight="98.0000244140625" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="141.7999938964844" minHeight="10.0" percentHeight="16.67" prefHeight="83.00001220703123" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="96.19998779296876" minHeight="10.0" percentHeight="16.67" prefHeight="79.40001220703124" vgrow="SOMETIMES" />
@@ -34,77 +33,35 @@
          <children>
             <FontAwesomeIconView glyphName="HASHTAG">
                <HBox.margin>
-                  <Insets top="3.0" />
+                  <Insets />
                </HBox.margin>
             </FontAwesomeIconView>
-            <VBox maxHeight="35.0" prefHeight="35.0" prefWidth="232.0">
-               <children>
-                  <Label disable="${userNameTextField.text.empty}" text="${userNameTextField.promptText}">
-                     <VBox.margin>
-                        <Insets left="12.0" />
-                     </VBox.margin>
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="userNameTextField" maxHeight="30.0" prefHeight="30.0" prefWidth="223.0" promptText="User name">
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                     <font>
-                        <Font size="14.0" />
-                     </font></TextField>
-                  <Line endX="130.89288330078125" endY="-4.1419358253479" startX="353.38580322265625" startY="-4.226351261138916">
-                     <VBox.margin>
-                        <Insets left="12.0" />
-                     </VBox.margin>
-                  </Line>
-                  <Label fx:id="userNameExistedLabel" text="*tên đăng nhập đã tồn tại" textFill="RED" visible="false">
-                     <VBox.margin>
-                        <Insets left="12.0" top="5.0" />
-                     </VBox.margin>
-                  </Label>
-               </children>
-               <padding>
-                  <Insets left="10.0" />
-               </padding>
+            <JFXTextField fx:id="userNameTextField" labelFloat="true" promptText="Username">
+               <font>
+                  <Font size="14.0" />
+               </font>
                <HBox.margin>
-                  <Insets top="5.0" />
+                  <Insets left="15.0" />
                </HBox.margin>
-            </VBox>
+            </JFXTextField>
          </children>
       </HBox>
       <HBox alignment="CENTER_LEFT" maxWidth="300.0" prefHeight="100.0" prefWidth="200.0" visible="${visibleLabel.visible}" GridPane.columnIndex="1" GridPane.rowIndex="2">
          <children>
             <FontAwesomeIconView glyphName="LOCK">
                <HBox.margin>
-                  <Insets top="20.0" />
+                  <Insets />
                </HBox.margin>
             </FontAwesomeIconView>
+            <JFXPasswordField fx:id="passwordField" labelFloat="true" prefHeight="26.0" prefWidth="440.0" promptText="Mật khẩu">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="15.0" />
+               </HBox.margin>
+            </JFXPasswordField>
             <VBox maxHeight="30.0" prefHeight="30.0" prefWidth="222.0">
-               <children>
-                  <VBox maxHeight="30.0" prefHeight="30.0" prefWidth="222.0">
-                     <children>
-                        <Label text="Mật khẩu">
-                           <VBox.margin>
-                              <Insets left="12.0" />
-                           </VBox.margin>
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Label>
-                        <PasswordField fx:id="passwordField" promptText="Password">
-                           <font>
-                              <Font size="14.0" />
-                           </font></PasswordField>
-                        <Line endX="130.89288330078125" endY="-4.1419358253479" startX="353.38580322265625" startY="-4.226351261138916">
-                           <VBox.margin>
-                              <Insets left="12.0" />
-                           </VBox.margin>
-                        </Line>
-                     </children>
-                  </VBox>
-               </children>
                <padding>
                   <Insets left="10.0" />
                </padding>
@@ -115,112 +72,51 @@
          <children>
             <FontAwesomeIconView glyphName="LOCK">
                <HBox.margin>
-                  <Insets top="20.0" />
+                  <Insets />
                </HBox.margin>
             </FontAwesomeIconView>
-            <VBox maxHeight="30.0" prefHeight="30.0" prefWidth="222.0">
-               <children>
-                  <VBox maxHeight="30.0" prefHeight="30.0" prefWidth="222.0">
-                     <children>
-                        <Label text="Nhập lại mật khẩu">
-                           <VBox.margin>
-                              <Insets left="12.0" />
-                           </VBox.margin>
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Label>
-                        <PasswordField fx:id="retypePasswordField">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </PasswordField>
-                        <Line endX="130.89288330078125" endY="-4.1419358253479" startX="353.38580322265625" startY="-4.226351261138916">
-                           <VBox.margin>
-                              <Insets left="12.0" />
-                           </VBox.margin>
-                        </Line>
-                        <Label fx:id="wrongPasswordLabel" text="*mật khẩu không khớp" textFill="#ff0202" visible="false">
-                           <VBox.margin>
-                              <Insets left="12.0" top="5.0" />
-                           </VBox.margin>
-                        </Label>
-                     </children>
-                     <VBox.margin>
-                        <Insets top="20.0" />
-                     </VBox.margin>
-                  </VBox>
-               </children>
-               <padding>
-                  <Insets left="10.0" />
-               </padding>
-            </VBox>
+            <JFXPasswordField fx:id="retypePasswordField" labelFloat="true" prefHeight="26.0" prefWidth="276.0" promptText="Nhập lại mật khẩu">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="15.0" />
+               </HBox.margin>
+            </JFXPasswordField>
          </children>
       </HBox>
       <HBox alignment="CENTER_LEFT" maxWidth="300.0" prefHeight="100.0" prefWidth="200.0" visible="${visibleLabel.visible}" GridPane.columnIndex="1" GridPane.rowIndex="3">
          <children>
             <FontAwesomeIconView glyphName="USER">
                <HBox.margin>
-                  <Insets top="20.0" />
+                  <Insets />
                </HBox.margin>
             </FontAwesomeIconView>
-            <VBox maxHeight="35.0" prefHeight="35.0" prefWidth="222.0">
-               <children>
-                  <Label disable="${nameTextField.text.empty}" text="${nameTextField.promptText}">
-                     <VBox.margin>
-                        <Insets left="12.0" />
-                     </VBox.margin>
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="nameTextField" maxHeight="30.0" prefHeight="30.0" prefWidth="223.0" promptText="Họ Tên">
-                     <font>
-                        <Font size="14.0" />
-                     </font></TextField>
-                  <Line endX="130.89288330078125" endY="-4.1419358253479" startX="353.38580322265625" startY="-4.226351261138916">
-                     <VBox.margin>
-                        <Insets left="12.0" />
-                     </VBox.margin>
-                  </Line>
-               </children>
-               <padding>
-                  <Insets left="10.0" />
-               </padding>
-            </VBox>
+            <JFXTextField fx:id="nameTextField" labelFloat="true" promptText="Họ tên">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="15.0" />
+               </HBox.margin>
+            </JFXTextField>
          </children>
       </HBox>
       <HBox alignment="CENTER_LEFT" maxWidth="300.0" prefHeight="100.0" prefWidth="200.0" visible="${visibleLabel.visible}" GridPane.columnIndex="1" GridPane.rowIndex="4">
          <children>
             <FontAwesomeIconView glyphName="ENVELOPE">
                <HBox.margin>
-                  <Insets top="20.0" />
+                  <Insets />
                </HBox.margin>
             </FontAwesomeIconView>
-            <VBox maxHeight="30.0" prefHeight="30.0" prefWidth="222.0">
-               <children>
-                  <Label disable="${emailTextField.text.empty}" text="${emailTextField.promptText}">
-                     <VBox.margin>
-                        <Insets left="12.0" />
-                     </VBox.margin>
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="emailTextField" maxHeight="30.0" prefHeight="30.0" prefWidth="223.0" promptText="Email">
-                     <font>
-                        <Font size="14.0" />
-                     </font></TextField>
-                  <Line endX="130.89288330078125" endY="-4.1419358253479" startX="353.38580322265625" startY="-4.226351261138916">
-                     <VBox.margin>
-                        <Insets left="12.0" />
-                     </VBox.margin>
-                  </Line>
-               </children>
-               <padding>
-                  <Insets left="10.0" />
-               </padding>
-            </VBox>
+            <JFXTextField fx:id="emailTextField" promptText="Email">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="15.0" />
+               </HBox.margin>
+            </JFXTextField>
          </children>
       </HBox>
       <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="30.0" visible="${visibleLabel.visible}" GridPane.columnIndex="2" GridPane.rowIndex="5">
@@ -247,7 +143,7 @@
                   <Font name="System Bold" size="15.0" />
                </font>
                <VBox.margin>
-                  <Insets top="25.0" />
+                  <Insets top="30.0" />
                </VBox.margin>
             </Label>
             <Label fx:id="notLoggedInLabel" text="*bạn chưa đăng nhập" textFill="RED" visible="false" />
@@ -256,6 +152,6 @@
             <Insets top="10.0" />
          </padding>
       </VBox>
-      <Label fx:id="visibleLabel" GridPane.columnIndex="2" />
+      <Label fx:id="visibleLabel" prefHeight="18.0" prefWidth="115.0" GridPane.columnIndex="2" />
    </children>
 </GridPane>

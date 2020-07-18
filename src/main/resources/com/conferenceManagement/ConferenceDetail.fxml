@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="549.0" prefWidth="923.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.conferenceManagement.controllers.ConferenceDetailController">
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="549.0" prefWidth="923.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.conferenceManagement.controller.ConferenceDetailController">
     <children>
         <AnchorPane fx:id="topBar" maxHeight="100.0" maxWidth="1.7976931348623157E308" minHeight="60.0" prefHeight="60.0" prefWidth="600.0" style="-fx-background-color: #F3F3F3;">
             <effect>
@@ -42,14 +42,14 @@
         </AnchorPane>
     <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="1000.0" prefWidth="900.0" style="-fx-background-color: white; -fx-border-color: white; -fx-border-width: 0;">
          <children>
-            <ImageView fitHeight="143.0" fitWidth="146.0" layoutX="66.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="323.6" AnchorPane.leftAnchor="66.0" AnchorPane.topAnchor="23.0">
+            <ImageView fitHeight="163.0" fitWidth="154.0" layoutX="55.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="304.0" AnchorPane.leftAnchor="55.0" AnchorPane.topAnchor="23.0">
                <image>
                   <Image url="@images/defautl-conference.jpg" />
                </image>
                <effect>
                   <DropShadow blurType="TWO_PASS_BOX" color="#7a9397" height="18.62" radius="9.405000000000001" spread="0.92" />
                </effect></ImageView>
-            <VBox layoutX="263.0" layoutY="29.0" prefHeight="94.0" prefWidth="274.0" AnchorPane.leftAnchor="263.0" AnchorPane.rightAnchor="362.6" AnchorPane.topAnchor="29.0">
+            <VBox layoutX="263.0" layoutY="29.0" prefHeight="206.0" prefWidth="599.0" spacing="5.0" AnchorPane.leftAnchor="263.0" AnchorPane.rightAnchor="61.0" AnchorPane.topAnchor="29.0">
                <children>
                   <Label fx:id="nameLabel" prefHeight="26.0" prefWidth="328.0" text="Tên hội nghị">
                      <font>
@@ -71,7 +71,7 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Label fx:id="detailDescriptionLabel" text="Chi tiết">
+                  <Label fx:id="detailDescriptionLabel" alignment="TOP_LEFT" maxHeight="200.0" minHeight="70.0" prefHeight="72.0" prefWidth="596.0" text="Chi tiết" wrapText="true">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -85,8 +85,8 @@
                   </Label>
                </children>
             </VBox>
-            <TableView fx:id="tableView" layoutX="60.0" layoutY="253.0" prefHeight="230.0" prefWidth="803.0" style="-fx-border-color: #F3F3F3; -fx-background-color: white;" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="229.20000000000002" />
-            <Label layoutX="60.0" layoutY="197.0" prefHeight="22.0" prefWidth="212.0" text="Danh sách thành viên đăng ký" wrapText="true" AnchorPane.leftAnchor="60.0">
+            <TableView fx:id="tableView" layoutX="60.0" layoutY="245.0" prefHeight="230.0" prefWidth="803.0" style="-fx-border-color: #F3F3F3; -fx-background-color: white;" AnchorPane.bottomAnchor="14.200000000000045" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="245.0" />
+            <Label layoutX="60.0" layoutY="212.0" prefHeight="22.0" prefWidth="212.0" text="Danh sách thành viên đăng ký" wrapText="true" AnchorPane.leftAnchor="60.0">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>

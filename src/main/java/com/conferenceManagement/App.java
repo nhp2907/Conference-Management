@@ -1,8 +1,7 @@
 package com.conferenceManagement;
 
-import com.conferenceManagement.models.Admin;
-import com.conferenceManagement.models.Guest;
-import com.conferenceManagement.models.User;
+import com.conferenceManagement.model.Guest;
+import com.conferenceManagement.model.User;
 import javafx.application.Application;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;

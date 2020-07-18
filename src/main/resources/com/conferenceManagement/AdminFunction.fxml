@@ -12,7 +12,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="100.0" maxWidth="1.7976931348623157E308" minHeight="60.0" prefHeight="60.0" prefWidth="1000.0" style="-fx-background-color: #F3F3F3;" stylesheets="@css/EditInfoCSS.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.conferenceManagement.controllers.AdminFunctionController">
+<AnchorPane maxHeight="100.0" maxWidth="1.7976931348623157E308" minHeight="60.0" prefHeight="60.0" prefWidth="1000.0" style="-fx-background-color: #F3F3F3;" stylesheets="@css/EditInfoCSS.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.conferenceManagement.controller.AdminFunctionController">
    <children>
       <Label layoutX="47.0" layoutY="18.0" prefHeight="33.0" prefWidth="219.0" text="Danh sách hội nghị" textFill="#441010" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="15.0">
          <font>

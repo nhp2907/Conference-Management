@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="700.0" maxWidth="460.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="491.0" prefWidth="460.0" stylesheets="@css/EditInfoCSS.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.conferenceManagement.controllers.AddPlaceController">
+<AnchorPane maxHeight="700.0" maxWidth="460.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="491.0" prefWidth="460.0" stylesheets="@css/EditInfoCSS.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.conferenceManagement.controller.AddPlaceController">
    <children>
       <VBox layoutX="94.0" layoutY="45.0" prefHeight="376.0" prefWidth="270.0" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="90.0" AnchorPane.topAnchor="60.0">
          <children>

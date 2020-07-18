@@ -15,9 +15,9 @@ module com.conferenceManagement {
 
     exports com.conferenceManagement;
 
-    opens com.conferenceManagement.controllers to javafx.fxml;
-    exports com.conferenceManagement.controllers;
+    opens com.conferenceManagement.controller to javafx.fxml;
+    exports com.conferenceManagement.controller;
 
-    opens com.conferenceManagement.models;
-    exports com.conferenceManagement.models;
+    opens com.conferenceManagement.model;
+    exports com.conferenceManagement.model;
 }
