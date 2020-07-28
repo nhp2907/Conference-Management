@@ -13,19 +13,18 @@
     -fx-font-size:14;
 }
 
+.table-column {
+    -fx-alignment: center-left;
+}
+
 .table-row-cell:empty {
     -fx-background-color: transparent;
 }
 
-.table-column {
-     -fx-alignment: center-left;
-}
-
-
 .table-row-cell {
-    -fx-pref-height:40;
+    -fx-cell-size: 40px;
+    -fx-alignment: center;
 }
-
 
 .table-row-cell .text{
     -fx-fill: black ;

@@ -8,17 +8,26 @@ import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Callback;
+import net.bytebuddy.asm.Advice;
+import org.hibernate.cache.spi.support.AbstractReadWriteAccess;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
@@ -83,46 +92,15 @@ public class ConferenceListForGuestController extends ControllerBase {
         });
 
         initTable();
+        initContextMenu();
 
-        MenuItem editItem = new MenuItem("Sữa thông tin");
-        editItem.setOnAction(event -> {
-            var selectedItem = tableView.getSelectionModel().getSelectedItem();
-            if (selectedItem.getEndDateTime().compareTo(LocalDateTime.now()) <= 0){
-                return;
-            }
-            try {
-                var editConferenceUF = new UserFunction("EditConference");
-                var stage = new Stage();
-
-                var controller = (EditConferenceController) editConferenceUF.getController();
-                controller.updateConferenceInfo(selectedItem);
-
-                controller.returnDataFunction = (conference) -> {
-                    tableView.refresh();
-                };
-
-                stage.setScene(new Scene(editConferenceUF.getView()));
-                stage.show();
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        });
-        contextMenu = new ContextMenu();
-        contextMenu.getItems().add(editItem);
-
-        if (App.getUser() instanceof Admin) {
-            tableView.setContextMenu(contextMenu);
-        }
 
     }
 
     void initTable() {
-        var idColumn = new TableColumn<Conference, Long>("ID");
-        idColumn.setCellValueFactory(t -> {
-            return new SimpleLongProperty(t.getValue().getId()).asObject();
-        });
+        var idColumn = new TableColumn<Conference, Long>("STT");
+        idColumn.setPrefWidth(70);
+        idColumn.setCellValueFactory(t -> new SimpleLongProperty(t.getValue().getId()).asObject());
 
         var nameColumn = new TableColumn<Conference, String>("Tên ");
         nameColumn.setPrefWidth(230);
@@ -134,27 +112,48 @@ public class ConferenceListForGuestController extends ControllerBase {
             return new SimpleStringProperty(t.getValue().getHoldPlace().toString());
         });
 
-        var timeColumn = new TableColumn<Conference, String>("Thời gian bắt đầu");
-        timeColumn.setPrefWidth(150);
-        timeColumn.setCellValueFactory(cellData -> {
-            var date = cellData.getValue().getStartDateTime();
-            var formater = DateTimeFormatter.ofPattern("dd-MM-yyyy, hh:mm a");
-            return new SimpleStringProperty(formater.format(date));
+        var startTimeColumn = new TableColumn<Conference, LocalDateTime>("Thời gian bắt đầu");
+        startTimeColumn.setPrefWidth(170);
+        startTimeColumn.setCellValueFactory(cellData -> {
+            return new SimpleObjectProperty<>(cellData.getValue().getStartDateTime());
         });
+        startTimeColumn.setCellFactory(column ->
+                new TableCell<>() {
+                    @Override
+                    protected void updateItem(LocalDateTime localDateTime, boolean b) {
+                        super.updateItem(localDateTime, b);
+                        if (b || localDateTime == null) {
+                            setGraphic(null);
+                        } else {
+                            var formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy, hh:mm a");
+                            setText(formatter.format(column.getTableView().getItems().get(getIndex()).getStartDateTime()));
+                        }
+                    }
+                });
 
-        var endTimeColum = new TableColumn<Conference, String>("Thời gian kết thúc");
-        endTimeColum.setPrefWidth(150);
-        endTimeColum.setCellValueFactory(cellData -> {
-            var date = cellData.getValue().getEndDateTime();
-            var formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy, hh:mm a");
-            return new SimpleStringProperty(formatter.format(date));
-        });
+        var endTimeColum = new TableColumn<Conference, LocalDateTime>("Thời gian kết thúc");
+        endTimeColum.setCellFactory(column ->
+                new TableCell<>() {
+                    @Override
+                    protected void updateItem(LocalDateTime localDateTime, boolean b) {
+                        super.updateItem(localDateTime, b);
+                        if (b || localDateTime == null) {
+                            setGraphic(null);
+                        } else {
+                            setText(DateTimeFormatter.ofPattern("dd-MM-yyyy, hh:mm a")
+                                    .format(column.getTableView().getItems().get(getIndex()).getStartDateTime()));
+                        }
+                    }
+                });
+
+        endTimeColum.setPrefWidth(170);
+        endTimeColum.setCellValueFactory(cellData ->
+                new SimpleObjectProperty<>(cellData.getValue().getEndDateTime()));
 
         var descriptionColumn = new TableColumn<Conference, String>("Mô tả");
         descriptionColumn.setPrefWidth(250);
-        descriptionColumn.setCellValueFactory(cellData -> {
-            return new SimpleStringProperty(cellData.getValue().getShortDescription());
-        });
+        descriptionColumn.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getShortDescription()));
 
         var countColumn = new TableColumn<Conference, Integer>("Số lượng");
         countColumn.setPrefWidth(100);
@@ -165,16 +164,59 @@ public class ConferenceListForGuestController extends ControllerBase {
             return new SimpleIntegerProperty(number).asObject();
         });
 
+
+        startTimeColumn.setStyle("-fx-alignment: center");
+        endTimeColum.setStyle("-fx-alignment: center");
         idColumn.setStyle("-fx-alignment: center");
         countColumn.setStyle("-fx-alignment: center");
 
         tableView.setItems(conferences);
         tableView.setEditable(true);
-        tableView.getColumns().setAll(idColumn, nameColumn, addressColumn, timeColumn, endTimeColum, descriptionColumn, countColumn);
+        tableView.getColumns().setAll(idColumn, nameColumn, addressColumn, startTimeColumn, endTimeColum, descriptionColumn, countColumn);
         tableView.setStyle("-fx-selection-bar: #9AD9D4; -fx-selection-bar-non-focused: #A7CCC9;");
 
         tableView.setRowFactory(tv -> {
-            TableRow<Conference> row = new TableRow<>();
+//            try {
+            final TableRow<Conference> row = new TableRow<>();
+//                    UserFunction uf = new UserFunction("RowDetail");
+//                    RowDetailController controller = (RowDetailController) uf.getController();
+//                    Node detailsPane;
+//
+//                    {
+//                        detailsPane = uf.getView();
+//                        selectedProperty().addListener((obs, wasSelected, isNowSelected) -> {
+//                            if (isNowSelected) {
+//                                controller.setConference(itemProperty());
+//                                getChildren().add(detailsPane);
+//                            } else {
+//                                getChildren().remove(detailsPane);
+//                            }
+//
+//                            this.requestLayout();
+//                        });
+//                    }
+
+//                    @Override
+//                    protected double computePrefHeight(double width) {
+//                        if (isSelected()) {
+//                            return super.computePrefHeight(width) + detailsPane.prefHeight(getWidth());
+//                        } else {
+//                            return super.computePrefHeight(width);
+//                        }
+//                    }
+//
+//                    @Override
+//                    protected void layoutChildren() {
+//                        super.layoutChildren();
+//                        if (isSelected()) {
+//                            double width = getWidth();
+//                            double paneHeight = detailsPane.prefHeight(width);
+//                            detailsPane.resizeRelocate(0, getHeight() - paneHeight, width, paneHeight);
+//                        }
+//                    }
+//                };
+
+
             row.setOnMouseClicked(mouseEvent -> {
                 //load the detail view
                 try {
@@ -195,10 +237,45 @@ public class ConferenceListForGuestController extends ControllerBase {
                     e.printStackTrace();
                 }
             });
-
             return row;
+
+
         });
     }
 
+    void initContextMenu() {
+        MenuItem editItem = new MenuItem("Sữa thông tin");
+        editItem.setOnAction(event -> {
+            var selectedItem = tableView.getSelectionModel().getSelectedItem();
+            if (selectedItem.getEndDateTime().compareTo(LocalDateTime.now()) <= 0) {
+                Alert a = new Alert(Alert.AlertType.WARNING, "Hội nghị đã diễn ra không được sữa đổi thông tin",
+                        ButtonType.OK);
+                a.show();
+                return;
+            }
+            try {
+                var editConferenceUF = new UserFunction("EditConference");
+                var stage = new Stage();
+
+                var controller = (EditConferenceController) editConferenceUF.getController();
+                controller.updateConferenceInfo(selectedItem);
+
+                controller.returnDataFunction = conference -> tableView.refresh();
+
+                stage.setScene(new Scene(editConferenceUF.getView()));
+                stage.show();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        });
+        contextMenu = new ContextMenu();
+        contextMenu.getItems().add(editItem);
+
+        if (App.getUser() instanceof Admin) {
+            tableView.setContextMenu(contextMenu);
+        }
+    }
 
 }

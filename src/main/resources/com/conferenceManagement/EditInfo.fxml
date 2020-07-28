@@ -1,157 +1,226 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="400.0" prefHeight="658.0" prefWidth="803.0" stylesheets="@css/EditInfoCSS.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.conferenceManagement.controller.EditInfoController">
+<GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="400.0" minWidth="400.0" prefHeight="616.0" prefWidth="808.0" style="-fx-background-color: white;" stylesheets="@css/EditInfoCSS.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.conferenceManagement.controller.EditInfoController">
    <columnConstraints>
-      <ColumnConstraints maxWidth="1.7976931348623157E308" minWidth="40.00001831054688" percentWidth="12.0" prefWidth="40.00001831054688" />
-      <ColumnConstraints maxWidth="1.7976931348623157E308" minWidth="204.79998779296875" percentWidth="46.0" prefWidth="320.79998168945315" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" percentWidth="47.0" prefWidth="308.99999999999994" />
+      <ColumnConstraints maxWidth="193.0" minWidth="50.0" prefWidth="193.0" />
+      <ColumnConstraints maxWidth="1.7976931348623157E308" minWidth="204.79998779296875" prefWidth="359.79999999999995" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="255.80000000000007" />
    </columnConstraints>
    <rowConstraints>
-      <RowConstraints maxHeight="113.80001831054688" minHeight="10.0" percentHeight="16.0" prefHeight="101.19999694824219" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="126.60000610351562" minHeight="10.0" percentHeight="16.67" prefHeight="117.80000305175781" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="120.39999999999999" minHeight="10.0" percentHeight="16.67" prefHeight="98.0000244140625" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="141.7999938964844" minHeight="10.0" percentHeight="16.67" prefHeight="83.00001220703123" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="96.19998779296876" minHeight="10.0" percentHeight="16.67" prefHeight="79.40001220703124" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="99.60001220703123" minHeight="10.0" percentHeight="16.0" prefHeight="59.60002441406249" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="61.99997558593748" minHeight="10.0" prefHeight="37.19998779296873" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="145.5999969482422" minHeight="10.0" percentHeight="0.0" prefHeight="85.5999969482422" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="163.19999618530275" minHeight="10.0" prefHeight="131.80001220703124" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="161.39999999999998" minHeight="10.0" prefHeight="119.19999389648436" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="172.39999694824218" minHeight="10.0" prefHeight="116.00002441406247" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="133.6000183105469" minHeight="10.0" percentHeight="0.0" prefHeight="117.5999755859375" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="100.0000122070312" minHeight="10.0" prefHeight="32.000012207031205" vgrow="SOMETIMES" />
    </rowConstraints>
    <children>
-      <HBox alignment="CENTER_LEFT" maxWidth="300.0" prefHeight="100.0" prefWidth="200.0" visible="${visibleLabel.visible}" GridPane.columnIndex="1" GridPane.rowIndex="1">
+      <HBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="109.0" prefWidth="355.0" spacing="15.0" visible="${visibleLabel.visible}" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <children>
             <FontAwesomeIconView glyphName="HASHTAG">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
             </FontAwesomeIconView>
-            <JFXTextField fx:id="userNameTextField" labelFloat="true" promptText="Username">
+            <JFXTextField fx:id="userNameTextField" editable="false" labelFloat="true" maxWidth="288.0" minWidth="200.0" prefHeight="30.0" prefWidth="288.0" promptText="Username">
                <font>
                   <Font size="14.0" />
                </font>
                <HBox.margin>
-                  <Insets left="15.0" />
+                  <Insets />
                </HBox.margin>
             </JFXTextField>
-         </children>
-      </HBox>
-      <HBox alignment="CENTER_LEFT" maxWidth="300.0" prefHeight="100.0" prefWidth="200.0" visible="${visibleLabel.visible}" GridPane.columnIndex="1" GridPane.rowIndex="2">
-         <children>
-            <FontAwesomeIconView glyphName="LOCK">
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-            </FontAwesomeIconView>
-            <JFXPasswordField fx:id="passwordField" labelFloat="true" prefHeight="26.0" prefWidth="440.0" promptText="Mật khẩu">
-               <font>
-                  <Font size="14.0" />
-               </font>
-               <HBox.margin>
-                  <Insets left="15.0" />
-               </HBox.margin>
-            </JFXPasswordField>
-            <VBox maxHeight="30.0" prefHeight="30.0" prefWidth="222.0">
-               <padding>
-                  <Insets left="10.0" />
-               </padding>
-            </VBox>
-         </children>
-      </HBox>
-      <HBox alignment="CENTER_LEFT" maxWidth="337.0" prefHeight="96.0" prefWidth="337.0" visible="${visibleLabel.visible}" GridPane.columnIndex="2" GridPane.rowIndex="2">
-         <children>
-            <FontAwesomeIconView glyphName="LOCK">
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-            </FontAwesomeIconView>
-            <JFXPasswordField fx:id="retypePasswordField" labelFloat="true" prefHeight="26.0" prefWidth="276.0" promptText="Nhập lại mật khẩu">
-               <font>
-                  <Font size="14.0" />
-               </font>
-               <HBox.margin>
-                  <Insets left="15.0" />
-               </HBox.margin>
-            </JFXPasswordField>
-         </children>
-      </HBox>
-      <HBox alignment="CENTER_LEFT" maxWidth="300.0" prefHeight="100.0" prefWidth="200.0" visible="${visibleLabel.visible}" GridPane.columnIndex="1" GridPane.rowIndex="3">
-         <children>
-            <FontAwesomeIconView glyphName="USER">
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-            </FontAwesomeIconView>
-            <JFXTextField fx:id="nameTextField" labelFloat="true" promptText="Họ tên">
-               <font>
-                  <Font size="14.0" />
-               </font>
-               <HBox.margin>
-                  <Insets left="15.0" />
-               </HBox.margin>
-            </JFXTextField>
-         </children>
-      </HBox>
-      <HBox alignment="CENTER_LEFT" maxWidth="300.0" prefHeight="100.0" prefWidth="200.0" visible="${visibleLabel.visible}" GridPane.columnIndex="1" GridPane.rowIndex="4">
-         <children>
-            <FontAwesomeIconView glyphName="ENVELOPE">
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-            </FontAwesomeIconView>
-            <JFXTextField fx:id="emailTextField" promptText="Email">
-               <font>
-                  <Font size="14.0" />
-               </font>
-               <HBox.margin>
-                  <Insets left="15.0" />
-               </HBox.margin>
-            </JFXTextField>
-         </children>
-      </HBox>
-      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="30.0" visible="${visibleLabel.visible}" GridPane.columnIndex="2" GridPane.rowIndex="5">
-         <children>
-            <JFXButton fx:id="logOutButton" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #E4E6EB;" text="Đăng xuất">
-               <font>
-                  <Font name="System Bold" size="13.0" />
-               </font>
-            </JFXButton>
-            <JFXButton fx:id="updateButton" buttonType="RAISED" disable="true" prefHeight="40.0" prefWidth="100.0" ripplerFill="WHITE" style="-fx-background-color: #202B30;" text="Cập nhật" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="13.0" />
-               </font>
-            </JFXButton>
          </children>
          <GridPane.margin>
-            <Insets left="30.0" />
+            <Insets top="20.0" />
          </GridPane.margin>
       </HBox>
-      <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
+      <HBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="92.0" prefWidth="393.0" spacing="15.0" visible="${visibleLabel.visible}" GridPane.columnIndex="1" GridPane.rowIndex="2">
          <children>
-            <Label prefHeight="30.0" prefWidth="345.0" text="Thông tin tài khoản">
+            <FontAwesomeIconView glyphName="LOCK">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </FontAwesomeIconView>
+            <JFXPasswordField fx:id="passwordField" editable="false" labelFloat="true" maxWidth="255.0" minWidth="200.0" prefHeight="30.0" prefWidth="255.0" promptText="Mật khẩu">
                <font>
-                  <Font name="System Bold" size="15.0" />
+                  <Font size="14.0" />
                </font>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </JFXPasswordField>
+            <StackPane maxHeight="20.0" maxWidth="20.0" prefHeight="14.0" prefWidth="0.0">
+               <children>
+                  <ImageView fitHeight="26.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <image>
+                        <Image url="@images/icons8_save_32.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="passwordEditButton" fitHeight="21.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/icons8_edit_32.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </StackPane>
+         </children>
+      </HBox>
+      <Label fx:id="visibleLabel" prefHeight="18.0" prefWidth="115.0" GridPane.columnIndex="2" />
+      <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="50.0" prefHeight="118.0" prefWidth="780.0" style="-fx-background-color: #F2F2F2;" GridPane.columnSpan="3">
+         <GridPane.margin>
+            <Insets />
+         </GridPane.margin>
+         <children>
+            <HBox layoutX="588.0" layoutY="17.0" spacing="25.0" AnchorPane.bottomAnchor="16.599999999999994" AnchorPane.rightAnchor="68.0" AnchorPane.topAnchor="17.0">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="52.0" prefWidth="115.0">
+                     <children>
+                        <ImageView fitHeight="26.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/icons8_todo_list_32.png" />
+                           </image>
+                        </ImageView>
+                        <Label prefHeight="20.0" prefWidth="123.0" text="Thống kê hội nghị">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox fx:id="logOutButton" alignment="CENTER" prefHeight="52.0" prefWidth="63.0">
+                     <children>
+                        <ImageView fitHeight="29.0" fitWidth="31.0" opacity="0.55" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/icons8_logout_rounded_up_32.png" />
+                           </image>
+                        </ImageView>
+                        <Label text="Đăng xuất">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <VBox layoutX="162.0" layoutY="26.0" minWidth="50.0" prefHeight="46.0" prefWidth="255.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="193.0" AnchorPane.topAnchor="26.0">
+               <children>
+                  <Label minWidth="50.0" prefHeight="30.0" prefWidth="250.0" text="Thông tin tài khoản">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="notLoggedInLabel" minWidth="50.0" prefHeight="18.0" prefWidth="183.0" text="*đã đăng xuất" textFill="#f20202" visible="false" />
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+      <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+         <children>
+            <HBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="38.0" prefWidth="359.0" spacing="15.0" visible="${visibleLabel.visible}">
+               <children>
+                  <FontAwesomeIconView glyphName="USER">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </FontAwesomeIconView>
+                  <JFXTextField fx:id="nameTextField" editable="false" labelFloat="true" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" promptText="Họ tên">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </JFXTextField>
+                  <StackPane maxHeight="20.0" maxWidth="20.0" prefHeight="68.0" prefWidth="42.0">
+                     <children>
+                        <ImageView fx:id="nameSaveImageButton" fitHeight="26.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                           <image>
+                              <Image url="@images/icons8_save_32.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="nameEditButton" fitHeight="21.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/icons8_edit_32.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </StackPane>
+                  <ImageView fx:id="nameCancelButton" fitHeight="23.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <image>
+                        <Image url="@images/icons8_cancel_32.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+            <Label prefHeight="18.0" prefWidth="361.0" text="Label" textFill="RED" visible="false">
                <VBox.margin>
-                  <Insets top="30.0" />
+                  <Insets left="25.0" />
                </VBox.margin>
             </Label>
-            <Label fx:id="notLoggedInLabel" text="*bạn chưa đăng nhập" textFill="RED" visible="false" />
          </children>
-         <padding>
-            <Insets top="10.0" />
-         </padding>
       </VBox>
-      <Label fx:id="visibleLabel" prefHeight="18.0" prefWidth="115.0" GridPane.columnIndex="2" />
+      <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+         <children>
+            <HBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="39.0" prefWidth="359.0" spacing="15.0" visible="${visibleLabel.visible}">
+               <children>
+                  <FontAwesomeIconView glyphName="ENVELOPE">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </FontAwesomeIconView>
+                  <JFXTextField fx:id="emailTextField" editable="false" labelFloat="true" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" promptText="Email">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </JFXTextField>
+                  <StackPane prefHeight="118.0" prefWidth="0.0">
+                     <children>
+                        <ImageView fx:id="emailSaveImageButton" fitHeight="26.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                           <image>
+                              <Image url="@images/icons8_save_32.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="emailEditButton" fitHeight="21.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/icons8_edit_32.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </StackPane>
+                  <ImageView fx:id="emailCancelButton" fitHeight="23.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <image>
+                        <Image url="@images/icons8_cancel_32.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+            <Label text="Label" textFill="RED" visible="false">
+               <VBox.margin>
+                  <Insets left="25.0" />
+               </VBox.margin>
+            </Label>
+         </children>
+      </VBox>
    </children>
 </GridPane>

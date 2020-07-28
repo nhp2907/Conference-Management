@@ -1,14 +1,62 @@
 package com.conferenceManagement.dao;
 
+import com.conferenceManagement.model.Conference;
 import com.conferenceManagement.model.ConferenceAttendance;
 import com.conferenceManagement.dao.hibernate.HibernateUtils;
+import com.conferenceManagement.model.User;
+import net.bytebuddy.asm.Advice;
 import org.hibernate.Transaction;
 
+import javax.persistence.TemporalType;
+import java.sql.Date;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ConferenceAttendanceDAO {
-    public static List<ConferenceAttendance> getUsersByConferenceID(Long id) {
+    public static boolean isExists(Conference c, User u) {
+        var session = HibernateUtils.getSessionFactory().openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            var result = session.createQuery("from ConferenceAttendance as cfa where cfa.conference = ?1 " +
+                    "and cfa.user = ?2", ConferenceAttendance.class)
+                    .setParameter(1, c)
+                    .setParameter(2, u)
+                    .uniqueResult();
+
+            return result != null;
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            tx.rollback();
+        } finally {
+            session.close();
+        }
+        return false;
+    }
+    public static ConferenceAttendance getConferenceById(Conference c, User u) {
+        var session = HibernateUtils.getSessionFactory().openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            var result = session.createQuery("from ConferenceAttendance as cfa where cfa.conference = ?1 " +
+                    "and cfa.user = ?2", ConferenceAttendance.class)
+                    .setParameter(1, c)
+                    .setParameter(2, u)
+                    .uniqueResult();
+
+            return result;
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            tx.rollback();
+        } finally {
+            session.close();
+        }
+        return null;
+    }
+
+    public static List<ConferenceAttendance> getConferencesByConferenceId(Long id) {
         var session = HibernateUtils.getSessionFactory().openSession();
         Transaction tx = null;
         try {
@@ -80,5 +128,107 @@ public class ConferenceAttendanceDAO {
             tx.rollback();
             e.printStackTrace();
         }
+    }
+
+    public static void deleteAttendanceRegistrationByUser(User user) {
+        Transaction tx = null;
+        var session = HibernateUtils.getSessionFactory().openSession();
+        try {
+            tx = session.beginTransaction();
+            if (!tx.isActive())
+                tx.begin();
+
+            var currentDate = LocalDateTime.now();
+            var sql = "delete ca from conferenceattendance ca join conferences c " +
+                    "on ca.conferenceID = c.id " +
+                    "where ca.userid = ? and c.startDateTime > ?";
+            var q = session.createSQLQuery(sql)
+                    .setParameter(1, user.getId())
+                    .setParameter(2, currentDate);
+            q.executeUpdate();
+
+
+//            var query = session.createQuery("delete from ConferenceAttendance as c where c.user = ?1" +
+//                    " and c.conference.startDateTime > ?2")
+//                    .setParameter(1, user)
+//                    .setParameter(2, currentDate);
+//            query.executeUpdate();
+
+            tx.commit();
+        } catch (Exception e) {
+            tx.rollback();
+            e.printStackTrace();
+        }
+    }
+
+    //conferenceAttendance'is id has 2 columns
+    public static List<ConferenceAttendance> getConferencesById(Conference conference, User user) {
+        Transaction tx = null;
+        var session = HibernateUtils.getSessionFactory().openSession();
+        try {
+            tx = session.beginTransaction();
+            if (!tx.isActive())
+                tx.begin();
+
+            var result = session.createQuery("from ConferenceAttendance where conference = ?1" +
+                    "and user = ?2", ConferenceAttendance.class)
+                    .setParameter(1, conference)
+                    .setParameter(2, user)
+                    .list();
+
+            tx.commit();
+
+            return result;
+        } catch (Exception e) {
+            tx.rollback();
+            e.printStackTrace();
+        }
+
+        return new ArrayList<>();
+    }
+
+    public static List<ConferenceAttendance> getConferencesByConference(Conference conference) {
+        Transaction tx = null;
+        var session = HibernateUtils.getSessionFactory().openSession();
+        try {
+            tx = session.beginTransaction();
+            if (!tx.isActive())
+                tx.begin();
+
+            var result = session.createQuery("from ConferenceAttendance where conference = ?1", ConferenceAttendance.class)
+                    .setParameter(1, conference)
+                    .list();
+
+            tx.commit();
+
+            return result;
+        } catch (Exception e) {
+            tx.rollback();
+            e.printStackTrace();
+        }
+
+        return new ArrayList<>();
+    }
+
+    public static void deleteAttendanceRegistrationById(Conference conference, User user) {
+        Transaction tx = null;
+        var session = HibernateUtils.getSessionFactory().openSession();
+        try {
+            tx = session.beginTransaction();
+            if (!tx.isActive())
+                tx.begin();
+
+            var query = session.createQuery("delete from ConferenceAttendance where conference = ?1 " +
+                    "and user = ?2")
+                    .setParameter(1, conference)
+                    .setParameter(2, user);
+            query.executeUpdate();
+            tx.commit();
+
+        } catch (Exception e) {
+            tx.rollback();
+            e.printStackTrace();
+        }
+
     }
 }

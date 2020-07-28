@@ -1,0 +1,19 @@
+
+t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(òÕÐ½þÿÿÿÿ
+\
+java:S1128"ARemove this unused import 'com.conferenceManagement.dao.UserDAO'.(–çÚÏûÿÿÿÿ
+k
+java:S1128"PRemove this unused import 'com.conferenceManagement.model.ConferenceAttendance'.(¯‘°žýÿÿÿÿ
+m
+java:S3776"RRefactor this method to reduce its Cognitive Complexity from 20 to the 15 allowed.(•‘ÝŸüÿÿÿÿ
+i
+java:S16021"SRemove useless curly braces around statement and then remove useless return keyword(÷ŽØü
+X
+java:S1854:"=Remove this useless assignment to local variable "!unknown!".(Î´‚õþÿÿÿÿ
+>
+java:S1125@"(Remove the literal "true" boolean value.(Ú­˜Ï
+n
+java:S1602^"SRemove useless curly braces around statement and then remove useless return keyword(ÜÅ§Šüÿÿÿÿ
+X
+java:S1854h"=Remove this useless assignment to local variable "!unknown!".(¦šÐµüÿÿÿÿ
+Q	java:S125w"<This block of commented-out lines of code should be removed.(ÚçõÓ

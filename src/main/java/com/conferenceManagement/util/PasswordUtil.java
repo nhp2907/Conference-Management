@@ -23,7 +23,7 @@ import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 
 //ref: https://howtodoinjava.com/security/how-to-generate-secure-password-hash-md5-sha-pbkdf2-bcrypt-examples/
-public final class PasswordAuthentication {
+public final class PasswordUtil {
 
     public static String hash(String password) {
         SecureRandom sr = null;

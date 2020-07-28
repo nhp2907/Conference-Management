@@ -110,6 +110,6 @@ public class User extends RecursiveTreeObject<User> {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, userName, password, email, status);
+        return Objects.hash(id, name, userName, password, email);
     }
 }

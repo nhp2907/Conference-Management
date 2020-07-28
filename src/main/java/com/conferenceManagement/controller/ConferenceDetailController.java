@@ -21,13 +21,18 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class ConferenceDetailController extends ControllerBase {
 
     @FXML
     JFXButton registerButton;
+    @FXML
+    JFXButton cancelButton;
     @FXML
     HBox backButton;
     @FXML
@@ -44,6 +49,9 @@ public class ConferenceDetailController extends ControllerBase {
     TableView<ConferenceAttendance> tableView;
     JFXTextField textField;
 
+    @FXML
+    HBox approvingHbox;
+
     TableColumn<ConferenceAttendance, Boolean> statusColumn;
 
     public Parent previousView;
@@ -53,14 +61,34 @@ public class ConferenceDetailController extends ControllerBase {
 
     UserRegistrationConferenceController userRegistrationConferenceController;
 
+    BooleanProperty isRegistered = new SimpleBooleanProperty(false);
+    BooleanProperty conferenceHasTaken = new SimpleBooleanProperty(false);
+    BooleanProperty isConferenceFull = new SimpleBooleanProperty(false);
+    BooleanProperty isApproved = new SimpleBooleanProperty(false);
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //set conference info
+        registerButton.visibleProperty().bind(isRegistered.not().or(conferenceHasTaken));
+        registerButton.disableProperty().bind(isRegistered.or(conferenceHasTaken).or(isConferenceFull));
+        cancelButton.visibleProperty().bind(isRegistered.and(conferenceHasTaken.not()));
+        approvingHbox.visibleProperty().bind(isRegistered.and(isApproved.not()));
 
         //set register button status
         /* create table view */
         createTableView();
         /* set register button clicked */
+        cancelButton.setOnAction(event -> {
+            if (conference.getStartDateTime().compareTo(LocalDateTime.now()) > 0) {
+                ConferenceAttendanceDAO.deleteAttendanceRegistrationById(conference, App.getUser());
+                isRegistered.set(false);
+                isApproved.set(false);
+                isConferenceFull.set(false);
+
+                registerButton.setText("Đăng ký tham dự");
+                attendances.removeIf(a -> a.getUser().equals(App.getUser()));
+            }
+        });
         registerButton.setOnAction(mouseEvent -> {
             /* If user is Guest need to register account first */
             if (App.getUser() instanceof Guest) {
@@ -69,19 +97,6 @@ public class ConferenceDetailController extends ControllerBase {
                     var loginUF = new UserFunction("Login");
                     LoginController controller = (LoginController) loginUF.getController();
                     controller.setUserService(new UserService());
-
-                    controller.returnDataFunction = user -> {
-//                        var confAt = new ConferenceAttendance();
-//                        confAt.setConference(conference);
-//                        confAt.setUser((User) user);
-//
-//                        ConferenceAttendanceDAO.save(confAt);
-//
-//                        registerButton.setText("Đang đợi duyệt");
-//                        registerButton.setDisable(true);
-//                        registerButton.setStyle("-fx-background-color:green");
-                    };
-
 
                     Stage stage = new Stage();
                     stage.setScene(new Scene(loginUF.getView()));
@@ -100,46 +115,47 @@ public class ConferenceDetailController extends ControllerBase {
                 ConferenceAttendanceDAO.save(confAt);
 
                 registerButton.setText("Đang đợi duyệt");
-                registerButton.setDisable(true);
-                registerButton.setStyle("-fx-background-color:green");
+                isRegistered.set(true);
             }
-
         });
 
         App.userProperty().addListener((observableValue, user, t1) -> {
+            isRegistered.set(false);
+            isApproved.set(false);
+
             System.out.println("User listener at ConferenceDetail; " + user.getClass());
-            if (t1 == null) {
+            if (t1 == null || t1 instanceof Guest) {
                 return;
             }
 
             System.out.println("User listener at ConferenceDetail; New user: " + t1.getName());
 
-            if (t1 instanceof Guest) {
-                return;
-            }
-
             /* update register button status corresponding to the binding user */
             var attendanceOptional = this.attendances.stream().filter(c -> c.getUser().equals(App.getUser())).findFirst();
+
             if (!attendanceOptional.isEmpty()) {
+                isRegistered.set(true);
+
                 var attendance = attendanceOptional.get();
-                registerButton.setDisable(true);
-                registerButton.setStyle("-fx-background-color:green");
 
                 if (attendance.isAccepted()) {
                     registerButton.setText("Đã đăng ký");
+                    isApproved.set(true);
                 } else {
                     registerButton.setText("Đang duyệt");
                 }
             }
 
 
+            //show the status column if user is admin
             if (App.getUser() instanceof Admin) {
                 System.out.println("Admin can accept user register");
                 tableView.getColumns().add(statusColumn);
+                this.attendances = ConferenceAttendanceDAO.getConferencesByConference(conference);
             } else {
                 tableView.getColumns().remove(statusColumn);
             }
-
+            System.out.println(isRegistered.get());
         });
 
         //back
@@ -153,6 +169,7 @@ public class ConferenceDetailController extends ControllerBase {
     private void createTableView() {
         /* create tableView column */
         var idColumn = new TableColumn<ConferenceAttendance, Long>("ID");
+        idColumn.setPrefWidth(50);
         idColumn.setCellValueFactory(cellData -> {
             return new SimpleLongProperty(cellData.getValue().getConference().getId()).asObject();
         });
@@ -226,7 +243,9 @@ public class ConferenceDetailController extends ControllerBase {
                 }
             };
         });
+
         statusColumn.setStyle("-fx-alignment: center");
+        idColumn.setStyle("-fx-alignment: center");
 
         tableView.setPlaceholder(new Label("Chưa có đăng ký"));
         if (App.getUser() instanceof Admin)
@@ -240,34 +259,53 @@ public class ConferenceDetailController extends ControllerBase {
         this.conference = conference;
 
         //get user attended to this conference
-        this.attendances = ConferenceAttendanceDAO.getUsersByConferenceID(conference.getId());
+        attendances = ConferenceAttendanceDAO.getConferencesByConference(conference);
+        int count = attendances.size();
 
-        /* change register button status */
-        var attendance = attendances.stream().filter(a -> a.getUser().equals(App.getUser())).findFirst();
-        if (attendance.isEmpty()) {
-            //chưa đăng ký
-        } else if (attendance.get().getUser().equals(App.getUser())) {
-            if (attendance.get().isAccepted()) {
-                registerButton.setText("Đã đăng ký");
-            } else {
-                registerButton.setText("Đang đợi duyệt");
-            }
-
-            registerButton.setDisable(true);
-            registerButton.setStyle("-fx-background-color:green");
+        if (count >= conference.getHoldPlace().getCapacity()) {
+            isConferenceFull.set(true);
+            registerButton.setText("Đã hết chỗ");
+        } else {
         }
 
+        if (App.getUser() instanceof Guest) {
+
+        } else {
+            System.out.println("not guest");
+            /* check that logged in user had registered this conference */
+            var attendance = attendances.stream().filter(a -> a.getUser().equals(App.getUser())).findAny();
+            isRegistered.set(false);
+            isApproved.set(false);
+            if (!attendance.isEmpty()) {
+                System.out.println("not empty");
+                isRegistered.set(true);
+                if (attendance.get().isAccepted()) {
+                    registerButton.setText("Đã đăng ký");
+                    isApproved.set(true);
+                } else {
+                    System.out.println("Đang đợi duyệt");
+                    registerButton.setText("Đang đợi duyệt");
+                }
+
+            }
+        }
+
+        if (conference.getEndDateTime().compareTo(LocalDateTime.now()) <= 0) {
+            System.out.println("Conference had taken!");
+            conferenceHasTaken.set(true);
+            registerButton.setText("Đã diễn ra");
+        }
+
+        if (!(App.getUser() instanceof Admin)) {
+            attendances.removeIf(Predicate.not(ConferenceAttendance::isAccepted));
+        }
 
         tableView.getItems().clear();
         tableView.setItems(FXCollections.observableArrayList(attendances));
 
         nameLabel.setText(conference.getName());
-        timeLabel.setText("Thời gian: " + conference.getStartDateTime().
-
-                toString());
-        placeLabel.setText("Địa điểm: " + conference.getHoldPlace().
-
-                toString());
+        timeLabel.setText("Thời gian: " + conference.getStartDateTime().toString());
+        placeLabel.setText("Địa điểm: " + conference.getHoldPlace().toString());
         descriptionLabel.setText("Mô tả: " + conference.getShortDescription());
         detailDescriptionLabel.setText("Chi tiết: " + conference.getDetailDescription());
     }

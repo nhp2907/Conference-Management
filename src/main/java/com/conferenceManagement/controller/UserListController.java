@@ -1,6 +1,8 @@
 package com.conferenceManagement.controller;
 
+import com.conferenceManagement.dao.ConferenceAttendanceDAO;
 import com.conferenceManagement.dao.UserDAO;
+import com.conferenceManagement.model.ConferenceAttendance;
 import com.conferenceManagement.model.User;
 import com.conferenceManagement.service.UserService;
 import javafx.collections.FXCollections;
@@ -26,6 +28,7 @@ public class UserListController extends ControllerBase {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         var idColumn = new TableColumn<User, Long>("ID");
+        idColumn.setPrefWidth(50);
         idColumn.setStyle("-fx-alignment: center");
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
 
@@ -37,7 +40,7 @@ public class UserListController extends ControllerBase {
         userNameColumn.setCellValueFactory(new PropertyValueFactory<>("userName"));
 
         var emailColumn = new TableColumn<User, String>("Email");
-        emailColumn.setPrefWidth(200);
+        emailColumn.setPrefWidth(250);
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
 
         var stateColumn = new TableColumn<User, Boolean>("Trạng thái truy cập");
@@ -52,18 +55,19 @@ public class UserListController extends ControllerBase {
                         setGraphic(null);
                         setText(null);
                     } else {
-                        System.out.println("Value factory");
                         var button = new Button();
                         button.setText(s ? "Cho phép" : "Đã chặn");
 
                         button.setOnAction(mouseEvent -> {
-                            System.out.println("clicked");
                             var index = getIndex();
                             var user = getTableView().getItems().get(getIndex());
                             if (user.isStatus() == true) {
                                 users.get(index).setStatus(false);
                                 userService.update(user);
                                 button.setText("Đã chặn");
+
+                                //remove from attended conference
+                                ConferenceAttendanceDAO.deleteAttendanceRegistrationByUser(user);
                             } else {
                                 users.get(index).setStatus(true);
                                 button.setText("Cho phép");

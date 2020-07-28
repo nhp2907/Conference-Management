@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="224.0" prefWidth="879.0" style="-fx-background-color: #F3F3F3;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.conferenceManagement.controller.RowDetailController">
+   <children>
+      <ImageView fx:id="imageView" fitHeight="136.0" fitWidth="127.0" layoutX="24.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="728.0" AnchorPane.topAnchor="12.0">
+         <image>
+            <Image url="@images/defautl-conference.jpg" />
+         </image>
+         <effect>
+            <DropShadow color="#976464" height="14.3" radius="6.65" width="14.3" />
+         </effect>
+      </ImageView>
+      <Label fx:id="nameLabel" layoutX="181.0" layoutY="6.0" prefHeight="28.0" prefWidth="622.0" text="Tên Hội Nghị">
+         <font>
+            <Font name="System Bold" size="19.0" />
+         </font>
+      </Label>
+      <Label layoutX="181.0" layoutY="40.0" opacity="0.77" text="Bắt đầu ngày:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="456.0" layoutY="40.0" opacity="0.77" text="đến:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="181.0" layoutY="65.0" opacity="0.77" text="Địa điểm">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="181.0" layoutY="94.0" opacity="0.77" text="Mô tả:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="181.0" layoutY="148.0" opacity="0.77" text="Chi tiết:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="startTimeLabel" layoutX="275.0" layoutY="39.0" text="Bắt đầu">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="274.0" layoutY="64.0" text="Địa điểm">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="shortDescriptionLabel" layoutX="275.0" layoutY="93.0" text="Mô tả">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="detailLabel" alignment="TOP_LEFT" layoutX="275.0" layoutY="149.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="78.0" prefWidth="580.0" text="Chi tiết" wrapText="true">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="endTimeLabel" layoutX="496.0" layoutY="39.0" text="Kết thúc">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="181.0" layoutY="122.0" opacity="0.77" text="Số lượng:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="countLabel" layoutX="275.0" layoutY="121.0" text="Số lượng">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

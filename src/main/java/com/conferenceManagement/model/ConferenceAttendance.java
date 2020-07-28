@@ -14,7 +14,7 @@ public class ConferenceAttendance {
     private Conference conference;
 
     @Id
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "userID")
     private User user;
 

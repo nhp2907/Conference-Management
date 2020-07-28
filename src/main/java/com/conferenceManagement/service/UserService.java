@@ -2,7 +2,7 @@ package com.conferenceManagement.service;
 
 import com.conferenceManagement.model.User;
 import com.conferenceManagement.dao.UserDAO;
-import com.conferenceManagement.util.PasswordAuthentication;
+import com.conferenceManagement.util.PasswordUtil;
 
 import java.util.List;
 
@@ -24,7 +24,7 @@ public class UserService implements IUserService {
         var user = userDAO.getUserByUsername(username);
 
         return user.getUserName().equals(username) &&
-                PasswordAuthentication.authenticate(password, user.getPassword());
+                PasswordUtil.authenticate(password, user.getPassword());
     }
 
     @Override
