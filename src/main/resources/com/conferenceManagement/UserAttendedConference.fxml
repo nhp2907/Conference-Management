@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox fx:id="vbox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="532.0" prefWidth="930.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.conferenceManagement.controller.UserAttendedConferenceController">
+   <children>
+      <AnchorPane maxHeight="60.0" maxWidth="1.7976931348623157E308" minHeight="70.0" prefHeight="60.0" prefWidth="863.0" style="-fx-background-color: #F3F3F3;">
+         <children>
+            <Label layoutX="49.0" layoutY="20.0" prefHeight="40.0" prefWidth="322.0" text="Danh sách hội nghị đã tham gia" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="15.0">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <HBox fx:id="adminHbox" alignment="CENTER_RIGHT" layoutX="349.0" layoutY="12.0" maxHeight="50.0" minHeight="30.0" minWidth="484.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="36.0" prefWidth="539.0" spacing="20.0" AnchorPane.bottomAnchor="12.0" AnchorPane.rightAnchor="34.19999999999993" AnchorPane.topAnchor="12.0">
+               <children>
+                  <ImageView fx:id="searchImageButton" fitHeight="25.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/icons8_search_32.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets top="5.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <JFXTextField fx:id="searchTextField" prefHeight="29.0" prefWidth="230.0" promptText="Tìm kiếm">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </JFXTextField>
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
+      <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="10000.0" prefWidth="930.0">
+         <children>
+            <TableView fx:id="tableView" editable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="507.0" prefWidth="929.0" style="-fx-border-width: 0;" stylesheets="@css/ConferenceListForGuest.css" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1.0" />
+         </children>
+      </AnchorPane>
+   </children>
+</VBox>

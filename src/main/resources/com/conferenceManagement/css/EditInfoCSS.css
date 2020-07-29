@@ -5,9 +5,6 @@ TextField, PasswordField {
     -fx-prompt-text-fill: black;
 }
 
-TextField:focused, PasswordField:focused {
-
-}
 
 TextField:focused, PasswordField:focused .label {
     -fx-disabled: false;
@@ -34,9 +31,9 @@ Label:disabled {
 }
 
 
-JFXTextField, JFXDatePicker, JFXTimePicker,JFXComboBox {
-    -fx-pref-width: 250;
-    -fx-max-width: 250;
+JFXTextField, JFXPasswordField, JFXDatePicker, JFXTimePicker,JFXComboBox {
+    -fx-pref-width: 325;
+    -fx-max-width: 325;
     -fx-font-size:14;
 
 }

@@ -29,19 +29,19 @@ public class User extends RecursiveTreeObject<User> {
 
     @Column(name = "status")
     @Type(type = "org.hibernate.type.NumericBooleanType")
-    private boolean status;
+    private boolean available;
 
 
     public User() {
 
     }
 
-    public boolean isStatus() {
-        return status;
+    public boolean isAvailable() {
+        return available;
     }
 
-    public void setStatus(boolean status) {
-        this.status = status;
+    public void setAvailable(boolean available) {
+        this.available = available;
     }
 
 

@@ -221,17 +221,22 @@ public class ConferenceDetailController extends ControllerBase {
                         button.setAlignment(Pos.CENTER);
 
                         button.setOnMouseClicked(event -> {
-                            if (App.getUser() instanceof Admin) {
+                            if (App.getUser() instanceof Admin) { //only admin has the permission
 
                                 var item = getTableView().getItems().get(getIndex());
-                                if (item.isAccepted() == false) {
-                                    item.setAccepted(true);
-                                    ConferenceAttendanceDAO.update(item);
+                                if (!item.isAccepted()) { //when the registration is not accepted
+                                    var alert = new Alert(Alert.AlertType.CONFIRMATION);
+                                    alert.setHeaderText("Xác nhận duyệt tham gia?");
+                                    var confirmResult = alert.showAndWait();
 
-                                    button.setText("Đã duyệt");
-                                    button.setStyle("-fx-background-color: #72C156;" +
-                                            "-fx-text-fill: white;");
+                                    if (confirmResult.get() == ButtonType.OK) { //confirm
+                                        item.setAccepted(true);
+                                        ConferenceAttendanceDAO.update(item);
 
+                                        button.setText("Đã duyệt");
+                                        button.setStyle("-fx-background-color: #72C156;" +
+                                                "-fx-text-fill: white;");
+                                    }
                                 }
                             }
                         });
@@ -277,7 +282,6 @@ public class ConferenceDetailController extends ControllerBase {
             isRegistered.set(false);
             isApproved.set(false);
             if (!attendance.isEmpty()) {
-                System.out.println("not empty");
                 isRegistered.set(true);
                 if (attendance.get().isAccepted()) {
                     registerButton.setText("Đã đăng ký");

@@ -1,23 +1,21 @@
 package com.conferenceManagement.controller;
 
 import com.conferenceManagement.App;
-import com.conferenceManagement.model.*;
-import com.conferenceManagement.dao.ConferenceDAO;
+import com.conferenceManagement.dao.ConferenceAttendanceDAO;
+import com.conferenceManagement.model.Conference;
+import com.conferenceManagement.model.ConferenceAttendance;
+import com.conferenceManagement.model.UserFunction;
+import com.conferenceManagement.service.IConferenceService;
 import com.conferenceManagement.util.UnicodeStringComparator;
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXTextField;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -26,70 +24,24 @@ import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
-public class ConferenceListForGuestController extends ControllerBase {
-    @FXML
-    VBox vbox;
+public class UserAttendedConferenceController extends ControllerBase {
     @FXML
     TableView<Conference> tableView;
     @FXML
-    HBox adminHbox;
+    VBox vbox;
     @FXML
-    JFXButton addConferenceButton;
-    @FXML
-    JFXTextField searchTextField;
+    TextField searchTextField;
 
-    ContextMenu contextMenu;
 
-    ObservableList<Conference> conferences = FXCollections.observableArrayList(ConferenceDAO.getAll());
+    /* Data */
+    ObservableList<Conference> conferences = null;
     ObservableList<Conference> searchResult = null;
-    ObjectProperty<Conference> conferenceProperty = new SimpleObjectProperty<>();
-
-    public ObservableList<Conference> getConferences() {
-        return conferences;
-    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
-        /* check admin */
-        if (App.getUser() instanceof Admin) {
-            addConferenceButton.setVisible(true);
-        }
-
-        App.userProperty().addListener((observableValue, user, t1) -> {
-            if (t1 instanceof Admin) {
-                addConferenceButton.setVisible(true);
-                tableView.setContextMenu(contextMenu);
-            } else {
-                addConferenceButton.setVisible(false);
-                tableView.setContextMenu(null);
-            }
-        });
-
-        addConferenceButton.setOnMouseClicked(mouseEvent -> {
-            try {
-                var addConferenceUF = new UserFunction("AddConference");
-
-                /* show stage */
-                var addStage = new Stage();
-                addStage.setScene(new Scene(addConferenceUF.getView()));
-                addStage.initModality(Modality.APPLICATION_MODAL);
-
-                /* update data back */
-                var controller = (AddConferenceController) addConferenceUF.getController();
-                controller.returnDataFunction = conference -> {
-                    this.conferences.add(conference);
-                    tableView.refresh();
-                };
-                addStage.show();
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-
+        getData();
+        System.out.println(conferences.size());
         initTable();
-        initContextMenu();
 
         searchTextField.textProperty().addListener((observableValue, s, t1) -> {
             var lowerCaseText = t1.toLowerCase();
@@ -109,9 +61,13 @@ public class ConferenceListForGuestController extends ControllerBase {
                 tableView.refresh();
             }
         });
-
     }
 
+    IConferenceService conferenceService = null;
+
+    void getData() {
+        this.conferences = FXCollections.observableArrayList(ConferenceAttendanceDAO.getConferenceByUserId(App.getUser()));
+    }
 
 
     void initTable() {
@@ -181,59 +137,70 @@ public class ConferenceListForGuestController extends ControllerBase {
             return new SimpleIntegerProperty(number).asObject();
         });
 
+        var unregisterColumn = new TableColumn<Conference, ConferenceAttendance>("Huỷ đăng ký");
+        unregisterColumn.setPrefWidth(110);
+        unregisterColumn.setCellValueFactory(cellData -> {
+            var conference = cellData.getValue();
+            var ca = ConferenceAttendanceDAO.getConferenceById(conference, App.getUser());
+            return new SimpleObjectProperty<>(ca);
+        });
+        unregisterColumn.setCellFactory(tableColumn -> new TableCell<Conference, ConferenceAttendance>() {
+            @Override
+            protected void updateItem(ConferenceAttendance ca, boolean b) {
+                super.updateItem(ca, b);
+                if (ca == null || b) {
+                    setGraphic(null);
+                } else {
+                    var button = new Button("Bỏ tham dự");
+                    button.setStyle("-fx-background-radius:5;\n" +
+                            "    -fx-text-fill:white;\n" +
+                            "    -fx-padding: 5;");
+                    button.setStyle("-fx-background-color: #72C156");
+
+                    button.setPrefWidth(90);
+                    button.setAlignment(Pos.CENTER);
+
+                    if (!ca.isAccepted()) {
+                        button.setText("Bỏ đăng ký");
+                        button.setStyle("-fx-background-color: #F68567");
+                    }
+
+                    button.setOnAction(event -> {
+                        if (ca.getConference().isTaken()) {
+                            var alert = new Alert(Alert.AlertType.WARNING);
+                            alert.setHeaderText("Hội nghị đã diễn ra!");
+                            alert.setContentText("Không thể bỏ đăng ký hội nghị đã diễn ra!");
+                            alert.show();
+                        } else {
+                            var alert = new Alert(Alert.AlertType.CONFIRMATION, "Xác nhận " + button.getText());
+                            var res = alert.showAndWait();
+                            if (res.get() == ButtonType.OK) {
+                                ConferenceAttendanceDAO.cancelRegistration(ca);
+                                setGraphic(null);
+                                getTableView().getItems().remove(getIndex());
+                            }
+                        }
+                    });
+
+                    setGraphic(button);
+                }
+            }
+        });
+
 
         startTimeColumn.setStyle("-fx-alignment: center");
-        endTimeColum.setStyle("-fx-alignment: center");
-        idColumn.setStyle("-fx-alignment: center");
-        countColumn.setStyle("-fx-alignment: center");
+        endTimeColum.setStyle("-fx-alignment:  center ");
+        idColumn.setStyle(" -fx-alignment:  center");
+        countColumn.setStyle("-fx-alignment :  center");
+        unregisterColumn.setStyle("-fx-alignment :  center");
 
         tableView.setItems(conferences);
         tableView.setEditable(true);
-        tableView.getColumns().setAll(idColumn, nameColumn, addressColumn, startTimeColumn, endTimeColum, descriptionColumn, countColumn);
+        tableView.getColumns().setAll(idColumn, nameColumn, addressColumn, startTimeColumn, descriptionColumn, countColumn, unregisterColumn);
         tableView.setStyle("-fx-selection-bar: #9AD9D4; -fx-selection-bar-non-focused: #A7CCC9;");
 
         tableView.setRowFactory(tv -> {
-//            try {
             final TableRow<Conference> row = new TableRow<>();
-//                    UserFunction uf = new UserFunction("RowDetail");
-//                    RowDetailController controller = (RowDetailController) uf.getController();
-//                    Node detailsPane;
-//
-//                    {
-//                        detailsPane = uf.getView();
-//                        selectedProperty().addListener((obs, wasSelected, isNowSelected) -> {
-//                            if (isNowSelected) {
-//                                controller.setConference(itemProperty());
-//                                getChildren().add(detailsPane);
-//                            } else {
-//                                getChildren().remove(detailsPane);
-//                            }
-//
-//                            this.requestLayout();
-//                        });
-//                    }
-
-//                    @Override
-//                    protected double computePrefHeight(double width) {
-//                        if (isSelected()) {
-//                            return super.computePrefHeight(width) + detailsPane.prefHeight(getWidth());
-//                        } else {
-//                            return super.computePrefHeight(width);
-//                        }
-//                    }
-//
-//                    @Override
-//                    protected void layoutChildren() {
-//                        super.layoutChildren();
-//                        if (isSelected()) {
-//                            double width = getWidth();
-//                            double paneHeight = detailsPane.prefHeight(width);
-//                            detailsPane.resizeRelocate(0, getHeight() - paneHeight, width, paneHeight);
-//                        }
-//                    }
-//                };
-
-
             row.setOnMouseClicked(mouseEvent -> {
                 //load the detail view
                 try {
@@ -260,39 +227,7 @@ public class ConferenceListForGuestController extends ControllerBase {
         });
     }
 
-    void initContextMenu() {
-        MenuItem editItem = new MenuItem("Sữa thông tin");
-        editItem.setOnAction(event -> {
-            var selectedItem = tableView.getSelectionModel().getSelectedItem();
-            if (selectedItem.getEndDateTime().compareTo(LocalDateTime.now()) <= 0) {
-                Alert a = new Alert(Alert.AlertType.WARNING, "Hội nghị đã diễn ra không được sữa đổi thông tin",
-                        ButtonType.OK);
-                a.show();
-                return;
-            }
-            try {
-                var editConferenceUF = new UserFunction("EditConference");
-                var stage = new Stage();
-
-                var controller = (EditConferenceController) editConferenceUF.getController();
-                controller.updateConferenceInfo(selectedItem);
-
-                controller.returnDataFunction = conference -> tableView.refresh();
-
-                stage.setScene(new Scene(editConferenceUF.getView()));
-                stage.show();
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        });
-        contextMenu = new ContextMenu();
-        contextMenu.getItems().add(editItem);
-
-        if (App.getUser() instanceof Admin) {
-            tableView.setContextMenu(contextMenu);
-        }
+    public void setConferenceService(IConferenceService conferenceService) {
+        this.conferenceService = conferenceService;
     }
-
 }

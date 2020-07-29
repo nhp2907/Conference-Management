@@ -4,11 +4,14 @@ import com.conferenceManagement.model.Conference;
 import com.conferenceManagement.model.ConferenceAttendance;
 import com.conferenceManagement.dao.hibernate.HibernateUtils;
 import com.conferenceManagement.model.User;
+import javafx.collections.ObservableList;
 import net.bytebuddy.asm.Advice;
+import org.hibernate.Hibernate;
 import org.hibernate.Transaction;
 
 import javax.persistence.TemporalType;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -35,13 +38,14 @@ public class ConferenceAttendanceDAO {
         }
         return false;
     }
+
     public static ConferenceAttendance getConferenceById(Conference c, User u) {
         var session = HibernateUtils.getSessionFactory().openSession();
         Transaction tx = null;
         try {
             tx = session.beginTransaction();
-            var result = session.createQuery("from ConferenceAttendance as cfa where cfa.conference = ?1 " +
-                    "and cfa.user = ?2", ConferenceAttendance.class)
+            ConferenceAttendance result;
+            result = session.createQuery("from ConferenceAttendance as cfa where cfa.conference = ?1 and cfa.user = ?2", ConferenceAttendance.class)
                     .setParameter(1, c)
                     .setParameter(2, u)
                     .uniqueResult();
@@ -57,9 +61,8 @@ public class ConferenceAttendanceDAO {
     }
 
     public static List<ConferenceAttendance> getConferencesByConferenceId(Long id) {
-        var session = HibernateUtils.getSessionFactory().openSession();
         Transaction tx = null;
-        try {
+        try (var session = HibernateUtils.getSessionFactory().openSession()) {
             tx = session.beginTransaction();
             var result = session.createQuery("from ConferenceAttendance as cfa where cfa.conference.id = ?1")
                     .setParameter(1, id)
@@ -68,26 +71,24 @@ public class ConferenceAttendanceDAO {
             return result;
         } catch (Exception exception) {
             exception.printStackTrace();
-            tx.rollback();
-        } finally {
-            session.close();
+            if (tx != null) {
+                tx.rollback();
+            }
         }
 
         return new ArrayList<>();
     }
 
     public static void save(ConferenceAttendance c) {
-        var session = HibernateUtils.getSessionFactory().openSession();
+
         Transaction tx = null;
-        try {
+        try (var session = HibernateUtils.getSessionFactory().openSession()) {
             tx = session.beginTransaction();
             session.saveOrUpdate(c);
             tx.commit();
         } catch (Exception exception) {
             exception.printStackTrace();
             tx.rollback();
-        } finally {
-            session.close();
         }
     }
 
@@ -228,6 +229,39 @@ public class ConferenceAttendanceDAO {
         } catch (Exception e) {
             tx.rollback();
             e.printStackTrace();
+        }
+
+    }
+
+    public static List<Conference> getConferenceByUserId(User user) {
+
+        try (var session = HibernateUtils.getSessionFactory().openSession()) {
+            return session.createQuery("select conference from ConferenceAttendance as ca where ca.user = ?1 ", Conference.class)
+                    .setParameter(1, user)
+                    .list();
+        } catch (Exception ex) {
+            return null;
+        }
+    }
+
+    public static void cancelRegistration(ConferenceAttendance ca) {
+        Transaction tx = null;
+        try (var session = HibernateUtils.getSessionFactory().openSession()) {
+            tx = session.beginTransaction();
+            if (!tx.isActive()) {
+                tx.begin();
+            }
+            var query = session.createQuery("delete from ConferenceAttendance as ca where ca.conference = ?1 " +
+                    "and ca.user = ?2")
+                    .setParameter(1, ca.getConference())
+                    .setParameter(2, ca.getUser());
+            query.executeUpdate();
+            tx.commit();
+        } catch (Exception ex) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            ex.printStackTrace();
         }
 
     }

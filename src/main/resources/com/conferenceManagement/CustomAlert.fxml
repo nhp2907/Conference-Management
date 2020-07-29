@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="243.0" prefWidth="457.0" spacing="14.0" style="-fx-background-color: #F3F3F3;" stylesheets="@css/EditInfoCSS.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fitHeight="54.0" fitWidth="77.0" pickOnBounds="true" preserveRatio="true">
+         <VBox.margin>
+            <Insets top="5.0" />
+         </VBox.margin>
+         <image>
+            <Image url="@images/icons8-checked-laptop-96.png" />
+         </image>
+      </ImageView>
+      <Label alignment="TOP_CENTER" contentDisplay="CENTER" prefHeight="86.0" prefWidth="374.0" text="Label" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
+         <children>
+            <JFXButton alignment="CENTER" cancelButton="true" prefHeight="40.0" prefWidth="66.0" styleClass="negative-button" text="Huỷ">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </JFXButton>
+            <JFXButton alignment="CENTER" defaultButton="true" prefHeight="36.0" prefWidth="70.0" styleClass="positive-button" text="Okay">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </JFXButton>
+         </children>
+         <VBox.margin>
+            <Insets right="30.0" />
+         </VBox.margin>
+      </HBox>
+   </children>
+</VBox>

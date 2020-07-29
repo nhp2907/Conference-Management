@@ -3,13 +3,12 @@ package com.conferenceManagement.controller;
 import com.conferenceManagement.App;
 import com.conferenceManagement.model.UserFunction;
 import com.conferenceManagement.service.IUserService;
-import com.conferenceManagement.service.UserService;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXPasswordField;
+import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
@@ -28,9 +27,9 @@ public class LoginController extends ControllerBase {
     @FXML
     JFXButton cancelButton;
     @FXML
-    TextField userNameTextField;
+    JFXTextField userNameTextField;
     @FXML
-    PasswordField passwordField;
+    JFXPasswordField passwordField;
 
     @FXML
     Label registerLabel;
@@ -42,7 +41,7 @@ public class LoginController extends ControllerBase {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-       root.addEventHandler(KeyEvent.KEY_PRESSED, ev -> {
+        root.addEventHandler(KeyEvent.KEY_PRESSED, ev -> {
             if (ev.getCode() == KeyCode.ENTER) {
                 loginButton.fire();
                 ev.consume();
@@ -57,10 +56,15 @@ public class LoginController extends ControllerBase {
             var user = userService.getUserByUserName(username);
 
             if (userService.checkLogin(username, password)) {
-                App.setUser(user);
-            } else  {
+                System.out.println(user.isAvailable());
+                if (user.isAvailable()) {
+                    App.setUser(user);
+                } else {
+                    System.out.println("alert user is disable");
+                }
+
+            } else {
                 logInFailLabel.setVisible(true);
-                System.out.println("can not get user name with username = " + username);
                 return;
             }
 
@@ -84,7 +88,7 @@ public class LoginController extends ControllerBase {
                 return;
             }
 
-            var controller = (SignUpController)signUpUF.getController();
+            var controller = (SignUpController) signUpUF.getController();
             controller.setUserService(userService);
 
             Stage stage = new Stage();
@@ -104,7 +108,7 @@ public class LoginController extends ControllerBase {
 
     }
 
-    void setUserService(IUserService userService){
+    void setUserService(IUserService userService) {
         this.userService = userService;
     }
 

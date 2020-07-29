@@ -39,7 +39,6 @@ public final class PasswordUtil {
             SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
             byte[] hash = skf.generateSecret(spec).getEncoded();
             var res = toHex(salt) + ":" + toHex(hash);
-            System.out.println(res);
             return res;
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
@@ -62,7 +61,6 @@ public final class PasswordUtil {
     }
 
     public static boolean authenticate(String originalPassword, String storedPassword) {
-        System.out.println(hash(originalPassword));
         try {
             String[] parts = storedPassword.split(":");
             byte[] salt = new byte[0];
@@ -80,7 +78,6 @@ public final class PasswordUtil {
                 diff |= hash[i] ^ testHash[i];
             }
 
-            System.out.println(diff);
             return diff == 0;
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();

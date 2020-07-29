@@ -3,6 +3,8 @@ package com.conferenceManagement.dao;
 import com.conferenceManagement.model.Conference;
 import com.conferenceManagement.model.Place;
 import com.conferenceManagement.dao.hibernate.HibernateUtils;
+import com.conferenceManagement.model.User;
+import javafx.collections.ObservableList;
 import org.hibernate.Transaction;
 
 import java.util.ArrayList;
@@ -122,6 +124,7 @@ public class ConferenceDAO {
 
         return new ArrayList<>();
     }
+
 
     public Conference getByID(Object o) {
         return null;

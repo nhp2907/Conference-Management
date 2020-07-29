@@ -4,6 +4,7 @@ import com.conferenceManagement.App;
 import com.conferenceManagement.model.Guest;
 import com.conferenceManagement.model.User;
 import com.conferenceManagement.model.UserFunction;
+import com.conferenceManagement.service.ConferenceService;
 import com.conferenceManagement.service.UserService;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
@@ -24,6 +25,8 @@ import java.util.ResourceBundle;
 public class EditInfoController extends ControllerBase {
     @FXML
     VBox logOutButton;
+    @FXML
+    VBox conferenceStatisticButton;
     @FXML
     JFXTextField userNameTextField;
     @FXML
@@ -81,7 +84,16 @@ public class EditInfoController extends ControllerBase {
                 e.printStackTrace();
             }
         });
-
+        conferenceStatisticButton.setOnMouseClicked(mouseEvent -> {
+            try {
+                var uf = new UserFunction("UserAttendedConference");
+                var controller = (UserAttendedConferenceController)uf.getController();
+                controller.setConferenceService(new ConferenceService());
+                App.setCenter(uf.getView());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
 
         App.userProperty().addListener((observableValue, user1, t1) -> {
             if (t1 != null) {
@@ -126,7 +138,7 @@ public class EditInfoController extends ControllerBase {
         });
         emailCancelButton.setOnMouseClicked(mouseEvent -> {
             emailEditing.set(false);
-            nameTextField.setText(App.getUser().getEmail());
+            emailTextField.setText(App.getUser().getEmail());
         });
 
         updateInfo(App.getUser());

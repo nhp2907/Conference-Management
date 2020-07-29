@@ -16,7 +16,7 @@
 
 <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="549.0" prefWidth="923.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.conferenceManagement.controller.ConferenceDetailController">
     <children>
-        <AnchorPane fx:id="topBar" maxHeight="150.0" maxWidth="1.7976931348623157E308" minHeight="80.0" prefHeight="84.0" prefWidth="923.0" style="-fx-background-color: #F3F3F3;">
+        <AnchorPane fx:id="topBar" maxHeight="150.0" maxWidth="1.7976931348623157E308" minHeight="70.0" prefHeight="84.0" prefWidth="923.0" style="-fx-background-color: #F3F3F3;">
             <effect>
                 <DropShadow color="#acacac" radius="4.75" width="0.0" />
             </effect>

@@ -65,7 +65,7 @@ public class SignUpController extends ControllerBase {
                 user.setName(nameTextField.getText());
                 user.setPassword(PasswordUtil.hash(passwordField.getText()));
                 user.setEmail(emailTextField.getText());
-                user.setStatus(true);
+                user.setAvailable(true);
                 errorMessage = "";
                 userService.save(user);
 

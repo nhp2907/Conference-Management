@@ -32,9 +32,10 @@ public class Conference extends RecursiveTreeObject<Conference> {
     @OneToMany(mappedBy = "conference", fetch = FetchType.EAGER)
     private Set<ConferenceAttendance> conferenceAttendances = new HashSet<>();
 
-    public Conference(){
+    public Conference() {
 
     }
+
     public Set<ConferenceAttendance> getConferenceAttendances() {
         return conferenceAttendances;
     }
@@ -44,7 +45,7 @@ public class Conference extends RecursiveTreeObject<Conference> {
     }
 
 
-    public Conference(int id, String name, String shortDescription, Date holdTime){
+    public Conference(int id, String name, String shortDescription, Date holdTime) {
 
     }
 
@@ -68,6 +69,7 @@ public class Conference extends RecursiveTreeObject<Conference> {
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -76,6 +78,7 @@ public class Conference extends RecursiveTreeObject<Conference> {
     public String getShortDescription() {
         return shortDescription;
     }
+
     public void setShortDescription(String shortDescription) {
         this.shortDescription = shortDescription;
     }
@@ -84,6 +87,7 @@ public class Conference extends RecursiveTreeObject<Conference> {
     public String getDetailDescription() {
         return detailDescription;
     }
+
     public void setDetailDescription(String detailDescription) {
         this.detailDescription = detailDescription;
     }
@@ -92,6 +96,7 @@ public class Conference extends RecursiveTreeObject<Conference> {
     public LocalDateTime getStartDateTime() {
         return startDateTime;
     }
+
     public void setStartDateTime(LocalDateTime startDateTime) {
         this.startDateTime = startDateTime;
     }
@@ -101,9 +106,13 @@ public class Conference extends RecursiveTreeObject<Conference> {
     public Place getHoldPlace() {
         return holdPlace;
     }
+
     public void setHoldPlace(Place holdPlace) {
         this.holdPlace = holdPlace;
     }
 
+    public boolean isTaken() {
+        return startDateTime.compareTo(LocalDateTime.now()) <= 0;
+    }
 
 }

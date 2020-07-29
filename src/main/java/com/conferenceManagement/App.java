@@ -44,7 +44,7 @@ public class App extends Application {
         stage.setScene(scene);
 
         stage.setTitle("Quản Lý Hội Nghị");
-//        stage.setMaximized(true);
+        stage.setMaximized(true);
         stage.show();
     }
 

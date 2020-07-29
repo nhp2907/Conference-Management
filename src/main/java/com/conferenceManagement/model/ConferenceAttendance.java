@@ -50,4 +50,6 @@ public class ConferenceAttendance {
     public void setUser(User user) {
         this.user = user;
     }
+
+
 }
