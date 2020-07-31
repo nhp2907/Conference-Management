@@ -8,6 +8,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
@@ -36,6 +37,8 @@ public class ConferenceDetailController extends ControllerBase {
     @FXML
     HBox backButton;
     @FXML
+    JFXButton editButton;
+    @FXML
     Label nameLabel;
     @FXML
     Label timeLabel;
@@ -56,7 +59,7 @@ public class ConferenceDetailController extends ControllerBase {
 
     public Parent previousView;
 
-    List<ConferenceAttendance> attendances = FXCollections.observableArrayList();
+    ObservableList<ConferenceAttendance> attendances = FXCollections.observableArrayList();
     Conference conference = null;
 
     UserRegistrationConferenceController userRegistrationConferenceController;
@@ -99,6 +102,7 @@ public class ConferenceDetailController extends ControllerBase {
                     controller.setUserService(new UserService());
 
                     Stage stage = new Stage();
+                    stage.setTitle("Đăng nhập");
                     stage.setScene(new Scene(loginUF.getView()));
 
                     stage.initModality(Modality.APPLICATION_MODAL);
@@ -118,17 +122,44 @@ public class ConferenceDetailController extends ControllerBase {
                 isRegistered.set(true);
             }
         });
+        editButton.setOnAction(event -> {
+            if (this.conference.getStartDateTime().compareTo(LocalDateTime.now()) <= 0) {
+                Alert a = new Alert(Alert.AlertType.WARNING, "Hội nghị đã diễn ra không được sữa đổi thông tin",
+                        ButtonType.OK);
+                a.show();
+                return;
+            }
+            try {
+                var editConferenceUF = new UserFunction("EditConference");
+                var stage = new Stage();
+
+                var controller = (EditConferenceController) editConferenceUF.getController();
+                controller.updateConferenceInfo(this.conference);
+
+//                controller.returnDataFunction = conference -> tableView.refresh();
+                controller.returnDataFunction = (data) -> {
+                    if (this.returnDataFunction != null) {
+                        this.returnDataFunction.returnData(conference);
+                        this.setConferenceData((Conference) data);
+                    }
+                };
+
+                stage.setScene(new Scene(editConferenceUF.getView()));
+                stage.show();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        });
 
         App.userProperty().addListener((observableValue, user, t1) -> {
             isRegistered.set(false);
             isApproved.set(false);
 
-            System.out.println("User listener at ConferenceDetail; " + user.getClass());
             if (t1 == null || t1 instanceof Guest) {
                 return;
             }
-
-            System.out.println("User listener at ConferenceDetail; New user: " + t1.getName());
 
             /* update register button status corresponding to the binding user */
             var attendanceOptional = this.attendances.stream().filter(c -> c.getUser().equals(App.getUser())).findFirst();
@@ -146,14 +177,19 @@ public class ConferenceDetailController extends ControllerBase {
                 }
             }
 
-
             //show the status column if user is admin
             if (App.getUser() instanceof Admin) {
-                System.out.println("Admin can accept user register");
-                tableView.getColumns().add(statusColumn);
-                this.attendances = ConferenceAttendanceDAO.getConferencesByConference(conference);
+                if (!tableView.getColumns().contains(statusColumn)) {
+                    tableView.getColumns().add(statusColumn);
+                }
+                attendances = FXCollections.observableArrayList(ConferenceAttendanceDAO.getConferencesByConference(conference));
+                tableView.setItems(attendances);
+                tableView.refresh();
+                editButton.setVisible(true);
             } else {
-                tableView.getColumns().remove(statusColumn);
+                if (tableView.getColumns().contains(statusColumn))
+                    tableView.getColumns().remove(statusColumn);
+                editButton.setVisible(false);
             }
             System.out.println(isRegistered.get());
         });
@@ -254,7 +290,7 @@ public class ConferenceDetailController extends ControllerBase {
 
         tableView.setPlaceholder(new Label("Chưa có đăng ký"));
         if (App.getUser() instanceof Admin)
-            tableView.getColumns().addAll(idColumn, nameColumn, emailColumn, statusColumn);
+            tableView.getColumns().addAll(nameColumn, emailColumn, statusColumn);
         else
             tableView.getColumns().addAll(idColumn, nameColumn, emailColumn);
     }
@@ -264,7 +300,7 @@ public class ConferenceDetailController extends ControllerBase {
         this.conference = conference;
 
         //get user attended to this conference
-        attendances = ConferenceAttendanceDAO.getConferencesByConference(conference);
+        attendances = FXCollections.observableArrayList(ConferenceAttendanceDAO.getConferencesByConference(conference));
         int count = attendances.size();
 
         if (count >= conference.getHoldPlace().getCapacity()) {
@@ -294,7 +330,7 @@ public class ConferenceDetailController extends ControllerBase {
             }
         }
 
-        if (conference.getEndDateTime().compareTo(LocalDateTime.now()) <= 0) {
+        if (conference.getStartDateTime().compareTo(LocalDateTime.now()) <= 0) {
             System.out.println("Conference had taken!");
             conferenceHasTaken.set(true);
             registerButton.setText("Đã diễn ra");
@@ -302,10 +338,11 @@ public class ConferenceDetailController extends ControllerBase {
 
         if (!(App.getUser() instanceof Admin)) {
             attendances.removeIf(Predicate.not(ConferenceAttendance::isAccepted));
+            editButton.setVisible(false);
         }
 
         tableView.getItems().clear();
-        tableView.setItems(FXCollections.observableArrayList(attendances));
+        tableView.setItems(attendances);
 
         nameLabel.setText(conference.getName());
         timeLabel.setText("Thời gian: " + conference.getStartDateTime().toString());

@@ -1,0 +1,8 @@
+
+K
+java:S2696*"6Make the enclosing method "static" or remove this set.(Ï­„o
+k
+java:S1450"URemove the "parent" field and declare it as a local variable in the relevant methods.(í©çÀ
+K
+java:S2696+"6Make the enclosing method "static" or remove this set.(Å‘û
+o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(—æšÓ

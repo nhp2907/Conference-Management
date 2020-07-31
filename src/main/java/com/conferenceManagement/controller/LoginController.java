@@ -8,6 +8,7 @@ import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -60,7 +61,10 @@ public class LoginController extends ControllerBase {
                 if (user.isAvailable()) {
                     App.setUser(user);
                 } else {
-                    System.out.println("alert user is disable");
+                    var alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setHeaderText("Người dùng đã bị chặn");
+                    alert.showAndWait();
+                    return;
                 }
 
             } else {
@@ -93,6 +97,8 @@ public class LoginController extends ControllerBase {
 
             Stage stage = new Stage();
             stage.setScene(new Scene(signUpUF.getView()));
+            stage.setTitle("Đăng ký tài khoản");
+            stage.setResizable(false);
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.showAndWait();
 

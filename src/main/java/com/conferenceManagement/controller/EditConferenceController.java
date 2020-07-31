@@ -10,6 +10,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
@@ -33,7 +34,7 @@ public class EditConferenceController extends ControllerBase {
     @FXML
     JFXTextField shortDescriptionTextField;
     @FXML
-    JFXTextField detailDescriptionTextField;
+    JFXTextArea detailDescriptionTextField;
     @FXML
     JFXDatePicker startDatePicker;
     @FXML
@@ -70,16 +71,11 @@ public class EditConferenceController extends ControllerBase {
             conferences.forEach(conference -> {
                 System.out.println();
             });
-            System.out.println("Compare: " + startLDT.compareTo(LocalDateTime.now()));
-            var isPlaceValid = conferences.stream().allMatch(conference -> {
-                System.out.println(endLDT.compareTo(conference.getStartDateTime()));
-                System.out.println(startLDT.compareTo(conference.getEndDateTime()));
-
-                return endLDT.compareTo(conference.getStartDateTime()) <= 0
-                        || startLDT.compareTo(conference.getEndDateTime()) >= 0;
-            });
-
-            System.out.println("isPlaceValid: " + isPlaceValid);
+            var isPlaceValid = conferences.stream()
+                    .filter(c -> c.getId() != this.conference.getId())
+                    .allMatch(c ->
+                            endLDT.compareTo(c.getStartDateTime()) <= 0
+                                    || startLDT.compareTo(c.getEndDateTime()) >= 0);
 
             var errorMessage = "";
             if (nameTextField.getText().length() < 1) {
@@ -107,6 +103,10 @@ public class EditConferenceController extends ControllerBase {
                 }
 
                 ConferenceDAO.update(conference);
+
+                var alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setHeaderText("Sửa thông tin thành công");
+                alert.showAndWait();
 
                 var stage = (Stage) updateButton.getScene().getWindow();
                 stage.close();
@@ -142,24 +142,21 @@ public class EditConferenceController extends ControllerBase {
         });
 
         var dateConverter = new StringConverter<LocalDate>() {
-            private DateTimeFormatter dateTimeFormatter=DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
             @Override
-            public String toString(LocalDate localDate)
-            {
-                if(localDate==null)
+            public String toString(LocalDate localDate) {
+                if (localDate == null)
                     return "";
                 return dateTimeFormatter.format(localDate);
             }
 
             @Override
-            public LocalDate fromString(String dateString)
-            {
-                if(dateString==null || dateString.trim().isEmpty())
-                {
+            public LocalDate fromString(String dateString) {
+                if (dateString == null || dateString.trim().isEmpty()) {
                     return null;
                 }
-                return LocalDate.parse(dateString,dateTimeFormatter);
+                return LocalDate.parse(dateString, dateTimeFormatter);
             }
         };
         startDatePicker.setConverter(dateConverter);

@@ -12,6 +12,7 @@ public class UnicodeStringComparator {
         return removeDiacriticalMarks(container).contains(removeDiacriticalMarks(regex));
     }
 
+    //reference from https://stackoverflow.com/questions/2397804/java-string-searching-ignoring-accents
     public static String removeDiacriticalMarks(String string) {
         return Normalizer.normalize(string, Normalizer.Form.NFD)
                 .replaceAll("\\p{InCombiningDiacriticalMarks}+", "");

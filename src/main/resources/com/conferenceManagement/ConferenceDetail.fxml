@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="549.0" prefWidth="923.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.conferenceManagement.controller.ConferenceDetailController">
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="655.0" prefWidth="1073.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.conferenceManagement.controller.ConferenceDetailController">
     <children>
         <AnchorPane fx:id="topBar" maxHeight="150.0" maxWidth="1.7976931348623157E308" minHeight="70.0" prefHeight="84.0" prefWidth="923.0" style="-fx-background-color: #F3F3F3;">
             <effect>
@@ -34,37 +34,41 @@
                   </Label>
                </children>
             </HBox>
-            <StackPane layoutX="724.0" layoutY="13.0" prefHeight="34.0" prefWidth="144.0" AnchorPane.bottomAnchor="12.600000000000001" AnchorPane.rightAnchor="62.0" AnchorPane.topAnchor="13.0">
+            <HBox alignment="CENTER_RIGHT" layoutX="462.0" layoutY="18.0" spacing="20.0" AnchorPane.bottomAnchor="18.000000000000007" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="18.0">
                <children>
-                  <JFXButton fx:id="cancelButton" prefHeight="34.0" prefWidth="158.0" style="-fx-background-color: #383F50;" text="Huỷ đăng ký" textFill="WHITE" visible="false">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </JFXButton>
-                  <JFXButton fx:id="registerButton" prefHeight="37.0" prefWidth="144.0" style="-fx-background-color: #383F50;" text="Đăng ký tham gia" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </JFXButton>
-               </children>
-            </StackPane>
-            <HBox fx:id="approvingHbox" alignment="CENTER_LEFT" layoutX="545.0" layoutY="23.0" spacing="5.0" visible="false" AnchorPane.bottomAnchor="22.6" AnchorPane.rightAnchor="231.80000000000004" AnchorPane.topAnchor="23.0">
-               <children>
-                  <ImageView fitHeight="26.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@images/icons8_sand_watch_32.png" />
-                     </image>
-                  </ImageView>
-                  <Label prefHeight="34.0" prefWidth="115.0" text="Đang chờ duyệt">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
+                  <HBox fx:id="approvingHbox" alignment="CENTER_LEFT" spacing="5.0" visible="false">
+                     <children>
+                        <ImageView fitHeight="26.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/icons8_sand_watch_32.png" />
+                           </image>
+                        </ImageView>
+                        <Label prefHeight="34.0" prefWidth="115.0" text="Đang chờ duyệt">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <StackPane prefHeight="34.0" prefWidth="144.0">
+                     <children>
+                        <JFXButton fx:id="cancelButton" prefHeight="34.0" prefWidth="158.0" style="-fx-background-color: #383F50;" text="Huỷ đăng ký" textFill="WHITE" visible="false">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton fx:id="registerButton" prefHeight="37.0" prefWidth="144.0" style="-fx-background-color: #383F50;" text="Đăng ký tham gia" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </JFXButton>
+                     </children>
+                  </StackPane>
                </children>
             </HBox>
          </children>
         </AnchorPane>
-    <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="1000.0" prefWidth="900.0" style="-fx-background-color: white; -fx-border-color: white; -fx-border-width: 0;">
+    <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="738.0" prefWidth="1074.0" style="-fx-background-color: white; -fx-border-color: white; -fx-border-width: 0;">
          <children>
             <ImageView fitHeight="163.0" fitWidth="154.0" layoutX="55.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="304.0" AnchorPane.leftAnchor="55.0" AnchorPane.topAnchor="23.0">
                <image>
@@ -74,9 +78,9 @@
                   <DropShadow blurType="TWO_PASS_BOX" color="#7a9397" height="18.62" radius="9.405000000000001" spread="0.92" />
                </effect>
             </ImageView>
-            <VBox layoutX="263.0" layoutY="29.0" prefHeight="206.0" prefWidth="599.0" spacing="5.0" AnchorPane.leftAnchor="263.0" AnchorPane.rightAnchor="61.0" AnchorPane.topAnchor="29.0">
+            <VBox layoutX="263.0" layoutY="29.0" prefHeight="206.0" prefWidth="749.0" spacing="5.0" AnchorPane.leftAnchor="263.0" AnchorPane.rightAnchor="62.0" AnchorPane.topAnchor="29.0">
                <children>
-                  <Label fx:id="nameLabel" prefHeight="26.0" prefWidth="328.0" text="Tên hội nghị">
+                  <Label fx:id="nameLabel" prefHeight="26.0" prefWidth="529.0" text="Tên hội nghị">
                      <font>
                         <Font name="System Bold" size="17.0" />
                      </font>
@@ -96,7 +100,7 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Label fx:id="detailDescriptionLabel" alignment="TOP_LEFT" maxHeight="200.0" minHeight="70.0" prefHeight="72.0" prefWidth="596.0" text="Chi tiết" wrapText="true">
+                  <Label fx:id="detailDescriptionLabel" alignment="TOP_LEFT" maxHeight="200.0" minHeight="70.0" prefHeight="72.0" prefWidth="759.0" text="Chi tiết" wrapText="true">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -117,6 +121,11 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
+            <JFXButton fx:id="editButton" layoutX="911.0" layoutY="5.0" prefHeight="38.0" prefWidth="143.0" style="-fx-background-color: #F3F3F3;" text="Sửa thông tin" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="15.0">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </JFXButton>
          </children>
       </AnchorPane>
     </children>

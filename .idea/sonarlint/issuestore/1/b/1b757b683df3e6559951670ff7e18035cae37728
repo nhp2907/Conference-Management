@@ -1,0 +1,17 @@
+
+t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(òÕÐ½þÿÿÿÿ
+t
+java:S1905‚"VRemove this unnecessary cast to "org.sonar.java.resolve.Symbols$UnknownType@5f036425".(–í¢ë8ˆû”†º.
+t
+java:S1905€"VRemove this unnecessary cast to "org.sonar.java.resolve.Symbols$UnknownType@5f036425".(õóÊÍ8ˆû”†º.
+B
+java:S1602G",Remove useless curly braces around statement(ì¥ëÝ
+X
+java:S1117·":Rename "places" which hides the field declared at line 56.(ÔìËœ8ˆû”†º.
+T
+java:S1117G">Rename "conference" which hides the field declared at line 55.(ì¥ëÝ
+V
+java:S2387:"@"returnDataFunction" is the name of a field in "ControllerBase".(Œ¿ÚÖ
+S	java:S106H"9Replace this use of System.out or System.err by a logger.(ªÓ¼áþÿÿÿÿ
+m
+java:S3776="RRefactor this method to reduce its Cognitive Complexity from 19 to the 15 allowed.(•‘ÝŸüÿÿÿÿ

@@ -1,0 +1,22 @@
+
+t
+java:S1905Õ"VRemove this unnecessary cast to "org.sonar.java.resolve.Symbols$UnknownType@5f036425".(½¥é¥8›°®Æ¹.
+y
+java:S1905Ù"VRemove this unnecessary cast to "org.sonar.java.resolve.Symbols$UnknownType@5f036425".(øêÎ‰ûÿÿÿÿ8†‚»Â¹.
+t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(òÕÐ½þÿÿÿÿ
+u
+java:S1602T"SRemove useless curly braces around statement and then remove useless return keyword(ÛŸ±Èÿÿÿÿÿ8â¾ÃÂ¹.
+Z	java:S106+"9Replace this use of System.out or System.err by a logger.(¦½ßÊþÿÿÿÿ8¼æÁÄ¹.
+u
+java:S1602Z"SRemove useless curly braces around statement and then remove useless return keyword(§ž×Œþÿÿÿÿ8â¾ÃÂ¹.
+t
+java:S3776I"RRefactor this method to reduce its Cognitive Complexity from 38 to the 15 allowed.(Í“ìÕýÿÿÿÿ8â¾ÃÂ¹.
+y
+java:S1905†"VRemove this unnecessary cast to "org.sonar.java.resolve.Symbols$UnknownType@5f036425".(öëý¨úÿÿÿÿ8â¾ÃÂ¹.
+y
+java:S1905Ú"VRemove this unnecessary cast to "org.sonar.java.resolve.Symbols$UnknownType@5f036425".(àêˆÅþÿÿÿÿ8›°®Æ¹.
+Z
+java:S1854e"=Remove this useless assignment to local variable "!unknown!".(‚ð™à8â¾ÃÂ¹.
+[
+java:S1854š"=Remove this useless assignment to local variable "!unknown!".(¤€‚Ö8§ä­Å¹.
+X	java:S125;"<This block of commented-out lines of code should be removed.(—ë»À8Œ’’‰º.

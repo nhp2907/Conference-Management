@@ -1,7 +1,5 @@
 
 t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(òÕÐ½þÿÿÿÿ
-_
-java:S1128"IRemove this unused import 'com.conferenceManagement.service.UserService'.(¶²îÕ
-N	java:S106?"9Replace this use of System.out or System.err by a logger.(ƒ¥ùõ
+U	java:S106<"9Replace this use of System.out or System.err by a logger.(õÏÖ8·Œ×Ê¹.
 q
-java:S1905W"VRemove this unnecessary cast to "org.sonar.java.resolve.Symbols$UnknownType@599916b0".(ë´·ùÿÿÿÿ
+java:S1905_"VRemove this unnecessary cast to "org.sonar.java.resolve.Symbols$UnknownType@5f036425".(ë´·ùÿÿÿÿ

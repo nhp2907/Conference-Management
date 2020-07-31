@@ -3,6 +3,7 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXTimePicker?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
@@ -30,6 +31,7 @@
         <RowConstraints maxHeight="127.99998779296875" minHeight="10.0" prefHeight="88.00001220703126" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="127.99998779296875" minHeight="10.0" prefHeight="90.60001220703123" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="136.7999755859375" minHeight="10.0" prefHeight="89.60001220703128" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="136.7999755859375" minHeight="10.0" prefHeight="89.60001220703128" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="135.59995117187498" minHeight="10.0" prefHeight="91.9999877929688" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="83.60001220703123" minHeight="10.0" prefHeight="43.19998779296873" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="118.19998779296873" minHeight="10.0" prefHeight="80.80001220703127" vgrow="SOMETIMES" />
@@ -55,6 +57,9 @@
                <HBox.margin>
                   <Insets left="10.0" />
                </HBox.margin>
+               <font>
+                  <Font size="14.0" />
+               </font>
             </JFXTextField>
             </children>
         </HBox>
@@ -125,24 +130,30 @@
                <HBox.margin>
                   <Insets left="10.0" />
                </HBox.margin>
+               <font>
+                  <Font size="14.0" />
+               </font>
             </JFXTextField>
          </children>
       </HBox>
-      <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" prefWidth="250.0" GridPane.columnIndex="2" GridPane.rowIndex="4">
+      <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" prefWidth="250.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="5">
          <children>
             <FontAwesomeIconView glyphName="BUILDING">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
             </FontAwesomeIconView>
-            <JFXTextField fx:id="detailDescriptionTextField" labelFloat="true" maxHeight="30.0" maxWidth="300.0" prefHeight="30.0" prefWidth="240.0" promptText="Mô tả chi tiết">
+            <JFXTextArea fx:id="detailDescriptionTextField" labelFloat="true" maxHeight="80.0" prefHeight="80.0" prefWidth="706.0" promptText="Mô tả chi tiết">
                <HBox.margin>
                   <Insets left="10.0" />
                </HBox.margin>
-            </JFXTextField>
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </JFXTextArea>
          </children>
       </HBox>
-      <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+      <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
          <children>
             <FontAwesomeIconView glyphName="BOOKMARK">
                <HBox.margin>
@@ -162,7 +173,7 @@
             </ImageView>
          </children>
       </HBox>
-        <HBox prefHeight="150.0" prefWidth="342.0" spacing="30.0" GridPane.columnIndex="2" GridPane.rowIndex="7">
+        <HBox prefHeight="150.0" prefWidth="342.0" spacing="30.0" GridPane.columnIndex="2" GridPane.rowIndex="8">
             <children>
                 <JFXButton fx:id="exitButton" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #E4E6EB;" text="Thoát">
                     <font>
@@ -176,7 +187,7 @@
                 </JFXButton>
             </children>
         </HBox>
-      <Label fx:id="errorLabel" prefHeight="25.0" prefWidth="898.0" textFill="RED" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="6">
+      <Label fx:id="errorLabel" prefHeight="25.0" prefWidth="898.0" textFill="RED" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="7">
          <font>
             <Font size="13.0" />
          </font>

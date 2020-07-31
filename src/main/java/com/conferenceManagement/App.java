@@ -35,8 +35,6 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        //init data
-
         //load view
         FXMLLoader loader = new FXMLLoader(getClass().getResource("home.fxml"));
         parent = loader.load();
@@ -48,9 +46,6 @@ public class App extends Application {
         stage.show();
     }
 
-    static void setRoot(String fxml) throws IOException {
-        scene.setRoot(loadFXML(fxml));
-    }
     public static void setCenter(Parent p){
         ((BorderPane) scene.getRoot()).setCenter(p);
     }

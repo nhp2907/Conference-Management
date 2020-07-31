@@ -1,12 +1,15 @@
 
+s
+java:S1905L"VRemove this unnecessary cast to "org.sonar.java.resolve.Symbols$UnknownType@5f036425".(Æ’Çþ8¾ö¥Ã¹.
+M
+java:S1128"0Remove this unused import 'javafx.scene.Parent'.(²ä¡È8ö¦§Ã¹.
+p
+java:S11926"NDefine a constant instead of duplicating this literal "ÄÄƒng nháº­p" 3 times.(¡Þ¿íùÿÿÿÿ8ŽÜÀ„º.
+t
+java:S3776,"RRefactor this method to reduce its Cognitive Complexity from 24 to the 15 allowed.(•‘ÝŸüÿÿÿÿ8¾ö¥Ã¹.
 t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(òÕÐ½þÿÿÿÿ
-m
-java:S3776*"RRefactor this method to reduce its Cognitive Complexity from 24 to the 15 allowed.(•‘ÝŸüÿÿÿÿ
-S	java:S106>"9Replace this use of System.out or System.err by a logger.(Í´Ôçûÿÿÿÿ
-l
-java:S1905J"VRemove this unnecessary cast to "org.sonar.java.resolve.Symbols$UnknownType@599916b0".(Æ’Çþ
-q
-java:S1905L"VRemove this unnecessary cast to "org.sonar.java.resolve.Symbols$UnknownType@599916b0".(ÛÁ¬£ÿÿÿÿÿ
-l
-java:S1905["VRemove this unnecessary cast to "org.sonar.java.resolve.Symbols$UnknownType@599916b0".(Ð´¶Ä
-V	java:S125^"<This block of commented-out lines of code should be removed.(Çˆä•þÿÿÿÿ
+x
+java:S1905N"VRemove this unnecessary cast to "org.sonar.java.resolve.Symbols$UnknownType@5f036425".(ÛÁ¬£ÿÿÿÿÿ8¾ö¥Ã¹.
+s
+java:S1905]"VRemove this unnecessary cast to "org.sonar.java.resolve.Symbols$UnknownType@5f036425".(Ð´¶Ä8¾ö¥Ã¹.
+Z	java:S106@"9Replace this use of System.out or System.err by a logger.(Í´Ôçûÿÿÿÿ8¾ö¥Ã¹.

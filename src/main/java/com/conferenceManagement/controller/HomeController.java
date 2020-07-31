@@ -40,8 +40,6 @@ public class HomeController extends ControllerBase {
     UserFunction viewConferenceListUF = null;
     UserFunction editInfoUF = null;
 
-
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         /* Init User Function */
@@ -94,15 +92,13 @@ public class HomeController extends ControllerBase {
 
                         var controller = (LoginController) loginUF.getController();
                         controller.setUserService(new UserService());
-                        controller.setReturnDataFunction(user -> {
-//                            borderPane.setCenter(editInfoUF.getView());
-                        });
 
                         var view = loginUF.getView();
 
                         /* show dialog */
                         Stage stage = new Stage();
                         stage.setScene(new Scene(view));
+                        stage.setTitle("Đăng nhập");
                         stage.initModality(Modality.APPLICATION_MODAL);
                         stage.show();
 

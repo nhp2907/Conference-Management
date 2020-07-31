@@ -3,6 +3,7 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXTimePicker?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
@@ -17,7 +18,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="400.0" prefHeight="713.0" prefWidth="925.0" stylesheets="@css/EditInfoCSS.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.conferenceManagement.controller.AddConferenceController">
+<GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="400.0" prefHeight="725.0" prefWidth="919.0" stylesheets="@css/EditInfoCSS.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.conferenceManagement.controller.AddConferenceController">
     <columnConstraints>
         <ColumnConstraints maxWidth="1.7976931348623157E308" minWidth="40.00001831054688" percentWidth="10.0" prefWidth="40.00001831054688" />
         <ColumnConstraints maxWidth="1.7976931348623157E308" minWidth="204.79998779296875" percentWidth="43.0" prefWidth="320.79998168945315" />
@@ -30,6 +31,7 @@
         <RowConstraints maxHeight="127.99998779296875" minHeight="10.0" prefHeight="92.9333251953125" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="127.99998779296875" minHeight="10.0" prefHeight="100.5999755859375" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="136.7999755859375" minHeight="10.0" prefHeight="105.86667480468753" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="136.7999755859375" minHeight="10.0" prefHeight="105.86667480468753" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="135.59995117187498" minHeight="10.0" prefHeight="104.13339233398438" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="83.60001220703123" minHeight="10.0" prefHeight="39.466662597656295" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="118.19998779296873" minHeight="10.0" prefHeight="80.80001220703127" vgrow="SOMETIMES" />
@@ -51,7 +53,7 @@
                         <Insets />
                     </HBox.margin>
                 </FontAwesomeIconView>
-                <JFXTextField fx:id="nameTextField" focusTraversable="false" labelFloat="true" maxHeight="30.0" maxWidth="300.0" prefHeight="30.0" prefWidth="240.0" promptText="Tên hội nghị">
+                <JFXTextField fx:id="nameTextField" labelFloat="true" maxHeight="30.0" maxWidth="300.0" prefHeight="30.0" prefWidth="240.0" promptText="Tên hội nghị">
                     <HBox.margin>
                         <Insets left="10.0" />
                     </HBox.margin>
@@ -65,7 +67,7 @@
                         <Insets />
                     </HBox.margin>
                 </FontAwesomeIconView>
-                <JFXDatePicker fx:id="startDatePicker" editable="false" maxHeight="30.0" maxWidth="240.0" prefHeight="30.0" prefWidth="240.0" promptText="Ngày bắt đầu">
+                <JFXDatePicker fx:id="startDatePicker" editable="false" maxHeight="30.0" maxWidth="240.0" prefHeight="30.0" prefWidth="240.0" promptText="Ngày bắt đầu" showWeekNumbers="true">
                     <HBox.margin>
                         <Insets left="10.0" />
                     </HBox.margin>
@@ -93,7 +95,7 @@
                         <Insets />
                     </HBox.margin>
                 </FontAwesomeIconView>
-                <JFXDatePicker fx:id="endDatePicker" editable="false" maxHeight="30.0" maxWidth="300.0" prefHeight="30.0" prefWidth="240.0" promptText="Ngày kết thúc">
+                <JFXDatePicker fx:id="endDatePicker" editable="false" maxHeight="30.0" maxWidth="300.0" prefHeight="30.0" prefWidth="240.0" promptText="Ngày kết thúc" showWeekNumbers="true">
                     <HBox.margin>
                         <Insets left="10.0" />
                     </HBox.margin>
@@ -128,21 +130,24 @@
                 </JFXTextField>
             </children>
         </HBox>
-        <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" prefWidth="250.0" GridPane.columnIndex="2" GridPane.rowIndex="4">
+        <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" prefWidth="250.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="5">
             <children>
                 <FontAwesomeIconView glyphName="BUILDING">
                     <HBox.margin>
                         <Insets />
                     </HBox.margin>
                 </FontAwesomeIconView>
-                <JFXTextField fx:id="detailDescriptionTextField" labelFloat="true" maxHeight="30.0" maxWidth="300.0" prefHeight="30.0" prefWidth="240.0" promptText="Mô tả chi tiết">
-                    <HBox.margin>
-                        <Insets left="10.0" />
-                    </HBox.margin>
-                </JFXTextField>
+            <JFXTextArea fx:id="detailDescriptionTextArea" labelFloat="true" maxHeight="80.0" maxWidth="650.0" minHeight="70.0" prefHeight="80.0" prefWidth="693.0" promptText="Mô tả chi tiết">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </JFXTextArea>
             </children>
         </HBox>
-        <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+        <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
             <children>
                 <FontAwesomeIconView glyphName="BOOKMARK">
                     <HBox.margin>
@@ -165,7 +170,7 @@
             </ImageView>
             </children>
         </HBox>
-        <HBox prefHeight="150.0" prefWidth="342.0" spacing="30.0" GridPane.columnIndex="2" GridPane.rowIndex="7">
+        <HBox prefHeight="150.0" prefWidth="342.0" spacing="30.0" GridPane.columnIndex="2" GridPane.rowIndex="8">
             <children>
                 <JFXButton fx:id="exitButton" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #E4E6EB;" text="Thoát">
                     <font>
@@ -179,7 +184,7 @@
                 </JFXButton>
             </children>
         </HBox>
-      <Label fx:id="errorLabel" prefHeight="18.0" prefWidth="794.0" textFill="RED" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="6">
+      <Label fx:id="errorLabel" prefHeight="18.0" prefWidth="794.0" textFill="RED" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="7">
          <font>
             <Font size="13.0" />
          </font>

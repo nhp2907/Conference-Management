@@ -6,19 +6,16 @@ import com.conferenceManagement.dao.PlaceDAO;
 import com.conferenceManagement.model.Place;
 import com.conferenceManagement.model.UserFunction;
 import com.jfoenix.controls.*;
-import com.jfoenix.validation.IntegerValidator;
-import com.jfoenix.validation.base.ValidatorBase;
-import javafx.beans.property.BooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
-import javax.xml.validation.Validator;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
@@ -38,7 +35,7 @@ public class AddConferenceController extends ControllerBase {
     @FXML
     JFXTextField shortDescriptionTextField;
     @FXML
-    JFXTextField detailDescriptionTextField;
+    JFXTextArea detailDescriptionTextArea;
     @FXML
     JFXDatePicker startDatePicker;
     @FXML
@@ -81,26 +78,17 @@ public class AddConferenceController extends ControllerBase {
 
             List<Conference> conferences = ConferenceDAO.getConferenceByPlace(placeComboBox.getValue());
 
-            conferences.forEach(conference -> {
-                System.out.println();
-            });
-            System.out.println("Compare: " + startLDT.compareTo(LocalDateTime.now()));
             var isPlaceValid = conferences.stream().allMatch(conference -> {
-                System.out.println(endLDT.compareTo(conference.getStartDateTime()));
-                System.out.println(startLDT.compareTo(conference.getEndDateTime()));
-
                 return endLDT.compareTo(conference.getStartDateTime()) <= 0
                         || startLDT.compareTo(conference.getEndDateTime()) >= 0;
             });
-
-            System.out.println("isPlaceValid: " + isPlaceValid);
 
             var errorMessage = "";
             if (nameTextField.getText().length() < 1) {
                 errorMessage = "*tên không được để trống";
             } else if (shortDescriptionTextField.getText().length() < 1) {
                 errorMessage = "*mô tả ngắn gọn không được để trống";
-            } else if (detailDescriptionTextField.getText().length() < 1) {
+            } else if (detailDescriptionTextArea.getText().length() < 1) {
                 errorMessage = "*mô tả chi tiết không được để trống";
             } else if (startLDT.compareTo(LocalDateTime.now()) <= 0) {
                 errorMessage = "*ngày bắt đầu phải sau ngày hôm nay";
@@ -112,7 +100,7 @@ public class AddConferenceController extends ControllerBase {
                 Conference conference = new Conference();
                 conference.setName(nameTextField.getText());
                 conference.setShortDescription(shortDescriptionTextField.getText());
-                conference.setDetailDescription(detailDescriptionTextField.getText());
+                conference.setDetailDescription(detailDescriptionTextArea.getText());
                 conference.setHoldPlace(placeComboBox.getSelectionModel().getSelectedItem());
                 conference.setStartDateTime(startLDT);
                 conference.setEndDateTime(endLDT);
@@ -120,6 +108,10 @@ public class AddConferenceController extends ControllerBase {
                 if (returnDataFunction != null) {
                     returnDataFunction.returnData(conference);
                 }
+
+                var alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setHeaderText("Thêm thành công");
+                alert.showAndWait();
 
                 ConferenceDAO.save(conference);
                 var stage = (Stage) addButton.getScene().getWindow();

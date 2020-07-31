@@ -42,7 +42,6 @@ public class ConferenceListForGuestController extends ControllerBase {
 
     ObservableList<Conference> conferences = FXCollections.observableArrayList(ConferenceDAO.getAll());
     ObservableList<Conference> searchResult = null;
-    ObjectProperty<Conference> conferenceProperty = new SimpleObjectProperty<>();
 
     public ObservableList<Conference> getConferences() {
         return conferences;
@@ -104,18 +103,17 @@ public class ConferenceListForGuestController extends ControllerBase {
         });
 
         searchTextField.focusedProperty().addListener((observableValue, aBoolean, t1) -> {
-            if (!t1) {
-                tableView.setItems(conferences);
-                tableView.refresh();
-            }
+//            if (!t1) {
+//                tableView.setItems(conferences);
+//                tableView.refresh();
+//            }
         });
 
     }
 
 
-
     void initTable() {
-        var idColumn = new TableColumn<Conference, Long>("STT");
+        var idColumn = new TableColumn<Conference, Long>("ID");
         idColumn.setPrefWidth(50);
         idColumn.setCellValueFactory(t -> new SimpleLongProperty(t.getValue().getId()).asObject());
 
@@ -158,7 +156,7 @@ public class ConferenceListForGuestController extends ControllerBase {
                             setGraphic(null);
                         } else {
                             setText(DateTimeFormatter.ofPattern("dd-MM-yyyy, hh:mm a")
-                                    .format(column.getTableView().getItems().get(getIndex()).getStartDateTime()));
+                                    .format(column.getTableView().getItems().get(getIndex()).getEndDateTime()));
                         }
                     }
                 });
@@ -193,46 +191,7 @@ public class ConferenceListForGuestController extends ControllerBase {
         tableView.setStyle("-fx-selection-bar: #9AD9D4; -fx-selection-bar-non-focused: #A7CCC9;");
 
         tableView.setRowFactory(tv -> {
-//            try {
             final TableRow<Conference> row = new TableRow<>();
-//                    UserFunction uf = new UserFunction("RowDetail");
-//                    RowDetailController controller = (RowDetailController) uf.getController();
-//                    Node detailsPane;
-//
-//                    {
-//                        detailsPane = uf.getView();
-//                        selectedProperty().addListener((obs, wasSelected, isNowSelected) -> {
-//                            if (isNowSelected) {
-//                                controller.setConference(itemProperty());
-//                                getChildren().add(detailsPane);
-//                            } else {
-//                                getChildren().remove(detailsPane);
-//                            }
-//
-//                            this.requestLayout();
-//                        });
-//                    }
-
-//                    @Override
-//                    protected double computePrefHeight(double width) {
-//                        if (isSelected()) {
-//                            return super.computePrefHeight(width) + detailsPane.prefHeight(getWidth());
-//                        } else {
-//                            return super.computePrefHeight(width);
-//                        }
-//                    }
-//
-//                    @Override
-//                    protected void layoutChildren() {
-//                        super.layoutChildren();
-//                        if (isSelected()) {
-//                            double width = getWidth();
-//                            double paneHeight = detailsPane.prefHeight(width);
-//                            detailsPane.resizeRelocate(0, getHeight() - paneHeight, width, paneHeight);
-//                        }
-//                    }
-//                };
-
 
             row.setOnMouseClicked(mouseEvent -> {
                 //load the detail view
@@ -244,6 +203,9 @@ public class ConferenceListForGuestController extends ControllerBase {
                         var selectedItem = tableView.getSelectionModel().getSelectedItem();
                         var conferenceDetailController = (ConferenceDetailController) conferenceDetailUF.getController();
                         conferenceDetailController.previousView = vbox;
+                        conferenceDetailController.returnDataFunction = (data) -> {
+                            updateConferenceList();
+                        };
                         conferenceDetailController.setConferenceData(selectedItem);
 
                         var source = (TableRow) mouseEvent.getSource();
@@ -260,11 +222,15 @@ public class ConferenceListForGuestController extends ControllerBase {
         });
     }
 
+    private void updateConferenceList() {
+        tableView.refresh();
+    }
+
     void initContextMenu() {
         MenuItem editItem = new MenuItem("Sữa thông tin");
         editItem.setOnAction(event -> {
             var selectedItem = tableView.getSelectionModel().getSelectedItem();
-            if (selectedItem.getEndDateTime().compareTo(LocalDateTime.now()) <= 0) {
+            if (selectedItem.getStartDateTime().compareTo(LocalDateTime.now()) <= 0) {
                 Alert a = new Alert(Alert.AlertType.WARNING, "Hội nghị đã diễn ra không được sữa đổi thông tin",
                         ButtonType.OK);
                 a.show();

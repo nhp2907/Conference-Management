@@ -13,13 +13,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="693.0" prefWidth="1181.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.conferenceManagement.controller.HomeController">
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="751.0" prefWidth="1181.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.conferenceManagement.controller.HomeController">
    <left>
       <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="300.0" minWidth="200.0" prefHeight="694.0" prefWidth="250.0" spacing="20.0" style="-fx-background-color: #222D32;" BorderPane.alignment="CENTER">
          <children>
             <StackPane fx:id="avtStackPane" prefHeight="99.0" prefWidth="246.0">
                <children>
-                  <VBox alignment="CENTER" prefHeight="138.0" prefWidth="250.0">
+                  <VBox alignment="CENTER" prefHeight="138.0" prefWidth="250.0" spacing="10.0">
                      <children>
                         <JFXToggleNode id="AvtImage">
                            <graphic>
@@ -73,7 +73,7 @@
                   <Insets top="20.0" />
                </VBox.margin>
             </JFXToggleNode>
-            <JFXToggleNode id="UserList" prefHeight="26.0" prefWidth="271.0" toggleGroup="$toggleGroup">
+            <JFXToggleNode id="UserList" fx:id="userToggleNode" prefHeight="26.0" prefWidth="271.0" toggleGroup="$toggleGroup">
                <graphic>
                   <HBox alignment="CENTER_LEFT" maxHeight="30.0" maxWidth="300.0" minHeight="20.0" minWidth="200.0" prefHeight="20.0" prefWidth="250.0">
                      <children>
@@ -116,6 +116,31 @@
                </graphic>
             </JFXToggleNode>
             <JFXToggleNode fx:id="emptyToggleNode" prefHeight="0.0" prefWidth="0.0" visible="false" />
+            <VBox alignment="BOTTOM_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="380.0" prefWidth="250.0">
+               <children>
+                  <ImageView fitHeight="100.0" fitWidth="121.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/icons8-meeting-room-100.png" />
+                     </image>
+                  </ImageView>
+                  <Label prefHeight="31.0" prefWidth="206.0" text="Chương trình quản lý hội nghị" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label opacity="0.57" text="version 1.0" textFill="WHITE" />
+                  <HBox alignment="CENTER" prefHeight="25.0" prefWidth="250.0" spacing="10.0">
+                     <children>
+                        <Label opacity="0.57" text="Tác giả:" textFill="WHITE" />
+                        <Label opacity="0.7" text="Nguyễn Hoàng Phúc" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
          </children>
       </VBox>
    </left>

@@ -1,0 +1,15 @@
+
+Q	java:S125g"<This block of commented-out lines of code should be removed.(ì‘òŠ
+X
+java:S1126H"BReplace this if-then-else statement by a single method invocation.(…¨ş¯
+_
+java:S1128"DRemove this unused import 'com.jfoenix.validation.IntegerValidator'.(”¡ä¨úÿÿÿÿ
+t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(òÕĞ½şÿÿÿÿ
+X
+java:S1126P"BReplace this if-then-else statement by a single method invocation.(ÓƒÌé
+`
+java:S1128"JRemove this unused import 'com.jfoenix.validation.RequiredFieldValidator'.(÷ß’û
+]
+java:S1126a"BReplace this if-then-else statement by a single method invocation.(Òœ˜Úûÿÿÿÿ
+m
+java:S3776&"RRefactor this method to reduce its Cognitive Complexity from 21 to the 15 allowed.(•‘İŸüÿÿÿÿ

@@ -56,10 +56,10 @@ public class UserAttendedConferenceController extends ControllerBase {
         });
 
         searchTextField.focusedProperty().addListener((observableValue, aBoolean, t1) -> {
-            if (!t1) {
-                tableView.setItems(conferences);
-                tableView.refresh();
-            }
+//            if (!t1) {
+//                tableView.setItems(conferences);
+//                tableView.refresh();
+//            }
         });
     }
 
@@ -71,7 +71,7 @@ public class UserAttendedConferenceController extends ControllerBase {
 
 
     void initTable() {
-        var idColumn = new TableColumn<Conference, Long>("STT");
+        var idColumn = new TableColumn<Conference, Long>("IDHN");
         idColumn.setPrefWidth(50);
         idColumn.setCellValueFactory(t -> new SimpleLongProperty(t.getValue().getId()).asObject());
 
@@ -178,6 +178,7 @@ public class UserAttendedConferenceController extends ControllerBase {
                                 ConferenceAttendanceDAO.cancelRegistration(ca);
                                 setGraphic(null);
                                 getTableView().getItems().remove(getIndex());
+                                tableView.refresh();
                             }
                         }
                     });

@@ -22,16 +22,8 @@
                   <Font name="System Bold" size="20.0" />
                </font>
             </Label>
-            <HBox fx:id="adminHbox" alignment="CENTER_RIGHT" layoutX="275.0" layoutY="15.0" maxHeight="50.0" minHeight="30.0" minWidth="484.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="36.0" prefWidth="539.0" spacing="20.0" AnchorPane.bottomAnchor="12.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="12.0">
+            <HBox fx:id="adminHbox" alignment="CENTER_RIGHT" layoutX="275.0" layoutY="18.0" maxHeight="50.0" minHeight="30.0" minWidth="484.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="40.0" prefWidth="539.0" spacing="20.0" AnchorPane.bottomAnchor="12.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="18.0">
                <children>
-                  <JFXButton fx:id="addConferenceButton" buttonType="RAISED" maxHeight="50.0" maxWidth="100.0" prefHeight="40.0" prefWidth="85.0" ripplerFill="#fd4a4a" style="-fx-background-color: #383F50;" text="Thêm mới" textFill="WHITE" visible="false">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </JFXButton>
                   <ImageView fx:id="searchImageButton" fitHeight="25.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@images/icons8_search_32.png" />
@@ -45,6 +37,14 @@
                         <Font size="14.0" />
                      </font>
                   </JFXTextField>
+                  <JFXButton fx:id="addConferenceButton" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" maxHeight="50.0" maxWidth="100.0" minHeight="19.0" prefHeight="75.0" prefWidth="86.0" ripplerFill="#fd4a4a" style="-fx-background-color: #383F50;" text="Thêm mới" textAlignment="CENTER" textFill="WHITE" visible="false">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </JFXButton>
                </children>
             </HBox>
          </children>

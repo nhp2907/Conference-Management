@@ -8,6 +8,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
@@ -74,12 +75,15 @@ public class SignUpController extends ControllerBase {
                     returnDataFunction.returnData(user);
                 }
 
+                var alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setHeaderText("Đăng ký thành công");
+                alert.showAndWait();
+
                 var source = (JFXButton) mouseEvent.getSource();
                 var stage = (Stage) source.getScene().getWindow();
                 stage.close();
             }
 
-            System.out.println(errorMessage);
             errorLabel.setText(errorMessage);
         });
 

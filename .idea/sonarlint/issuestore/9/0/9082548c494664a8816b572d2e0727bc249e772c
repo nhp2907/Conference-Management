@@ -1,42 +1,41 @@
 
-T	java:S106˜"9Replace this use of System.out or System.err by a logger.(•ííúÿÿÿÿ
+t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(òÕĞ½şÿÿÿÿ
+U	java:S106É"9Replace this use of System.out or System.err by a logger.(Òûù8¿Óô†º.
+y
+java:S1192ğ"VDefine a constant instead of duplicating this literal "-fx-text-fill: white;" 3 times.(¼’Ê†üÿÿÿÿ8¿Óô†º.
+v
+java:S1602Ò"SRemove useless curly braces around statement and then remove useless return keyword(ˆ¬˜ıÿÿÿÿ8¿Óô†º.
+q
+java:S1602Ø"SRemove useless curly braces around statement and then remove useless return keyword(¼«İÿ8¿Óô†º.
+[	java:S106¶"9Replace this use of System.out or System.err by a logger.(ääÆÕøÿÿÿÿ8¿Óô†º.
+m
+java:S3776H"RRefactor this method to reduce its Cognitive Complexity from 27 to the 15 allowed.(•‘İŸüÿÿÿÿ
+U	java:S106½"9Replace this use of System.out or System.err by a logger.(˜ëıu8¿Óô†º.
+v
+java:S1602ã"SRemove useless curly braces around statement and then remove useless return keyword(ÁÃæÔÿÿÿÿÿ8¿Óô†º.
+y
+java:S1905Ã"VRemove this unnecessary cast to "org.sonar.java.resolve.Symbols$UnknownType@5f036425".(‚ñ¥¶ıÿÿÿÿ8¿Óô†º.
+p
+java:S1192x"UDefine a constant instead of duplicating this literal "Äang Ä‘á»£i duyá»‡t" 3 times.(šÿ†ÿÿÿÿÿ
+v
+java:S1602İ"SRemove useless curly braces around statement and then remove useless return keyword(âü‡ºşÿÿÿÿ8¿Óô†º.
+U
+java:S1611‹"2Remove the parentheses around the "data" parameter(ª“ùÕıÿÿÿÿ8ÍÁÃ‡º.
+F	java:S108³")Either remove or fill this block of code.(€ÔíÛ8¿Óô†º.
+p
+java:S3776È"RRefactor this method to reduce its Cognitive Complexity from 30 to the 15 allowed.(ğ•Ú8¿Óô†º.
+`
+java:S1854ë"=Remove this useless assignment to local variable "!unknown!".(Î´‚õşÿÿÿÿ8¿Óô†º.
+F	java:S108°")Either remove or fill this block of code.(å¥‡8ò¸ÍÑ¹.
+n
+java:S1104;"XMake previousView a static final constant or non-public and provide accessors if needed.(¶ß‚
+q
+java:S1602Ì"SRemove useless curly braces around statement and then remove useless return keyword(¡¡¨€8¿Óô†º.
+[	java:S106Á"9Replace this use of System.out or System.err by a logger.(¶¼¹¦úÿÿÿÿ8¿Óô†º.
+^	java:S125Š"<This block of commented-out lines of code should be removed.(ñ©…ùÿÿÿÿ8ê†Æ‡º.
 S
 java:S1128"8Remove this unused import 'java.util.stream.Collectors'.(Óóº´úÿÿÿÿ
-r
-java:S1905¤"VRemove this unnecessary cast to "org.sonar.java.resolve.Symbols$UnknownType@599916b0".(‚ñ¥¶ıÿÿÿÿ
-i
-java:S3776©"RRefactor this method to reduce its Cognitive Complexity from 23 to the 15 allowed.(ğ•Ú
-N	java:S106"9Replace this use of System.out or System.err by a logger.(˜ëıu
-t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(òÕĞ½şÿÿÿÿ
-O	java:S106ƒ"9Replace this use of System.out or System.err by a logger.(¥ñ·³
-o
-java:S1602³"SRemove useless curly braces around statement and then remove useless return keyword(ˆ¬˜ıÿÿÿÿ
-?	java:S108Œ")Either remove or fill this block of code.(å¥‡
-m
-java:S1905£"VRemove this unnecessary cast to "org.sonar.java.resolve.Symbols$UnknownType@599916b0".(¿ê‘µ
-o
-java:S1602Ä"SRemove useless curly braces around statement and then remove useless return keyword(ÁÃæÔÿÿÿÿÿ
-T	java:S106’"9Replace this use of System.out or System.err by a logger.(ääÆÕøÿÿÿÿ
-T	java:S106"9Replace this use of System.out or System.err by a logger.(¶¼¹¦úÿÿÿÿ
-j
-java:S1602¹"SRemove useless curly braces around statement and then remove useless return keyword(¼«İÿ
-r
-java:S1192Ñ"VDefine a constant instead of duplicating this literal "-fx-text-fill: white;" 3 times.(¼’Ê†üÿÿÿÿ
-n
-java:S11049"XMake previousView a static final constant or non-public and provide accessors if needed.(¶ß‚
-j
-java:S1602­"SRemove useless curly braces around statement and then remove useless return keyword(¡¡¨€
-S	java:S106~"9Replace this use of System.out or System.err by a logger.(Œ¦õÂùÿÿÿÿ
-p
-java:S1192u"UDefine a constant instead of duplicating this literal "Äang Ä‘á»£i duyá»‡t" 3 times.(šÿ†ÿÿÿÿÿ
-Y
-java:S1854Ì"=Remove this useless assignment to local variable "!unknown!".(Î´‚õşÿÿÿÿ
-N	java:S106¦"9Replace this use of System.out or System.err by a logger.(Òûù
-o
-java:S1602¾"SRemove useless curly braces around statement and then remove useless return keyword(âü‡ºşÿÿÿÿ
-E
-java:S1125ã")Remove the literal "false" boolean value.(‰ØªÂûÿÿÿÿ
-T	java:S106˜"9Replace this use of System.out or System.err by a logger.(‡û¾ûÿÿÿÿ
-m
-java:S3776F"RRefactor this method to reduce its Cognitive Complexity from 20 to the 15 allowed.(•‘İŸüÿÿÿÿ
-?	java:S108")Either remove or fill this block of code.(€ÔíÛ
+t
+java:S1905Â"VRemove this unnecessary cast to "org.sonar.java.resolve.Symbols$UnknownType@5f036425".(¿ê‘µ8¿Óô†º.
+P
+java:S1905"-Remove this unnecessary cast to "Conference".(»†öìúÿÿÿÿ8ôƒÜ‡º.
