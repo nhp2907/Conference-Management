@@ -1,8 +1,8 @@
 
 B
 java:S1068",Remove this unused "instance" private field.(¬ÿê¥
-U
-java:S22597"@A "NullPointerException" could be thrown; "tx" is nullable here.(Á¸ïP
 t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(­ÔúÙüÿÿÿÿ
 M
 java:S25899"7Remove this expression which always evaluates to "true"(·…‹Ð
+U
+java:S22597"@A "NullPointerException" could be thrown; "tx" is nullable here.(Á¸ïP

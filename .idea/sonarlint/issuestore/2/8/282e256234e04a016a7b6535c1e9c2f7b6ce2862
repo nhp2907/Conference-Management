@@ -1,27 +1,27 @@
 
+n
+java:S1602~"SRemove useless curly braces around statement and then remove useless return keyword(ÛŸ±Èÿÿÿÿÿ
+U
+java:S1611Î"2Remove the parentheses around the "data" parameter(œ®¬ùÿÿÿÿ8Úñ¶‡º.
+X	java:S125j"<This block of commented-out lines of code should be removed.(—ë»À8±‰…º.
+r
+java:S1905°"VRemove this unnecessary cast to "org.sonar.java.resolve.Symbols$UnknownType@293d6422".(öëı¨úÿÿÿÿ
 T
 java:S1854"=Remove this useless assignment to local variable "!unknown!".(‚ğ™à
 r
-java:S1905Ó"VRemove this unnecessary cast to "org.sonar.java.resolve.Symbols$UnknownType@5f036425".(øêÎ‰ûÿÿÿÿ
-m
-java:S3776s"RRefactor this method to reduce its Cognitive Complexity from 17 to the 15 allowed.(Í“ìÕıÿÿÿÿ
-n
-java:S1602~"SRemove useless curly braces around statement and then remove useless return keyword(ÛŸ±Èÿÿÿÿÿ
+java:S1192·"VDefine a constant instead of duplicating this literal "-fx-alignment: center" 4 times.(Â­¼©üÿÿÿÿ
 o
 java:S1602„"SRemove useless curly braces around statement and then remove useless return keyword(§×Œşÿÿÿÿ
-r
-java:S1905°"VRemove this unnecessary cast to "org.sonar.java.resolve.Symbols$UnknownType@5f036425".(öëı¨úÿÿÿÿ
-U
-java:S1611Î"2Remove the parentheses around the "data" parameter(œ®¬ùÿÿÿÿ8Úñ¶‡º.
-O
-java:S1602Î",Remove useless curly braces around statement(œ®¬ùÿÿÿÿ8Ô¸‡º.
-y
-java:S1905Ô"VRemove this unnecessary cast to "org.sonar.java.resolve.Symbols$UnknownType@5f036425".(àêˆÅşÿÿÿÿ8‡®€··.
 m
-java:S1905Ì"VRemove this unnecessary cast to "org.sonar.java.resolve.Symbols$UnknownType@5f036425".(½¥é¥
+java:S3776s"RRefactor this method to reduce its Cognitive Complexity from 17 to the 15 allowed.(Í“ìÕıÿÿÿÿ
 r
-java:S1192·"VDefine a constant instead of duplicating this literal "-fx-alignment: center" 4 times.(Â­¼©üÿÿÿÿ
+java:S1905Ó"VRemove this unnecessary cast to "org.sonar.java.resolve.Symbols$UnknownType@293d6422".(øêÎ‰ûÿÿÿÿ
+y
+java:S1905Ô"VRemove this unnecessary cast to "org.sonar.java.resolve.Symbols$UnknownType@293d6422".(àêˆÅşÿÿÿÿ8‡®€··.
 t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(òÕĞ½şÿÿÿÿ
 r
-java:S1905ó"VRemove this unnecessary cast to "org.sonar.java.resolve.Symbols$UnknownType@5f036425".(ïŸÛ½ûÿÿÿÿ
-X	java:S125j"<This block of commented-out lines of code should be removed.(—ë»À8±‰…º.
+java:S1905ó"VRemove this unnecessary cast to "org.sonar.java.resolve.Symbols$UnknownType@293d6422".(ïŸÛ½ûÿÿÿÿ
+O
+java:S1602Î",Remove useless curly braces around statement(œ®¬ùÿÿÿÿ8Ô¸‡º.
+m
+java:S1905Ì"VRemove this unnecessary cast to "org.sonar.java.resolve.Symbols$UnknownType@293d6422".(½¥é¥

@@ -49,3 +49,25 @@ y
 Isrc/main/java/com/conferenceManagement/controller/AddPlaceController.java,5\1\51973795ef2ee9c000a5cd758cdb0071cbe9acb6
 ~
 Nsrc/main/java/com/conferenceManagement/controller/AddConferenceController.java,8\0\80c7e290024947a6bd05ee8087f6d4ff15bdd116
+9
+	README.md,8\e\8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
+7
+pom.xml,4\4\442292b8a7efeabbe4cc176709b833b1792140ec
+h
+8src/main/java/com/conferenceManagement/dao/IUserDAO.java,d\b\db44448a4e600be8c79ac04901c9cddf378743ea
+h
+8src/main/java/com/conferenceManagement/dao/PlaceDAO.java,a\4\a4e4e222f7297f1e0213989de8bc415ab8d6bbf3
+g
+7src/main/java/com/conferenceManagement/dao/UserDAO.java,3\e\3e8d638c925b3e23503682dae262f5835627ded1
+
+Qsrc/main/java/com/conferenceManagement/model/ConferenceAttendanceCompositeID.java,9\c\9c78995805476c726c99f0c0291934603d9dd74f
+g
+7src/main/java/com/conferenceManagement/model/Guest.java,f\9\f9edfecc5f77e83b24d18ea061ee8c07e2c00358
+g
+7src/main/java/com/conferenceManagement/model/Place.java,6\e\6efa4959d68396f118c741a5c21542925a82f6cd
+m
+=src/main/java/com/conferenceManagement/model/UserBinding.java,e\2\e23ac97ef6c1206c26505d43f132b06e585c3012
+n
+>src/main/java/com/conferenceManagement/model/UserFunction.java,f\9\f972c968a5cb341f9bcdd1f864ddad170d65505c
+r
+Bsrc/main/java/com/conferenceManagement/customView/MyTableCell.java,5\d\5d0f9ebb11abe2a44f189276875a7b03399db898

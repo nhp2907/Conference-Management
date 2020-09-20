@@ -73,6 +73,7 @@ public class UserAttendedConferenceController extends ControllerBase {
     void initTable() {
         var idColumn = new TableColumn<Conference, Long>("IDHN");
         idColumn.setPrefWidth(50);
+        idColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         idColumn.setCellValueFactory(t -> new SimpleLongProperty(t.getValue().getId()).asObject());
 
         var nameColumn = new TableColumn<Conference, String>("Tên ");

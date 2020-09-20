@@ -29,7 +29,7 @@ public class Conference extends RecursiveTreeObject<Conference> {
     @JoinColumn(name = "holdPlace")
     private Place holdPlace;
 
-    @OneToMany(mappedBy = "conference", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "conference", fetch = FetchType.LAZY)
     private Set<ConferenceAttendance> conferenceAttendances = new HashSet<>();
 
     public Conference() {

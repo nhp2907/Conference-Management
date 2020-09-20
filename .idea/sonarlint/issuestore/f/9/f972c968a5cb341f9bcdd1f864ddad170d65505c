@@ -1,0 +1,8 @@
+
+o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(½ρη
+p
+java:S1450"[Remove the "previousView" field and declare it as a local variable in the relevant methods.(¥ι¦
+>
+java:S1068"(Remove this unused "name" private field.(Λ¥Ό
+E
+java:S1068"0Remove this unused "previousView" private field.(¥ι¦

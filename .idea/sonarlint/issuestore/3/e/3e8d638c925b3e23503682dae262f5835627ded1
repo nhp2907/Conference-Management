@@ -1,0 +1,25 @@
+
+o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(»•Ï
+U
+java:S2259v"@A "NullPointerException" could be thrown; "tx" is nullable here.(Á¸ïP
+U
+java:S22590"@A "NullPointerException" could be thrown; "tx" is nullable here.(Á¸ïP
+U
+java:S2259"@A "NullPointerException" could be thrown; "tx" is nullable here.(Á¸ïP
+V
+java:S2259N"@A "NullPointerException" could be thrown; "tx" is nullable here.(úşÇ
+U
+java:S2259L"@A "NullPointerException" could be thrown; "tx" is nullable here.(Á¸ïP
+y
+java:S1488D"^Immediately return this expression instead of assigning it to the temporary variable "result".(‘Øé—øÿÿÿÿ
+œ
+java:S1186!"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Â¢Š³úÿÿÿÿ
+—
+java:S11867"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Ø×€û
+œ
+java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(À®Âóşÿÿÿÿ
+C
+java:S1172U"(Remove this unused method parameter "o".(“×‘™ùÿÿÿÿ
+Q	java:S125b"<This block of commented-out lines of code should be removed.(›ì›©
+Q	java:S125f"<This block of commented-out lines of code should be removed.(¦ÖÕû
+Q	java:S125h"<This block of commented-out lines of code should be removed.(…Ó¢¨

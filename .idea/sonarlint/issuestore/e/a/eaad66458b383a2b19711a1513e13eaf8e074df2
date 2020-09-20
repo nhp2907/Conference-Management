@@ -1,34 +1,32 @@
 
-`
-java:S1128">Remove this unused import 'javafx.collections.ObservableList'.(ÄÜ€éüÿÿÿÿ8ššÈÂ¹.
-?
-java:S1172"(Remove this unused method parameter "o".(ò×‚Ë
-y
-java:S1488T"^Immediately return this expression instead of assigning it to the temporary variable "result".(ıŸš‰øÿÿÿÿ
-V	java:S125"<This block of commented-out lines of code should be removed.(éØ»Úûÿÿÿÿ
-b
-java:S1128"@Remove this unused import 'com.conferenceManagement.model.User'.(çû´ûûÿÿÿÿ8½„ÌÂ¹.
-U
-java:S2259]"@A "NullPointerException" could be thrown; "tx" is nullable here.(Á¸ïP
-V	java:S125"<This block of commented-out lines of code should be removed.(€£Ş†úÿÿÿÿ
-U
-java:S22596"@A "NullPointerException" could be thrown; "tx" is nullable here.(Á¸ïP
 U
 java:S2259E"@A "NullPointerException" could be thrown; "tx" is nullable here.(Á¸ïP
-U
-java:S2259&"@A "NullPointerException" could be thrown; "tx" is nullable here.(Á¸ïP
-V	java:S125"<This block of commented-out lines of code should be removed.(Á†È‡úÿÿÿÿ
 o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(»•Ï
-U
-java:S2259v"@A "NullPointerException" could be thrown; "tx" is nullable here.(Á¸ïP
-V
-java:S2259_"@A "NullPointerException" could be thrown; "tx" is nullable here.(úşÇ
+?
+java:S1172"(Remove this unused method parameter "o".(ò×‚Ë
 —
 java:S1186K"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ù¿¬Å
-V	java:S125"<This block of commented-out lines of code should be removed.(Æë§‹şÿÿÿÿ
+V	java:S125"<This block of commented-out lines of code should be removed.(Á†È‡úÿÿÿÿ
 M
 java:S2589x"7Remove this expression which always evaluates to "true"(·…‹Ğ
+V	java:S125"<This block of commented-out lines of code should be removed.(éØ»Úûÿÿÿÿ
+U
+java:S2259]"@A "NullPointerException" could be thrown; "tx" is nullable here.(Á¸ïP
+V	java:S125"<This block of commented-out lines of code should be removed.(Æë§‹şÿÿÿÿ
+y
+java:S1488T"^Immediately return this expression instead of assigning it to the temporary variable "result".(ıŸš‰øÿÿÿÿ
+U
+java:S22596"@A "NullPointerException" could be thrown; "tx" is nullable here.(Á¸ïP
+V
+java:S2259_"@A "NullPointerException" could be thrown; "tx" is nullable here.(úşÇ
+b
+java:S1128"@Remove this unused import 'com.conferenceManagement.model.User'.(çû´ûûÿÿÿÿ8½„ÌÂ¹.
+V	java:S125"<This block of commented-out lines of code should be removed.(€£Ş†úÿÿÿÿ
+U
+java:S2259v"@A "NullPointerException" could be thrown; "tx" is nullable here.(Á¸ïP
+U
+java:S2259&"@A "NullPointerException" could be thrown; "tx" is nullable here.(Á¸ïP
 y
 java:S1488o"^Immediately return this expression instead of assigning it to the temporary variable "result".(ÂŸè¨şÿÿÿÿ
-B
-java:S1905T"'Remove this unnecessary cast to "List".(ıŸš‰øÿÿÿÿ
+`
+java:S1128">Remove this unused import 'javafx.collections.ObservableList'.(ÄÜ€éüÿÿÿÿ8ššÈÂ¹.
